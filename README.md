@@ -1,7 +1,10 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Shoppe
 =======
+=======
+>>>>>>> b3f0155 (Ошибка стилей)
 =======
 >>>>>>> b3f0155 (Ошибка стилей)
 # Nuxt Minimal Starter
@@ -80,6 +83,9 @@ bun run preview
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> b3f0155 (Ошибка стилей)
+=======
 >>>>>>> b3f0155 (Ошибка стилей)
 =======
 >>>>>>> b3f0155 (Ошибка стилей)
