@@ -1,5 +1,5 @@
 <template>
-    <p>лалалалалалаалдада</p>
+    <ItemsList />
 </template>
 
 <script lang="ts" setup>

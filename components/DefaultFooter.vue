@@ -3,19 +3,19 @@
     <div class="footer__container">
       <div class="footer__section">
         <ul class="footer__section-links">
-          <li>CONTACT</li>
-          <li>TERMS OF SERVICES</li>
-          <li>SHIPPING AND RETURNS</li>
+          <li><NuxtLink to="/contacts">CONTACT</NuxtLink></li>
+          <li><NuxtLink to="/contacts">TERMS OF SERVICES</NuxtLink></li>
+          <li><NuxtLink to="/contacts">SHIPPING AND RETURNS</NuxtLink></li>
         </ul>
-        <p>© 2021 Shelly. Terms of use and privacy policy.</p>
+        <p><span class='text__accent'>© 2021 Shelly.</span> Terms of <NuxtLink to="/privacypolice" class="text__accent">use</NuxtLink> and privacy policy.</p>
       </div>
       <div class="footer__section footer__section--right">
         <input type="text" class="footer__input" placeholder="Give an email, get the newsletter."/>
         <ul class="footer__socials">
-          <li><InIcon /></li>
-          <li><FacebookIcon /></li>
-          <li><InstagramIcon /></li>
-          <li><TwitterIcon /></li>
+          <li><a href='#'><InIcon /></a></li>
+          <li><a href='#'><FacebookIcon /></a></li>
+          <li><a href='#'><InstagramIcon /></a></li>
+          <li><a href='#'><TwitterIcon /></a></li>
         </ul>
       </div>
     </div>
@@ -35,7 +35,7 @@ import TwitterIcon from './SvgComponents/TwitterIcon.vue';
 
 footer {
   padding: 52px 0 10px;
-  border-top: 1px solid var(--color-text);
+  border-top: 1px solid var(--color-decorative);
   color: var(--color-text);
   
   .footer__container {
@@ -56,12 +56,20 @@ footer {
         display: flex;
         flex-direction: row;
         gap: 41px;
+
+        & li { 
+          transition: color 0.2s ease;
+        }
+
+        & li:hover { 
+          color: var(--color-main);
+        }
       }
       
       .footer__input {
         height: 20px;
         width: 396px;
-        border-bottom: 1px solid var(--color-text);
+        border-bottom: 1px solid var(--color-decorative);
       }
       
       .footer__socials {
@@ -71,5 +79,10 @@ footer {
       }
     }
   }
+}
+
+.text__accent { 
+  color: var(--color-main);
+  font-weight: var(--font-weight-medium);
 }
 </style>

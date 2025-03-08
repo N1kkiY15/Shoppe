@@ -1,5 +1,8 @@
 <template>
-    <main-page-cover />
+    <div>
+        <main-page-cover />
+        <ItemsList />
+    </div>
 </template>
 
 <script lang="ts" setup>
