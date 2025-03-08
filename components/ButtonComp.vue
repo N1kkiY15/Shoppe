@@ -31,7 +31,7 @@ const props = defineProps<Props>();
 @mixin base-button {
   border-radius: 4px;
   padding: 12px 31px;
-  border: 2px solid var(--color-main);
+  outline: 2px solid var(--color-main);
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-h5);
   width: 100%;
@@ -53,7 +53,7 @@ const props = defineProps<Props>();
 
   &:hover {
     @include secondary-colors;
-    border: 2px solid var(--color-main);
+    outline: 2px solid var(--color-main);
   }
 }
 
@@ -63,14 +63,14 @@ const props = defineProps<Props>();
 
   &:hover {
     @include primary-colors;
-    border: 2px solid var(--color-contrast);
+    outline: 2px solid var(--color-contrast);
   }
 }
 
 .special {
   @include base-button;
   border-radius: 6px;
-  border: 2px solid var(--color-contrast);
+  outline: 2px solid var(--color-contrast);
   color: var(--color-contrast);
   background-color: var(--color-transparent);
   font-size: var(--font-size-h4);
