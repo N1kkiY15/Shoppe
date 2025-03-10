@@ -6,7 +6,7 @@
   color: inherit;
 }
 
-ul, ol {
+ul {
   list-style: none;
 }
 
@@ -62,5 +62,10 @@ input:focus {
 .text-input { 
   height: 40px;
   border-bottom: 1px solid var(--color-decorative);
+}
 
+.select-input { 
+  border: 1px solid var(--color-decorative);
+  padding: 15px 12px;
+  border-radius: 4px;
 }

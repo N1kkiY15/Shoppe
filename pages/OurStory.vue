@@ -49,7 +49,6 @@
 
 <!-- <script lang="ts" setup></script> -->
 <style lang="scss" scoped>
-
 .about {
   display: flex;
   flex-direction: column;
@@ -106,5 +105,4 @@
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-h5);
 }
-
 </style>

@@ -18,7 +18,7 @@
                 <h1>{{ products[cardIndex - 1]?.title }}</h1>
                 <h2>{{ products[cardIndex - 1]?.price }}</h2>
               </div>
-              <ButtonComp variant="special">View product</ButtonComp>
+              <ButtonComp variant="special" size="xl">View product</ButtonComp>
             </div>
           </transition-group>
         </div>
@@ -45,7 +45,6 @@ import ErrorMessage from "./ErrorMessage.vue";
 
 const pagesNumber: number = 5;
 const currentPage = ref<number>(1);
-const intervalId = ref<number | null>(null);
 
 const isActive = (page: number): boolean => page === currentPage.value;
 
@@ -61,25 +60,17 @@ const autoChangePage = () => {
   }
 };
 
-const isLoading = ref<boolean>(true);
-const errorLoading = ref<boolean>(true);
-const products = ref<Array<Products>>([]);
+
+const { isLoading, errorLoading, products, fetchByURL  } = useFetch(
+  'https://fakestoreapi.com/products'
+);
+
+const intervalId = ref<number | null>(null);
 
 onMounted(async () => {
-  try {
-    const response = await fetch("https://fakestoreapi.com/products");
-    intervalId.value = window.setInterval(autoChangePage, 3000);
-    const data = await response.json();
-    products.value = data.slice(0, 5);
-  } catch (error) {
-    errorLoading.value = false;
-    console.error("Error fetching products:", error);
-  } finally {
-    isLoading.value = false;
-  }
+  await fetchByURL();
+  intervalId.value = window.setInterval(autoChangePage, 3000);
 });
-
-console.log(products);
 
 onUnmounted(() => {
   if (intervalId.value) {
@@ -87,20 +78,6 @@ onUnmounted(() => {
   }
 });
 
-interface Rating {
-  rate: number;
-  count: number;
-}
-
-interface Products {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-  rating: Rating;
-}
 </script>
 
 <style lang="scss" scoped>

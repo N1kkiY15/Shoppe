@@ -1,9 +1,9 @@
 <template>
   <button
     :class="{
-      primary: props.variant === 'primary',
-      secondary: props.variant === 'secondary',
-      special: props.variant === 'special',
+      'primary': props.variant === 'primary',
+      'secondary': props.variant === 'secondary',
+      'special': props.variant === 'special',
       'button__size-xl': props.size === 'xl',
       'button__size-l': props.size === 'l',
       'button__size-m': props.size === 'm',

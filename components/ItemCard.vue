@@ -1,14 +1,25 @@
 <template>
     <div class="item-card">
-      <img src='assets/pictures/cover.png' class="item-card__image"/> 
+      <img :src=props.image class="item-card__image"/> 
       <div class="item-card__description">
-        <h3>Name</h3>
-        <span>$ 20,00</span>
+        <h3>{{props.title}}</h3>
+        <span>$ {{props.price}}</span>
       </div>
     </div>
   </template>
   
-  <script lang="ts">
+  <script setup lang="ts">
+
+import { defineProps } from "vue";
+
+interface CardInfo {
+  title: string;
+  image: string;
+  price: number;
+}
+
+const props = defineProps<CardInfo>();
+
   </script>
   
   <style lang="scss" scoped>
@@ -16,7 +27,7 @@
      display: flex;
      flex-direction: column;
      gap: 24px;
-     max-width: 300px;
+     width: 300px;
 
      &__image { 
         background-color: aqua;

@@ -1,7 +1,7 @@
 <template>
     <div class="items__header">
       <h1>Shop The Latest</h1>
-      <NuxtLink>View All</NuxtLink>
+      <NuxtLink to="/shop">View All</NuxtLink>
     </div>
 </template>
 

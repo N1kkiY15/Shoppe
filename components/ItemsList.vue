@@ -1,15 +1,32 @@
 <template>
   <div class="items">
-    <ItemsListHeader /> 
     <div class="items__list">
-      <ItemCard  />
+      <ItemCard  
+      v-for="cards in productsLength"
+      :key="cards"
+      :title="products[cards - 1].title"
+      :price="products[cards - 1].price"
+      :image="products[cards - 1].image"
+      /> 
     </div>
+ 
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import useFetchProducts from '~/composables/useFetch';
 
-const items: number = 5;
+const productsLength = computed(() => products.value.length)
+
+
+const { isLoading, errorLoading, products, fetchByURL  } = useFetch(
+  'https://fakestoreapi.com/products'
+);
+
+onMounted(async () => {
+  await fetchByURL();
+});
+
 </script>
 
 <style lang="scss" scoped>
@@ -22,8 +39,8 @@ const items: number = 5;
   &__list {
     display: flex;
     flex-direction: row;
-    row-gap: 54px;
-    column-gap: 86px;
+    justify-content:space-between;
+    flex-wrap: wrap;
   }
 }
 </style>
