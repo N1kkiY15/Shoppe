@@ -41,7 +41,6 @@ import SearchIcon from "./SvgComponents/SearchIcon.vue";
 import ShoppingCartIcon from "./SvgComponents/ShoppingCartIcon.vue";
 
 const route = useRoute();
-// console.log(route.path);
 </script>
 
 <style scoped lang="scss">
