@@ -28,9 +28,9 @@ console.log(props.pageNumber);
 //   emits('changePage', page)
 //  }
 
-//  const isActive = (page) => {
-//   emits('isActive', page)
-//  }
+ const isActive = (page) => {
+  emits('isActive', page2)
+ }
 </script>
 
 <style lang="scss" scoped>
