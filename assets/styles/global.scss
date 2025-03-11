@@ -69,3 +69,8 @@ input:focus {
   padding: 15px 12px;
   border-radius: 4px;
 }
+
+.activePage {
+  background-color: var(--color-main);
+  color: var(--color-contrast)
+}

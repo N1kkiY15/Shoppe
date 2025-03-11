@@ -39,7 +39,7 @@ const props = defineProps<CardInfo>();
      &__description { 
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        justify-content: flex-end ;
     }
   }
   </style>

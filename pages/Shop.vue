@@ -14,7 +14,6 @@
 .shop {
   display: flex;
   flex-direction: column;
-  gap: 39px;
 }
 
 .shop__item-list {

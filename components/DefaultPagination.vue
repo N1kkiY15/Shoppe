@@ -1,52 +1,75 @@
 <template>
-  <nav v-if="props.pageNumber > 1">
+  <nav v-if="props.pageNumber > 1" class="pagination">
+    <button
+      v-show="props.currentPage !== 1"
+      @click="previousPage"
+      class="pagination__item">
+      <
+    </button>
     <ul class="pagination">
-      <li v-for="page in props.pageNumber" :key="page" class="pagination__item">{{ page }}</li>
+      <li
+        v-for="page in props.pageNumber"
+        :key="page"
+        class="pagination__item"
+        @click="changingPage(page)"
+        :class="{ activePage: isActive(page) }">
+        {{ page }}
+      </li>
     </ul>
+    <button
+      v-show="props.pageNumber !== props.currentPage"
+      @click="nextPage"
+      class="pagination__item">
+      >
+    </button>
   </nav>
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { defineProps, defineEmits } from "vue";
 
-// :class="{ activePage: isActive(page) }"
-// @click="changingPage(page)">{{ page }}
+const emits = defineEmits<{
+  (event: "changePage", page: number): void;
+  (event: "previousPage"): void;
+  (event: "nextPage"): void;
+}>();
 
-interface pageNumber {
+const changingPage = (page: number) => {
+  emits("changePage", page);
+};
+
+const previousPage = () => {
+  emits("previousPage");
+};
+
+const nextPage = () => {
+  emits("nextPage");
+};
+
+interface pages {
   pageNumber: number;
+  currentPage: number;
 }
 
-const props = defineProps<pageNumber>();
-console.log(props.pageNumber);
+const props = defineProps<pages>();
 
-//  const emits = defineEmits(['changePage', 'isActive'])
-
-//  const localNumber = ref(JSON.parse(JSON.stringify(props.pageNumber)))
-//  pageNumber.value = Math.ceil(cardNumber.value / cardOnPage);
-
-//  const changingPage = (page) => {
-//   emits('changePage', page)
-//  }
-
- const isActive = (page) => {
-  emits('isActive', page2)
- }
+const isActive = (page: number) => page === props.currentPage;
 </script>
 
 <style lang="scss" scoped>
-.pagination { 
+.pagination {
   display: flex;
   flex-direction: row;
   gap: 8px;
 
-  &__item { 
+  &__item {
     width: 40px;
     height: 40px;
     border: 1px solid var(--color-decorative);
-    justify-content: center; /* Горизонтальное выравнивание */
-    align-content: center; 
-
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
-
 </style>
