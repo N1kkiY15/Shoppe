@@ -41,8 +41,6 @@
 </template>
 
 <script lang="ts" setup>
-
-
 import ErrorMessage from "./ErrorMessage.vue";
 
 const pagesNumber: number = 5;
@@ -148,29 +146,6 @@ onUnmounted(() => {
     }
   }
 }
-
-.spinner {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 4px solid transparent;
-  border-top-color: var(--color-main);
-  animation: spin 1s linear infinite;
-
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-}
-
 
 .carousel-container { 
 }

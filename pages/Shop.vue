@@ -8,13 +8,16 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+useHead({
+  title: 'Shop'
+});
+</script>
 
 <style scoped>
 .shop {
   display: flex;
   flex-direction: column;
-  gap: 39px;
 }
 
 .shop__item-list {

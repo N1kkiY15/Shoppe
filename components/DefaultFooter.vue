@@ -1,5 +1,5 @@
 <template>
-  <footer>
+  <footer class="footer">
     <div class="footer__container">
       <div class="footer__section">
         <ul class="footer__section-links">
@@ -23,17 +23,16 @@
 </template>
 
 <script lang="ts" setup>
-import FacebookIcon from './SvgComponents/FacebookIcon.vue';
-import InIcon from './SvgComponents/InIcon.vue';
-import InstagramIcon from './SvgComponents/InstagramIcon.vue';
-import TwitterIcon from './SvgComponents/TwitterIcon.vue';
-
+import FacebookIcon from 'assets/pictures/svg/SvgComponents/FacebookIcon.vue';
+import InIcon from 'assets/pictures/svg/SvgComponents/InIcon.vue';
+import InstagramIcon from 'assets/pictures/svg/SvgComponents/InstagramIcon.vue';
+import TwitterIcon from 'assets/pictures/svg/SvgComponents/TwitterIcon.vue';
 
 </script>
 
 <style scoped lang="scss">
 
-footer {
+.footer {
   padding: 52px 0 10px;
   border-top: 1px solid var(--color-decorative);
   color: var(--color-text);

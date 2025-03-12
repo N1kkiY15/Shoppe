@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ header__border: route.path !== '/MainPage' }" class="header">
+  <div :class="{ header__border: showElement }" class="header">
     <div class="header__container">
       <NuxtLink to="/MainPage" class="header__logo">shoppe</NuxtLink>
       <div class="header__info">
@@ -36,11 +36,12 @@
 </template>
 
 <script setup>
-import ProfileIcon from "./SvgComponents/ProfileIcon.vue";
-import SearchIcon from "./SvgComponents/SearchIcon.vue";
-import ShoppingCartIcon from "./SvgComponents/ShoppingCartIcon.vue";
+import ProfileIcon from "assets/pictures/svg/SvgComponents/ProfileIcon.vue";
+import SearchIcon from "assets/pictures/svg/SvgComponents/SearchIcon.vue";
+import ShoppingCartIcon from "assets/pictures/svg/SvgComponents/ShoppingCartIcon.vue";
 
 const route = useRoute();
+const showElement = computed(() => !route.meta?.isHomePage);
 </script>
 
 <style scoped lang="scss">
@@ -89,7 +90,7 @@ const route = useRoute();
     font-weight: var(--font-weight-regular);
     font-size: var(--font-size-text-large);
 
-    .header__info-navigation {
+    &-navigation {
       display: flex;
       flex-direction: row;
       gap: 64px;
@@ -99,7 +100,7 @@ const route = useRoute();
       }
     }
 
-    .header__info-links {
+    &-links {
       display: flex;
       flex-direction: row;
       gap: 39px;

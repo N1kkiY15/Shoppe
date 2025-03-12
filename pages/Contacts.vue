@@ -22,13 +22,8 @@
 
 <script lang="ts" setup>
 
-definePageMeta({
-  layout: 'default',
-  title: 'My Page',
-});
-
 useHead({
-  title: 'My Page - Nuxt 3', // This will update the browser tab title
+  title: 'Contacts'
 });
 
 </script>

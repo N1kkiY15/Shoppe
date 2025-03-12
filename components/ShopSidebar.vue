@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar">
-    <input type="text" placeholder="Search..." class="text-input"/>
+    <input type="text" placeholder="Search..." class="text-input" />
 
     <select id="mySelect" name="mySelect" class="select-input">
       <option value="">Shop By</option>
@@ -26,12 +26,12 @@
       value="2500"
     />
     <div class="sidebar__checkbox">
-        <label for="on-sale">On sale</label>
-        <input type="checkbox" id="on-sale"/> 
+      <label for="on-sale">On sale</label>
+      <input type="checkbox" id="on-sale" />
     </div>
     <div class="sidebar__checkbox">
-        <label for="in-stock">In stock</label>
-        <input type="checkbox" id="in-stock"/> 
+      <label for="in-stock">In stock</label>
+      <input type="checkbox" id="in-stock" />
     </div>
   </div>
 </template>
@@ -46,12 +46,11 @@
   max-width: 261px;
   width: 100%;
 
-    &__checkbox { 
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        flex-wrap: wrap;
-
-    }
+  &__checkbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
 }
 </style>
