@@ -36,9 +36,9 @@
 </template>
 
 <script setup>
-import ProfileIcon from "./SvgComponents/ProfileIcon.vue";
-import SearchIcon from "./SvgComponents/SearchIcon.vue";
-import ShoppingCartIcon from "./SvgComponents/ShoppingCartIcon.vue";
+import ProfileIcon from "assets/pictures/svg/SvgComponents/ProfileIcon.vue";
+import SearchIcon from "assets/pictures/svg/SvgComponents/SearchIcon.vue";
+import ShoppingCartIcon from "assets/pictures/svg/SvgComponents/ShoppingCartIcon.vue";
 
 const route = useRoute();
 </script>
@@ -89,7 +89,7 @@ const route = useRoute();
     font-weight: var(--font-weight-regular);
     font-size: var(--font-size-text-large);
 
-    .header__info-navigation {
+    &-navigation {
       display: flex;
       flex-direction: row;
       gap: 64px;
@@ -99,7 +99,7 @@ const route = useRoute();
       }
     }
 
-    .header__info-links {
+    &-links {
       display: flex;
       flex-direction: row;
       gap: 39px;

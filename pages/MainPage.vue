@@ -1,6 +1,6 @@
 <template>
     <div>
-        <main-page-cover />
+        <mainPageCover />
         <ShopHeader /> 
         <ItemsList />
     </div>

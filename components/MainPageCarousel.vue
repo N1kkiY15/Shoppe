@@ -41,8 +41,6 @@
 </template>
 
 <script lang="ts" setup>
-
-
 import ErrorMessage from "./ErrorMessage.vue";
 
 const pagesNumber: number = 5;

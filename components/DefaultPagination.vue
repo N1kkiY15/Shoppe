@@ -1,5 +1,5 @@
 <template>
-  <nav v-if="props.pageNumber > 1" class="pagination">
+  <nav v-if="props.totalPages > 1" class="pagination">
     <button
       v-show="props.currentPage !== 1"
       @click="previousPage"
@@ -8,16 +8,16 @@
     </button>
     <ul class="pagination">
       <li
-        v-for="page in props.pageNumber"
-        :key="page"
+        v-for="pageIndex in props.totalPages"
+        :key="pageIndex"
         class="pagination__item"
-        @click="changingPage(page)"
-        :class="{ activePage: isActive(page) }">
-        {{ page }}
+        @click="changingPage(pageIndex)"
+        :class="{ activePage: isActive(pageIndex) }">
+        {{ pageIndex }}
       </li>
     </ul>
     <button
-      v-show="props.pageNumber !== props.currentPage"
+      v-show="props.totalPages !== props.currentPage"
       @click="nextPage"
       class="pagination__item">
       >
@@ -47,7 +47,7 @@ const nextPage = () => {
 };
 
 interface pages {
-  pageNumber: number;
+  totalPages: number;
   currentPage: number;
 }
 

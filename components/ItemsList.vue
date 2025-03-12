@@ -10,8 +10,8 @@
       />
     </div>
     <DefaultPagination 
-    v-if="pageNumber !== undefined"
-    :pageNumber="pageNumber"
+    v-if="totalPages !== undefined"
+    :totalPages="totalPages"
     :currentPage="currentPage"
     @changePage="changePage"
     @previousPage="previousPage"
@@ -34,7 +34,7 @@ onMounted(async () => {
 });
 
 
-const pageNumber = computed(() => Math.ceil(productsLength.value / cardsOnPage));
+const totalPages = computed(() => Math.ceil(productsLength.value / cardsOnPage));
 
 const productsLength = computed(() => products.value.length);
 

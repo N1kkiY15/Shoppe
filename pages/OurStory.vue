@@ -16,7 +16,7 @@
     <div class="about__card">
       <h2 class="about__card-heading">Top trends</h2>
       <img
-        src="assets/pictures/OurStory/Img_01.png"
+        src="assets/pictures/OurStory/Img_01.webp"
         class="about__card-image"
       />
       <p>
@@ -33,7 +33,7 @@
     <div class="about__card">
       <h2 class="about__card-heading">Produced with care</h2>
       <img
-        src="assets/pictures/OurStory/Img_02.png"
+        src="assets/pictures/OurStory/Img_02.webp"
         class="about__card-image"
       />
       <p>
