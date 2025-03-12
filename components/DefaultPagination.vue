@@ -70,6 +70,7 @@ const isActive = (page: number) => page === props.currentPage;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
   }
 }
 </style>

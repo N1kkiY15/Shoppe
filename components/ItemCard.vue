@@ -1,15 +1,14 @@
 <template>
-    <div class="item-card">
-      <img :src=props.image class="item-card__image"/> 
-      <div class="item-card__description">
-        <h3>{{props.title}}</h3>
-        <span>$ {{props.price}}</span>
-      </div>
+  <div class="item-card">
+    <img src="assets/pictures/Img 01.png" class="item-card__image" />
+    <div class="item-card__description">
+      <h3>{{ props.title }}</h3>
+      <span>$ {{ props.price }}</span>
     </div>
-  </template>
-  
-  <script setup lang="ts">
+  </div>
+</template>
 
+<script setup lang="ts">
 import { defineProps } from "vue";
 
 interface CardInfo {
@@ -19,28 +18,27 @@ interface CardInfo {
 }
 
 const props = defineProps<CardInfo>();
+</script>
 
-  </script>
-  
-  <style lang="scss" scoped>
-  .item-card {
-     display: flex;
-     flex-direction: column;
-     gap: 24px;
-     width: 300px;
+<style lang="scss" scoped>
+.item-card {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 380px;
 
-     &__image { 
-        background-color: aqua;
-        width: 300px;
-        height: 300px;
-
-     }
-
-     &__description { 
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end ;
-    }
+  &__image {
+    background-color: aqua;
+    max-height: 380px;
   }
-  </style>
-  
+
+  &__description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    gap: 16px;
+  }
+}
+</style>

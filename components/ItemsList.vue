@@ -9,19 +9,20 @@
         :image="cards.image"
       />
     </div>
-    <DefaultPagination 
-    v-if="totalPages !== undefined"
-    :totalPages="totalPages"
-    :currentPage="currentPage"
-    @changePage="changePage"
-    @previousPage="previousPage"
-    @nextPage="nextPage"
-    /> 
+    <DefaultPagination
+      v-if="totalPages !== undefined && showElement"
+      :totalPages="totalPages"
+      :currentPage="currentPage"
+      @changePage="changePage"
+      @previousPage="previousPage"
+      @nextPage="nextPage"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
-
+const route = useRoute();
+const showElement = computed(() => !route.meta?.isHomePage);
 const cardsOnPage: number = 6;
 const currentPage = ref<number>(1);
 
@@ -33,8 +34,9 @@ onMounted(async () => {
   await fetchByURL();
 });
 
-
-const totalPages = computed(() => Math.ceil(productsLength.value / cardsOnPage));
+const totalPages = computed(() =>
+  Math.ceil(productsLength.value / cardsOnPage)
+);
 
 const productsLength = computed(() => products.value.length);
 
@@ -43,34 +45,35 @@ const displayedItems = computed(() => {
   return products.value.slice(startIndex, startIndex + cardsOnPage);
 });
 
-const changePage = (page:number) => {
+const changePage = (page: number) => {
   currentPage.value = page;
 };
 
-const previousPage = () => { 
+const previousPage = () => {
   currentPage.value = currentPage.value - 1;
 };
 
-const nextPage = () => { 
+const nextPage = () => {
   currentPage.value = currentPage.value + 1;
 };
-
 </script>
 
 <style lang="scss" scoped>
 .items {
   display: flex;
   flex-direction: column;
-  margin: auto;
   align-items: center;
   gap: 39px;
   margin-bottom: 250px;
-
   &__list {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    // display: flex;
+    // flex-direction: row;
+    // flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    row-gap: 50px;
+    column-gap: 4%;
   }
 }
 </style>
