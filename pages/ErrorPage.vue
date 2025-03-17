@@ -7,9 +7,9 @@
 </template>
 
 <script lang="ts" setup>
-useHead({
-  title: 'Error'
-});
+// useHead({
+//   title: 'Error'
+// });
 </script>
 
 <style scoped>

@@ -7,28 +7,111 @@
         with our Team!
       </h3>
     </div>
-    <form @submit.prevent class="contacts__form">
+    <form @submit.prevent="submitForm" class="contacts__form">
       <div class="contacts__form-inputs">
-        <input type="text" class="text-input" placeholder="First name" />
-        <input type="text" class="text-input" placeholder="Last name" />
-        <input type="text" class="text-input" placeholder="Email" />
-        <input type="text" class="text-input" placeholder="Subject" />
-        <input type="textarea" class="text-input" placeholder="Message" />
+        <div class="input-error">
+          <DefaultTextInput
+            v-model="form.firstName"
+            id="firstname"
+            size="medium"
+            placeholder="First name"
+            @blur="handleBlur('firstName')"
+          />
+          <p v-if="errors.firstName" class="error-message">
+            {{ errors.firstName }}
+          </p>
+        </div>
+
+        <div class="input-error">
+          <DefaultTextInput
+            id="lastname"
+            v-model="form.lastName"
+            size="medium"
+            placeholder="Last name"
+            @blur="handleBlur('lastName')"
+          />
+          <p v-if="errors.lastName" class="error-message">
+            {{ errors.lastName }}
+          </p>
+        </div>
+
+        <div class="input-error">
+          <DefaultTextInput
+            v-model="form.email"
+            size="medium"
+            placeholder="Email"
+            @blur="handleBlur('email')"
+          />
+          <p v-if="errors.email" class="error-message">
+            {{ errors.email }}
+          </p>
+        </div>
+
+        <div class="input-error">
+          <DefaultTextInput
+            id="subject"
+            v-model="form.subject"
+            size="medium"
+            placeholder="Subject"
+            @blur="handleBlur('subject')"
+          />
+          <p v-if="errors.subject" class="error-message">
+            {{ errors.subject }}
+          </p>
+        </div>
+
+        <div class="input-error">
+          <DefaultTextInput
+            id="message"
+            v-model="form.message"
+            size="medium"
+            placeholder="Message"
+            @blur="handleBlur('message')"
+          />
+          <p v-if="errors.message" class="error-message">
+            {{ errors.message }}
+          </p>
+        </div>
       </div>
-      <ButtonComp variant="primary" size="xl">SEND</ButtonComp>
+      <ButtonComp type="submit" variant="primary" size="xl">SEND</ButtonComp>
     </form>
   </div>
 </template>
 
 <script lang="ts" setup>
+import useSaveToLocalStorage from "~/composables/saveToLocalStorage";
+import useFormValidation from "~/composables/useFormValidation";
 
-useHead({
-  title: 'Contacts'
-});
+const { form, errors, validateField, validateForm } = useFormValidation();
 
+const handleBlur = (field: keyof typeof form) => {
+  validateField(field as string, form[field]);
+};
+
+const submitForm = () => {
+  if (validateForm()) {
+    saveToLocalStorage();
+  } else {
+    console.log("Form has errors"); // sdelat modalku
+  }
+};
+
+const type = "contacts";
+
+const { saveContactsToLocalStorage } = useSaveToLocalStorage(type, form);
+
+const saveToLocalStorage = () => {
+  if (saveContactsToLocalStorage) {
+    saveContactsToLocalStorage();
+  }
+};
 </script>
 
 <style lang="scss" scoped>
+.input-error {
+  position: relative;
+}
+
 .contacts {
   display: flex;
   flex-direction: column;
@@ -55,18 +138,15 @@ useHead({
     flex-direction: column;
     gap: 96px;
     align-items: center;
+
     &-inputs {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
+      align-items: end;
       column-gap: 116px;
       row-gap: 94px;
       width: 100%;
     }
   }
-}
-
-.text-input:last-child {
-  grid-column: span 2;
-  height: 71px;
 }
 </style>

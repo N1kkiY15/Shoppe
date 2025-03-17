@@ -28,6 +28,8 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from "vue";
 
+const props = defineProps<pages>();
+
 const emits = defineEmits<{
   (event: "changePage", page: number): void;
   (event: "previousPage"): void;
@@ -50,8 +52,6 @@ interface pages {
   totalPages: number;
   currentPage: number;
 }
-
-const props = defineProps<pages>();
 
 const isActive = (page: number) => page === props.currentPage;
 </script>

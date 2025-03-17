@@ -9,9 +9,9 @@
 </template>
 
 <script lang="ts" setup>
-useHead({
-  title: 'Shop'
-});
+// useHead({
+//   title: 'Shop'
+// });
 </script>
 
 <style scoped>

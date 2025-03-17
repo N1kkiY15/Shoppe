@@ -33,9 +33,9 @@
 
 
 <script lang="ts" setup>
-useHead({
-  title: 'Privacy police'
-});
+// useHead({
+//   title: 'Privacy police'
+// });
 </script>
 <style lang="scss" scoped>
 .privacy-policy {

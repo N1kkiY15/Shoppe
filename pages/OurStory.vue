@@ -48,9 +48,9 @@
 </template>
 
 <script lang="ts" setup>
-useHead({
-  title: 'Our story'
-});
+// useHead({
+//   title: 'Our story'
+// });
 </script>
 
 <style lang="scss" scoped>

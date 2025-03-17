@@ -1,20 +1,32 @@
 <template>
   <div class="sidebar">
-    <input type="text" placeholder="Search..." class="text-input" />
+    <form class="sidebar__form">
+      <input type="text" placeholder="Search..." class="text-input" />
+      <button class="sidebar__form-button">
+        <search-icon />
+      </button>
+    </form>
 
-    <select id="mySelect" name="mySelect" class="select-input">
-      <option value="">Shop By</option>
-      <option value="first">Первый элемент</option>
-      <option value="second">Второй элемент</option>
-      <option value="third">Третий элемент</option>
-    </select>
+    <div class="sidebar__select">
+      <div class="select">
+        <select id="mySelect" name="mySelect" class="select-input">
+          <option value="">Shop By</option>
+          <option value="first">Первый элемент</option>
+          <option value="second">Второй элемент</option>
+          <option value="third">Третий элемент</option>
+        </select>
+        <div class="select-mark"> 
+          <MarkDown />
+        </div>
+      </div>
 
-    <select id="mySelect" name="mySelect" class="select-input">
-      <option value="">Sort By</option>
-      <option value="first">Первый элемент</option>
-      <option value="second">Второй элемент</option>
-      <option value="third">Третий элемент</option>
-    </select>
+      <select id="mySelect" name="mySelect" class="select-input">
+        <option value="">Sort By</option>
+        <option value="first">Первый элемент</option>
+        <option value="second">Второй элемент</option>
+        <option value="third">Третий элемент</option>
+      </select>
+    </div>
 
     <input
       type="range"
@@ -24,21 +36,66 @@
       max="5000"
       step="100"
       value="2500"
+      class="default-input"
     />
+
     <div class="sidebar__checkbox">
-      <label for="on-sale">On sale</label>
-      <input type="checkbox" id="on-sale" />
+      <label for="on-sale" class="toggle-label">On sale</label>
+      <div class="toggle-switch" @click="toggleOnSale">
+        <input
+          type="checkbox"
+          class="toggle-input"
+          v-model="isCheckedOnSale"
+          id="on-sale"
+        />
+        <span class="slider"></span>
+      </div>
     </div>
+
     <div class="sidebar__checkbox">
       <label for="in-stock">In stock</label>
-      <input type="checkbox" id="in-stock" />
+      <div class="toggle-switch" @click="toggleInStoke">
+        <input
+          type="checkbox"
+          class="toggle-input"
+          v-model="isCheckedInStock"
+          id="in-stock"
+        />
+        <span class="slider"></span>
+      </div>
     </div>
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import SearchIcon from "assets/pictures/svg/SvgComponents/SearchIcon.vue";
+import MarkDown from "~/assets/pictures/svg/SvgComponents/MarkDown.vue";
+
+const isCheckedOnSale = ref<boolean>(false); // чекбокс будет вынесен в отдельный компонент
+const isCheckedInStock = ref<boolean>(false); // чекбокс будет вынесен в отдельный компонент
+
+const toggleOnSale = () => {
+  isCheckedOnSale.value = !isCheckedOnSale.value;
+};
+
+const toggleInStoke = () => {
+  isCheckedInStock.value = !isCheckedInStock.value;
+};
+</script>
 
 <style lang="scss" scoped>
+
+.select { 
+  position: relative;
+  width: 100%;
+}
+
+.select-mark { 
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -52,5 +109,68 @@
     justify-content: space-between;
     flex-wrap: wrap;
   }
+}
+
+.sidebar__select { 
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 16px;
+}
+
+.sidebar__form {
+  position: relative;
+}
+
+.sidebar__form-button {
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+  background-color: transparent;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 33px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.toggle-input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-text);
+  border-radius: 34px;
+  transition: background-color 0.3s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 13px;
+  width: 13px;
+  left: 4px;
+  bottom: 3.5px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.toggle-input:checked + .slider {
+  background-color: #4cd964;
+}
+
+.toggle-input:checked + .slider:before {
+  transform: translateX(12px);
 }
 </style>
