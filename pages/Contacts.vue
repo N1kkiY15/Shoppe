@@ -1,5 +1,12 @@
 <template>
   <div class="contacts">
+
+    <DefaultModalWindow
+      :isOpen="isModalOpen"
+      message="Your message has been sent successfully."
+      @close="closeModal"
+    />
+
     <div class="contacts__info">
       <h1>Contact us</h1>
       <h3>
@@ -82,6 +89,12 @@
 import useSaveToLocalStorage from "~/composables/saveToLocalStorage";
 import useFormValidation from "~/composables/useFormValidation";
 
+const isModalOpen = ref(false);
+
+const closeModal = () => {
+  isModalOpen.value = !isModalOpen.value; 
+};
+
 const { form, errors, validateField, validateForm } = useFormValidation();
 
 const handleBlur = (field: keyof typeof form) => {
@@ -91,6 +104,7 @@ const handleBlur = (field: keyof typeof form) => {
 const submitForm = () => {
   if (validateForm()) {
     saveToLocalStorage();
+    isModalOpen.value = true; 
   } else {
     console.log("Form has errors"); // sdelat modalku
   }
@@ -110,6 +124,10 @@ const saveToLocalStorage = () => {
 <style lang="scss" scoped>
 .input-error {
   position: relative;
+}
+
+.input-error:last-child { 
+  grid-column: span 2;
 }
 
 .contacts {

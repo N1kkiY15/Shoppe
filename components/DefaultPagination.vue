@@ -3,8 +3,8 @@
     <button
       v-show="props.currentPage !== 1"
       @click="previousPage"
-      class="pagination__item">
-      <
+      class="pagination__item pagination__item-navigation">
+      <MarkRight />
     </button>
     <ul class="pagination">
       <li
@@ -19,14 +19,15 @@
     <button
       v-show="props.totalPages !== props.currentPage"
       @click="nextPage"
-      class="pagination__item">
-      >
+      class="pagination__item pagination__item-navigation">
+      <MarkRight />
     </button>
   </nav>
 </template>
 
 <script setup lang="ts">
 import { defineProps, defineEmits } from "vue";
+import MarkRight from "~/assets/pictures/svg/SvgComponents/MarkRight.vue";
 
 const props = defineProps<pages>();
 
@@ -71,6 +72,10 @@ const isActive = (page: number) => page === props.currentPage;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+  }
+
+  &__item-navigation { 
+    background-color: transparent;
   }
 }
 </style>

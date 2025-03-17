@@ -53,6 +53,7 @@ const showElement = computed(() => !route.meta?.isHomePage);
 }
 
 .header {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 17px;

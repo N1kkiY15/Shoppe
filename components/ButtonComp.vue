@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { defineProps } from 'vue'; 
 
 type ButtonVariant = "primary" | "secondary" | "special";
 type ButtonSize = "xl" | "l" | "m";
