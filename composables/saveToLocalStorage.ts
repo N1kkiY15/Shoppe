@@ -16,7 +16,7 @@ export default function useSaveToLocalStorage(
 
   const saveFooterEmailToLocalStorage = (email: string) => {
     localStorage.setItem(`footerEmail_${getTime()}`, email);
-    return email = "";
+    return (email = "");
   };
 
   const saveContactsToLocalStorage = () => {

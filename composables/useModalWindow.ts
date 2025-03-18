@@ -1,5 +1,3 @@
-import { ref } from "vue";
-
 const isModalOpen = ref<boolean>(false);
 const status = ref<string>("");
 
@@ -20,7 +18,7 @@ export default function useModalWindow() {
       clearStatus();
     }, 5000);
   };
-  
+
   return {
     isModalOpen,
     status,

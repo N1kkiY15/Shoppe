@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import MarkRight from "~/assets/pictures/svg/SvgComponents/MarkRight.vue";
+import MarkRight from "SvgComponents/MarkRight.vue";
 
 const props = defineProps<pages>();
 

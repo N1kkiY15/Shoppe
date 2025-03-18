@@ -2,6 +2,9 @@
   // https://nuxt.com/docs/guide/concepts/typescript
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
+    "paths": {
+      "composables/*": ["./composables/*"]
+    },
     "types": ["vite/client", "vue"]
   }
 }
