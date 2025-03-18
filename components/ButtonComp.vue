@@ -14,8 +14,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'; 
-
 type ButtonVariant = "primary" | "secondary" | "special";
 type ButtonSize = "xl" | "l" | "m";
 
@@ -35,6 +33,7 @@ const props = defineProps<Props>();
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-h5);
   width: 100%;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 @mixin primary-colors {

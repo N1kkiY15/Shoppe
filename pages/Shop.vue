@@ -8,12 +8,6 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-// useHead({
-//   title: 'Shop'
-// });
-</script>
-
 <style scoped>
 .shop {
   display: flex;

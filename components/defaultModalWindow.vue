@@ -1,9 +1,14 @@
 <template>
   <transition name="slide">
-    <div v-if="isOpen" class="modal">
+    <div v-if="isOpen" class="modal" :class="{'modal-error': props.status === 'falseMessage'}">
       <div class="modal__section">
-        <SuccesIcon />
-        <p>{{ message }}</p>
+        <div v-if="props.status !== 'falseMessage'">
+          <SuccessIcon />
+        </div>
+        <div v-else>
+          <ErrorButton />
+        </div>
+        <p>{{ messageTotal }}</p>
       </div>
       <button @click="closeModal">
         <ExitButton />
@@ -13,28 +18,49 @@
 </template>
 
 <script lang="ts" setup>
-import ExitButton from "~/assets/pictures/svg/SvgComponents/ExitButton.vue";
-import SuccesIcon from "~/assets/pictures/svg/SvgComponents/SuccesIcon.vue";
+import ExitButton from "SvgComponents/ExitButton.vue";
+import SuccessIcon from "SvgComponents/SuccessIcon.vue";
+import ErrorButton from "~/assets/pictures/svg/SvgComponents/errorButton.vue";
 
-const props = defineProps({
+// type result = "trueMessage" | "falseMessage" | "trueEmail";
+
+interface statusMessage {
+  messageSent: string;
+  messageErrorSent: string;
+  emailSent: string;
+}
+
+const messageTotal = ref<string>("");
+
+const message: statusMessage = {
+  messageSent: "Your message has been sent successfully.",
+  messageErrorSent: "Form has error",
+  emailSent: "Your email has been sent successfully! We will definitely contact you!",
+};
+
+interface Props {
   isOpen: Boolean,
-  title: String,
-  message: String,
-});
+  status: string;
+}
+
+const props = defineProps<Props>();
 
 const emit = defineEmits(["close"]);
 
 const closeModal = () => {
-  emit("close");
+  emit("close"); 
+  messageTotal.value = ""; 
 };
 
 watch(
-  () => props.isOpen,
-  (newValue: boolean) => {
-    if (newValue) {
-      setTimeout(() => {
-        closeModal();
-      }, 5000);
+  () => props.status,
+  (newValue: string) => {
+    if (newValue === "trueMessage") {
+      messageTotal.value = message.messageSent;
+    } else if (newValue === "falseMessage") {
+      messageTotal.value = message.messageErrorSent;
+    } else if (newValue === "trueEmail") {
+      messageTotal.value = message.emailSent;
     }
   }
 );
@@ -72,6 +98,15 @@ watch(
     gap: 16px;
   }
 }
+
+.modal-error { 
+  border-top: 2px solid var(--color-error);
+
+  &::after { 
+    background-color: var(--color-error);
+  }
+}
+
 
 button {
   display: flex;

@@ -52,31 +52,45 @@
         </ul>
       </div>
     </div>
+
+    <DefaultModalWindow
+      :isOpen="isModalOpen"
+      :status="status"
+      @close="modalClose"
+    />
   </footer>
 </template>
 
 <script lang="ts" setup>
-import FacebookIcon from "assets/pictures/svg/SvgComponents/FacebookIcon.vue";
-import InIcon from "assets/pictures/svg/SvgComponents/InIcon.vue";
-import InstagramIcon from "assets/pictures/svg/SvgComponents/InstagramIcon.vue";
-import TwitterIcon from "assets/pictures/svg/SvgComponents/TwitterIcon.vue";
-import ArrowToRigth from "~/assets/pictures/svg/SvgComponents/ArrowToRight.vue";
+import FacebookIcon from "SvgComponents/FacebookIcon.vue";
+import InIcon from "SvgComponents/InIcon.vue";
+import InstagramIcon from "SvgComponents/InstagramIcon.vue";
+import TwitterIcon from 'SvgComponents/TwitterIcon.vue';
+import ArrowToRigth from "SvgComponents/ArrowToRight.vue";
 
-import useSaveToLocalStorage from "~/composables/saveToLocalStorage";
-import useFormValidation from "~/composables/useFormValidation";
+import useSaveToLocalStorage from "composables/saveToLocalStorage";
+import useFormValidation from "composables/useFormValidation";
+import useModalWindow from "composables/useModalWindow";
 
 const { footerEmail, errors, validateFooterEmail } = useFormValidation();
-const type = "footer";
 
+const type = "footer";
 const { saveFooterEmailToLocalStorage } = useSaveToLocalStorage(type);
+
+const { isModalOpen, status, modalClose, modalOpen} =
+  useModalWindow();
 
 const submitForm = () => {
   validateFooterEmail();
   if (!errors.email && saveFooterEmailToLocalStorage) {
     saveFooterEmailToLocalStorage(footerEmail.value);
     footerEmail.value = "";
+    status.value = "trueEmail";
+    modalOpen();
   } else {
-    console.log("Form has errors"); // Add modalka
+    console.log("Form has errors");
+    status.value = "falseMessage";
+    modalOpen();
   }
 };
 </script>

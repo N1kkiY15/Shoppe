@@ -1,4 +1,6 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+import { defineNuxtConfig } from 'nuxt/config';
+import path from 'path';
+
 export default defineNuxtConfig({
   ssr: true,
   compatibilityDate: "2025-03-12",
@@ -6,12 +8,16 @@ export default defineNuxtConfig({
   css: ['@/assets/styles/index.scss'],
   components: true,
   modules: ["vue3-carousel-nuxt"],
-  // app: {
-  //   baseURL: '/shoppe'
-  // }
-  // alias: {
-  //   'images': fileURLToPath(new URL('./assets/images', import.meta.url)),
-  //   'style': fileURLToPath(new URL('./assets/style', import.meta.url)),
-  //   'data': fileURLToPath(new URL('./assets/other/data', import.meta.url))
-  // }
+  vite: {
+    resolve: {
+      alias: {
+        'images': path.resolve(__dirname, './assets/images'),
+        'fonts': path.resolve(__dirname, './assets/fonts'),
+        'style': path.resolve(__dirname, './assets/styles'),
+        'svg': path.resolve(__dirname, './assets/pictures/svg'),
+        'SvgComponents': path.resolve(__dirname, './assets/pictures/svg/SvgComponents'),
+        'composables': path.resolve(__dirname, './composables'),
+      },
+    },
+  },
 })

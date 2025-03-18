@@ -10,11 +10,6 @@
 definePageMeta({
   isHomePage: true,
 });
-
-// useHead({
-//   title: 'Main page'
-// });
-
 </script>
 
 <style scoped></style>

@@ -1,12 +1,5 @@
 <template>
   <div class="contacts">
-
-    <DefaultModalWindow
-      :isOpen="isModalOpen"
-      message="Your message has been sent successfully."
-      @close="closeModal"
-    />
-
     <div class="contacts__info">
       <h1>Contact us</h1>
       <h3>
@@ -82,18 +75,19 @@
       </div>
       <ButtonComp type="submit" variant="primary" size="xl">SEND</ButtonComp>
     </form>
+
+    <DefaultModalWindow
+      :isOpen="isModalOpen"
+      :status="status"
+      @close="modalClose"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
-import useSaveToLocalStorage from "~/composables/saveToLocalStorage";
-import useFormValidation from "~/composables/useFormValidation";
-
-const isModalOpen = ref(false);
-
-const closeModal = () => {
-  isModalOpen.value = !isModalOpen.value; 
-};
+import useSaveToLocalStorage from "composables/saveToLocalStorage";
+import useFormValidation from "composables/useFormValidation";
+import useModalWindow from "composables/useModalWindow";
 
 const { form, errors, validateField, validateForm } = useFormValidation();
 
@@ -101,22 +95,25 @@ const handleBlur = (field: keyof typeof form) => {
   validateField(field as string, form[field]);
 };
 
-const submitForm = () => {
-  if (validateForm()) {
-    saveToLocalStorage();
-    isModalOpen.value = true; 
-  } else {
-    console.log("Form has errors"); // sdelat modalku
-  }
-};
-
 const type = "contacts";
-
 const { saveContactsToLocalStorage } = useSaveToLocalStorage(type, form);
 
 const saveToLocalStorage = () => {
   if (saveContactsToLocalStorage) {
     saveContactsToLocalStorage();
+  }
+};
+
+const { isModalOpen, status, modalClose, modalOpen} = useModalWindow();
+
+const submitForm = () => {
+  if (validateForm()) {
+    saveToLocalStorage();
+    status.value = "trueMessage";
+    modalOpen();
+  } else {
+    status.value = "falseMessage";
+    modalOpen();
   }
 };
 </script>
@@ -126,7 +123,7 @@ const saveToLocalStorage = () => {
   position: relative;
 }
 
-.input-error:last-child { 
+.input-error:last-child {
   grid-column: span 2;
 }
 

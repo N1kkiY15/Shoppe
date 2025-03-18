@@ -47,12 +47,6 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-// useHead({
-//   title: 'Our story'
-// });
-</script>
-
 <style lang="scss" scoped>
 .about {
   display: flex;

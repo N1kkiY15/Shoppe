@@ -147,8 +147,8 @@ onUnmounted(() => {
   }
 }
 
-.carousel-container { 
-}
+// .carousel-container { 
+// }
 
 .carousel-inner {
   display: flex;

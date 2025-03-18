@@ -68,8 +68,8 @@
 </template>
 
 <script lang="ts" setup>
-import SearchIcon from "assets/pictures/svg/SvgComponents/SearchIcon.vue";
-import MarkDown from "~/assets/pictures/svg/SvgComponents/MarkDown.vue";
+import SearchIcon from "SvgComponents/SearchIcon.vue";
+import MarkDown from "SvgComponents/MarkDown.vue";
 
 const isCheckedOnSale = ref<boolean>(false); // чекбокс будет вынесен в отдельный компонент
 const isCheckedInStock = ref<boolean>(false); // чекбокс будет вынесен в отдельный компонент

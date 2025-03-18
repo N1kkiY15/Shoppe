@@ -36,9 +36,9 @@
 </template>
 
 <script setup>
-import ProfileIcon from "assets/pictures/svg/SvgComponents/ProfileIcon.vue";
-import SearchIcon from "assets/pictures/svg/SvgComponents/SearchIcon.vue";
-import ShoppingCartIcon from "assets/pictures/svg/SvgComponents/ShoppingCartIcon.vue";
+import ProfileIcon from "SvgComponents/ProfileIcon.vue";
+import SearchIcon from "SvgComponents/SearchIcon.vue";
+import ShoppingCartIcon from "SvgComponents/ShoppingCartIcon.vue";
 
 const route = useRoute();
 const showElement = computed(() => !route.meta?.isHomePage);
