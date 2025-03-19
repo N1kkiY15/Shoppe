@@ -65,7 +65,7 @@
 import FacebookIcon from "SvgComponents/FacebookIcon.vue";
 import InIcon from "SvgComponents/InIcon.vue";
 import InstagramIcon from "SvgComponents/InstagramIcon.vue";
-import TwitterIcon from 'SvgComponents/TwitterIcon.vue';
+import TwitterIcon from "SvgComponents/TwitterIcon.vue";
 import ArrowToRigth from "SvgComponents/ArrowToRight.vue";
 
 import useSaveToLocalStorage from "composables/saveToLocalStorage";
@@ -77,8 +77,7 @@ const { footerEmail, errors, validateFooterEmail } = useFormValidation();
 const type = "footer";
 const { saveFooterEmailToLocalStorage } = useSaveToLocalStorage(type);
 
-const { isModalOpen, status, modalClose, modalOpen} =
-  useModalWindow();
+const { isModalOpen, status, modalClose, modalOpen } = useModalWindow();
 
 const submitForm = () => {
   validateFooterEmail();

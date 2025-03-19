@@ -19,7 +19,7 @@ export default function useFetch(url: string) {
     rating: Rating;
   }
 
-const fetchByURL = async () => {
+  const fetchByURL = async () => {
     try {
       const response = await fetch(url);
       const data = await response.json();
@@ -37,6 +37,6 @@ const fetchByURL = async () => {
     errorLoading,
     products,
     fetchByURL,
-    cardsOnPage
+    cardsOnPage,
   };
 }

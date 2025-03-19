@@ -76,7 +76,6 @@ onUnmounted(() => {
     window.clearInterval(intervalId.value);
   }
 });
-
 </script>
 
 <style lang="scss" scoped>

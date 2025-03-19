@@ -1,12 +1,12 @@
-<template> 
-<div class="error">
+<template>
+  <div class="error">
     <h1>Что-то пошло не так...</h1>
     <h3>Проверьте подключение к интернету!</h3>
-</div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-.error  {
+.error {
   position: absolute;
   top: 0;
   left: 0;

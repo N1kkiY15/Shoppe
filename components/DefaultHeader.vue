@@ -1,17 +1,21 @@
 <template>
   <div :class="{ header__border: showElement }" class="header">
     <div class="header__container">
-      <NuxtLink to="/MainPage" class="header__logo">shoppe</NuxtLink>
+      <NuxtLink to="/MainPage" class="header__container-logo">shoppe</NuxtLink>
       <div class="header__info">
         <nav>
           <ul class="header__info-navigation">
             <li>
-              <NuxtLink to="/shop" :class="{ 'active-page-slider': route.path === '/shop' }"
+              <NuxtLink
+                to="/shop"
+                :class="{ 'active-page-slider': route.path === '/shop' }"
                 >Shop</NuxtLink
               >
             </li>
             <li>
-              <NuxtLink to="/blog" :class="{ 'active-page-slider': route.path === '/blog' }"
+              <NuxtLink
+                to="/blog"
+                :class="{ 'active-page-slider': route.path === '/blog' }"
                 >Blog</NuxtLink
               >
             </li>
@@ -45,7 +49,6 @@ const showElement = computed(() => !route.meta?.isHomePage);
 </script>
 
 <style scoped lang="scss">
-
 .active-page-slider {
   position: relative;
   padding-bottom: 28px;
@@ -73,7 +76,7 @@ const showElement = computed(() => !route.meta?.isHomePage);
   align-items: center;
   margin-bottom: 17px;
 
-  .header__logo {
+  &-logo {
     text-transform: uppercase;
     font-family: var(--font-logo), sans-serif;
     font-size: var(--font-size-logo);

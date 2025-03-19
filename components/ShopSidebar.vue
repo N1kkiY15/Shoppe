@@ -75,12 +75,6 @@ const submitSearch = () => {
 
 const emit = defineEmits(["submitSearch"]);
 
-const closeModal = () => {
-  emit("close"); 
-  messageTotal.value = ""; 
-};
-  
-
 const toggleOnSale = () => {
   isCheckedOnSale.value = !isCheckedOnSale.value;
 };

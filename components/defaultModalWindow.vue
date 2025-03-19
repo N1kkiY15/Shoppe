@@ -1,6 +1,10 @@
 <template>
   <transition name="slide">
-    <div v-if="isOpen" class="modal" :class="{'modal-error': props.status === 'falseMessage'}">
+    <div
+      v-if="isOpen"
+      class="modal"
+      :class="{ 'modal-error': props.status === 'falseMessage' }"
+    >
       <div class="modal__section">
         <div v-if="props.status !== 'falseMessage'">
           <SuccessIcon />
@@ -35,11 +39,12 @@ const messageTotal = ref<string>("");
 const message: statusMessage = {
   messageSent: "Your message has been sent successfully.",
   messageErrorSent: "Form has error",
-  emailSent: "Your email has been sent successfully! We will definitely contact you!",
+  emailSent:
+    "Your email has been sent successfully! We will definitely contact you!",
 };
 
 interface Props {
-  isOpen: Boolean,
+  isOpen: Boolean;
   status: string;
 }
 
@@ -48,8 +53,8 @@ const props = defineProps<Props>();
 const emit = defineEmits(["close"]);
 
 const closeModal = () => {
-  emit("close"); 
-  messageTotal.value = ""; 
+  emit("close");
+  messageTotal.value = "";
 };
 
 watch(
@@ -99,14 +104,13 @@ watch(
   }
 }
 
-.modal-error { 
+.modal-error {
   border-top: 2px solid var(--color-error);
 
-  &::after { 
+  &::after {
     background-color: var(--color-error);
   }
 }
-
 
 button {
   display: flex;

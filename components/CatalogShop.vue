@@ -63,10 +63,9 @@ const nextPage = () => {
 watch(
   () => currentPage.value,
   (newValue: number) => {
-    scrollToTop()
+    scrollToTop();
   }
 );
-
 </script>
 
 <style lang="scss" scoped>
@@ -76,6 +75,7 @@ watch(
   align-items: center;
   gap: 60px;
   margin-bottom: 250px;
+  
   &__list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

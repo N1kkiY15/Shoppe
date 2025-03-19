@@ -8,15 +8,15 @@
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .shop {
   display: flex;
   flex-direction: column;
-}
 
-.shop__item-list {
-  display: flex;
-  flex-direction: row;
-  gap: 35px;
+  &item-list {
+    display: flex;
+    flex-direction: row;
+    gap: 35px;
+  }
 }
 </style>

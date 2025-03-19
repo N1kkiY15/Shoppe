@@ -104,7 +104,7 @@ const saveToLocalStorage = () => {
   }
 };
 
-const { isModalOpen, status, modalClose, modalOpen} = useModalWindow();
+const { isModalOpen, status, modalClose, modalOpen } = useModalWindow();
 
 const submitForm = () => {
   if (validateForm()) {

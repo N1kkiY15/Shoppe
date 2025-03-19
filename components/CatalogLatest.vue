@@ -12,7 +12,6 @@
 </template>
 
 <script lang="ts" setup>
-
 const { isLoading, cardsOnPage, errorLoading, products, fetchByURL } = useFetch(
   "https://fakestoreapi.com/products"
 );
@@ -22,10 +21,11 @@ onMounted(async () => {
 });
 
 const displayedItems = computed(() => {
-  const filteredProducts = products.value.filter((product: { category: string; }) => product.category === 'electronics');
+  const filteredProducts = products.value.filter(
+    (product: { category: string }) => product.category === "electronics"
+  );
   return filteredProducts.slice(0, cardsOnPage);
 });
-
 </script>
 
 <style lang="scss" scoped>
