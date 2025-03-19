@@ -21,6 +21,7 @@
 </template>
 
 <script lang="ts" setup>
+import useScrollToTop from "composables/scrollToTop";
 const currentPage = ref<number>(1);
 
 const { isLoading, cardsOnPage, errorLoading, products, fetchByURL } = useFetch(
@@ -42,17 +43,30 @@ const displayedItems = computed(() => {
   return products.value.slice(startIndex, startIndex + cardsOnPage);
 });
 
+const { scrollToTop } = useScrollToTop();
+
 const changePage = (page: number) => {
   currentPage.value = page;
+  // scrollToTop()
 };
 
 const previousPage = () => {
   currentPage.value = currentPage.value - 1;
+  // scrollToTop()
 };
 
 const nextPage = () => {
   currentPage.value = currentPage.value + 1;
+  // scrollToTop()
 };
+
+watch(
+  () => currentPage.value,
+  (newValue: number) => {
+    scrollToTop()
+  }
+);
+
 </script>
 
 <style lang="scss" scoped>

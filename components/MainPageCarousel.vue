@@ -1,20 +1,20 @@
 <template>
-  <div class="cover">
-    <div v-if="errorLoading" class="cover__container">
+  <div class="carousel">
+    <div v-if="errorLoading" class="carousel__container">
       <div v-if="!isLoading">
         <div class="carousel-container">
-          <transition-group tag="div" class="carousel-inner" name="slide">
+          <transition-group tag="div" name="slide">
             <div
               v-if="products[currentPage - 1]"
               :key="products[currentPage - 1].id"
-              class="cover__container-card"
+              class="carousel__container-card"
             >
               <img
-                class="cover__container-photo"
+                class="carousel__container-photo"
                 src="assets/pictures/cover.png"
                 :alt="products[currentPage - 1].title"
               />
-              <div class="cover__container-description">
+              <div class="carousel__container-description">
                 <h1>{{ products[currentPage - 1].title }}</h1>
                 <h2>${{ products[currentPage - 1].price }}</h2>
               </div>
@@ -23,7 +23,7 @@
           </transition-group>
         </div>
 
-        <nav class="cover__navigation">
+        <nav class="carousel__navigation">
           <ul>
             <li
               v-for="page in pagesNumber"
@@ -80,7 +80,7 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.cover {
+.carousel {
   position: relative;
   z-index: 0;
   width: 100%;
@@ -149,15 +149,9 @@ onUnmounted(() => {
   }
 }
 
-.carousel-container {
-}
-
-.carousel-inner {
-}
-
 .slide-enter-active,
 .slide-leave-active {
-  transition: transform 1s ease-in-out;
+  transition: transform 1s ease;
 }
 
 .slide-enter-from {
