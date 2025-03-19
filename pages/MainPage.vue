@@ -1,6 +1,6 @@
 <template>
   <div>
-    <mainPageCover />
+    <MainPageCarousel />
     <ShopHeader />
     <CatalogLatest />
   </div>
