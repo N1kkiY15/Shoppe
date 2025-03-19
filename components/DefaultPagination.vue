@@ -3,7 +3,8 @@
     <button
       v-show="props.currentPage !== 1"
       @click="previousPage"
-      class="pagination__item pagination__item-navigation">
+      class="pagination__item pagination__item-navigation"
+    >
       <MarkRight />
     </button>
     <ul class="pagination">
@@ -12,14 +13,16 @@
         :key="pageIndex"
         class="pagination__item"
         @click="changingPage(pageIndex)"
-        :class="{ activePage: isActive(pageIndex) }">
+        :class="{ activePage: isActive(pageIndex) }"
+      >
         {{ pageIndex }}
       </li>
     </ul>
     <button
       v-show="props.totalPages !== props.currentPage"
       @click="nextPage"
-      class="pagination__item pagination__item-navigation">
+      class="pagination__item pagination__item-navigation"
+    >
       <MarkRight />
     </button>
   </nav>
@@ -73,7 +76,7 @@ const isActive = (page: number) => page === props.currentPage;
     cursor: pointer;
   }
 
-  &__item-navigation { 
+  &__item-navigation {
     background-color: transparent;
   }
 }

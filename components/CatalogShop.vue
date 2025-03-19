@@ -1,16 +1,16 @@
 <template>
-  <div class="items">
-    <div class="items__list">
+  <div class="catalog-shop">
+    <div class="catalog-shop__list">
       <ItemCard
         v-for="cards in displayedItems"
         :key="cards.id"
         :title="cards.title"
         :price="cards.price"
         :image="cards.image"
+        size="medium"
       />
     </div>
     <DefaultPagination
-      v-if="totalPages !== undefined && showElement"
       :totalPages="totalPages"
       :currentPage="currentPage"
       @changePage="changePage"
@@ -21,12 +21,9 @@
 </template>
 
 <script lang="ts" setup>
-const route = useRoute();
-const showElement = computed(() => !route.meta?.isHomePage);
-const cardsOnPage: number = 6;
 const currentPage = ref<number>(1);
 
-const { isLoading, errorLoading, products, fetchByURL } = useFetch(
+const { isLoading, cardsOnPage, errorLoading, products, fetchByURL } = useFetch(
   "https://fakestoreapi.com/products"
 );
 
@@ -59,21 +56,17 @@ const nextPage = () => {
 </script>
 
 <style lang="scss" scoped>
-.items {
+.catalog-shop {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 39px;
+  gap: 60px;
   margin-bottom: 250px;
   &__list {
-    // display: flex;
-    // flex-direction: row;
-    // flex-wrap: wrap;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    width: 100%;
     row-gap: 50px;
-    column-gap: 4%;
+    column-gap: 24px;
   }
 }
 </style>

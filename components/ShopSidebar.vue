@@ -1,8 +1,8 @@
 <template>
   <div class="sidebar">
-    <form class="sidebar__form">
-      <input type="text" placeholder="Search..." class="text-input" />
-      <button class="sidebar__form-button">
+    <form  @submit.prevent="submitSearch" class="sidebar__form">
+      <input type="text" v-model="item" placeholder="Search..." />
+      <button type="submit" class="sidebar__form-button">
         <search-icon />
       </button>
     </form>
@@ -15,7 +15,7 @@
           <option value="second">Второй элемент</option>
           <option value="third">Третий элемент</option>
         </select>
-        <div class="select-mark"> 
+        <div class="select-mark">
           <MarkDown />
         </div>
       </div>
@@ -28,16 +28,7 @@
       </select>
     </div>
 
-    <input
-      type="range"
-      id="priceRange"
-      name="priceRange"
-      min="0"
-      max="5000"
-      step="100"
-      value="2500"
-      class="default-input"
-    />
+    <InputSlider />
 
     <div class="sidebar__checkbox">
       <label for="on-sale" class="toggle-label">On sale</label>
@@ -74,6 +65,22 @@ import MarkDown from "SvgComponents/MarkDown.vue";
 const isCheckedOnSale = ref<boolean>(false); // чекбокс будет вынесен в отдельный компонент
 const isCheckedInStock = ref<boolean>(false); // чекбокс будет вынесен в отдельный компонент
 
+const item = ref<string>('')
+
+const submitSearch = () => {
+  const searchItem = item.value;
+  console.log(searchItem);
+  emit("submitSearch", searchItem); // pinia maybe? 
+}
+
+const emit = defineEmits(["submitSearch"]);
+
+const closeModal = () => {
+  emit("close"); 
+  messageTotal.value = ""; 
+};
+  
+
 const toggleOnSale = () => {
   isCheckedOnSale.value = !isCheckedOnSale.value;
 };
@@ -84,13 +91,12 @@ const toggleInStoke = () => {
 </script>
 
 <style lang="scss" scoped>
-
-.select { 
+.select {
   position: relative;
   width: 100%;
 }
 
-.select-mark { 
+.select-mark {
   position: absolute;
   right: 12px;
   bottom: 12px;
@@ -100,7 +106,7 @@ const toggleInStoke = () => {
   display: flex;
   flex-direction: column;
   gap: 39px;
-  max-width: 261px;
+  max-width: 260px;
   width: 100%;
 
   &__checkbox {
@@ -111,7 +117,7 @@ const toggleInStoke = () => {
   }
 }
 
-.sidebar__select { 
+.sidebar__select {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -120,12 +126,14 @@ const toggleInStoke = () => {
 
 .sidebar__form {
   position: relative;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-decorative);
 }
 
 .sidebar__form-button {
   position: absolute;
   right: 0;
-  bottom: 10px;
+  bottom: 5px;
   background-color: transparent;
 }
 

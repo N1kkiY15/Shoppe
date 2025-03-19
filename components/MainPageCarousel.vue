@@ -5,18 +5,18 @@
         <div class="carousel-container">
           <transition-group tag="div" class="carousel-inner" name="slide">
             <div
-              v-for="cardIndex in currentPage"
-              :key="cardIndex"
-              class="cover__container-card">
-              
+              v-if="products[currentPage - 1]"
+              :key="products[currentPage - 1].id"
+              class="cover__container-card"
+            >
               <img
                 class="cover__container-photo"
                 src="assets/pictures/cover.png"
-                :alt="products[cardIndex - 1]?.title"
+                :alt="products[currentPage - 1].title"
               />
               <div class="cover__container-description">
-                <h1>{{ products[cardIndex - 1]?.title }}</h1>
-                <h2>{{ products[cardIndex - 1]?.price }}</h2>
+                <h1>{{ products[currentPage - 1].title }}</h1>
+                <h2>${{ products[currentPage - 1].price }}</h2>
               </div>
               <ButtonComp variant="special" size="xl">View product</ButtonComp>
             </div>
@@ -43,8 +43,13 @@
 <script lang="ts" setup>
 import ErrorMessage from "./ErrorMessage.vue";
 
-const pagesNumber: number = 5;
-const currentPage = ref<number>(1);
+onMounted(async () => {
+  await fetchByURL();
+  intervalId.value = window.setInterval(autoChangePage, 5000);
+});
+
+const pagesNumber = 5;
+const currentPage = ref(1);
 
 const isActive = (page: number): boolean => page === currentPage.value;
 
@@ -60,17 +65,11 @@ const autoChangePage = () => {
   }
 };
 
-
-const { isLoading, errorLoading, products, fetchByURL  } = useFetch(
-  'https://fakestoreapi.com/products'
+const { isLoading, errorLoading, products, fetchByURL } = useFetch(
+  "https://fakestoreapi.com/products"
 );
 
 const intervalId = ref<number | null>(null);
-
-onMounted(async () => {
-  await fetchByURL();
-  intervalId.value = window.setInterval(autoChangePage, 3000);
-});
 
 onUnmounted(() => {
   if (intervalId.value) {
@@ -87,8 +86,6 @@ onUnmounted(() => {
   width: 100%;
   height: 646px;
   border-radius: 16px;
-  background-color: var(--color-text); // ispravit'
-  padding: 226px 857px 213px 39px;
   color: var(--color-contrast);
   margin-bottom: 64px;
 
@@ -96,10 +93,13 @@ onUnmounted(() => {
     &-card {
       display: flex;
       flex-direction: column;
+      width: 100%;
+      height: 100%;
       gap: 48px;
+      position: absolute;
+      padding: 226px 857px 213px 39px;
       z-index: 2;
-    //   transition: all 1s ease-in-out;
-      transition: transform 0.3s ease-in-out;
+      margin-right: 200px;
     }
 
     &-photo {
@@ -123,6 +123,7 @@ onUnmounted(() => {
     bottom: 26px;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 2;
 
     & ul {
       display: flex;
@@ -135,6 +136,7 @@ onUnmounted(() => {
       height: 9px;
       background-color: var(--color-contrast);
       border-radius: 50%;
+      cursor: pointer;
     }
 
     & .activePage {
@@ -147,28 +149,22 @@ onUnmounted(() => {
   }
 }
 
-// .carousel-container { 
-// }
-
-.carousel-inner {
-  display: flex;
-  transition: transform 0.3s ease-in-out;
+.carousel-container {
 }
 
-// .slide-enter-active,
-// .slide-leave-active {
-//     transition: all 0.5s ease;
-// }
+.carousel-inner {
+}
 
-// .slide-enter-from {
-//   opacity: 0;
-//   transform: translateX(100%);
-// }
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 1s ease-in-out;
+}
 
-// .slide-leave-to {
-//   opacity: 0;
-//   transform: translateX(-100%);
-// }
+.slide-enter-from {
+  transform: translateX(calc(100% + 200px));
+}
 
-
+.slide-leave-to {
+  transform: translateX(calc(-100% - 200px));
+}
 </style>

@@ -2,7 +2,7 @@
   <div>
     <mainPageCover />
     <ShopHeader />
-    <ItemsList />
+    <CatalogLatest />
   </div>
 </template>
 

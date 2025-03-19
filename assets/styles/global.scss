@@ -78,7 +78,7 @@ input, select {
   appearance: none;         
 }
 
-.default-input { 
+.range-input-slider { 
   width: 100%;
   height: 2px;
   background: var(--color-decorative); 
@@ -97,4 +97,8 @@ button {
   left: 0;
   font-size: 8px;
   color: var(--color-error);
+}
+
+.span-accent {
+   color: var(--color-accent)
 }

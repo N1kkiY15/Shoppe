@@ -2,6 +2,7 @@ export default function useFetch(url: string) {
   const isLoading = ref<boolean>(true);
   const errorLoading = ref<boolean>(true);
   const products = ref<Array<Products>>([]);
+  const cardsOnPage: number = 6;
 
   interface Rating {
     rate: number;
@@ -36,5 +37,6 @@ const fetchByURL = async () => {
     errorLoading,
     products,
     fetchByURL,
+    cardsOnPage
   };
 }

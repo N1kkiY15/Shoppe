@@ -6,19 +6,19 @@
         <nav>
           <ul class="header__info-navigation">
             <li>
-              <NuxtLink to="/shop" :class="{ active: route.path === '/shop' }"
+              <NuxtLink to="/shop" :class="{ 'active-page-slider': route.path === '/shop' }"
                 >Shop</NuxtLink
               >
             </li>
             <li>
-              <NuxtLink to="/blog" :class="{ active: route.path === '/blog' }"
+              <NuxtLink to="/blog" :class="{ 'active-page-slider': route.path === '/blog' }"
                 >Blog</NuxtLink
               >
             </li>
             <li>
               <NuxtLink
                 to="/ourstory"
-                :class="{ active: route.path === '/ourstory' }"
+                :class="{ 'active-page-slider': route.path === '/ourstory' }"
                 >Our story</NuxtLink
               >
             </li>
@@ -45,7 +45,8 @@ const showElement = computed(() => !route.meta?.isHomePage);
 </script>
 
 <style scoped lang="scss">
-.active {
+
+.active-page-slider {
   position: relative;
   padding-bottom: 28px;
   border-bottom: 2px solid #000;
@@ -56,13 +57,12 @@ const showElement = computed(() => !route.meta?.isHomePage);
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 17px;
 }
 
 .header__border::after {
   content: "";
   border-bottom: 1px solid var(--color-decorative);
-  margin-bottom: 97px;
+  margin-bottom: 81px;
 }
 
 .header__container {
@@ -71,6 +71,7 @@ const showElement = computed(() => !route.meta?.isHomePage);
   gap: 48px;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 17px;
 
   .header__logo {
     text-transform: uppercase;

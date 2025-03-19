@@ -3,7 +3,7 @@
     <ShopHeader />
     <div class="shop__item-list">
       <ShopSidebar />
-      <ItemsList />
+      <CatalogShop />
     </div>
   </div>
 </template>

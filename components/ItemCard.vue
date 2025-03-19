@@ -1,5 +1,11 @@
 <template>
-  <div class="item-card">
+  <div
+    class="item-card"
+    :class="{
+      'card-size-medium': props.size === 'medium',
+      'card-size-big': props.size === 'big',
+    }"
+  >
     <img src="assets/pictures/Img 01.png" class="item-card__image" />
     <div class="item-card__description">
       <h3>{{ props.title }}</h3>
@@ -11,10 +17,13 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
 
+type cardSize = "medium" | "big";
+
 interface CardInfo {
   title: string;
   image: string;
   price: number;
+  size: cardSize;
 }
 
 const props = defineProps<CardInfo>();
@@ -26,7 +35,6 @@ const props = defineProps<CardInfo>();
   flex-direction: column;
   gap: 24px;
   width: 100%;
-  max-width: 380px;
 
   &__image {
     background-color: aqua;
@@ -40,5 +48,13 @@ const props = defineProps<CardInfo>();
     height: 100%;
     gap: 16px;
   }
+}
+
+.card-size-medium {
+  max-width: 300px;
+}
+
+.card-size-big {
+  max-width: 380px;
 }
 </style>
