@@ -1,7 +1,7 @@
 <template>
   <div class="shop">
     <ShopHeader />
-    <div class="shop__item-list">
+    <div class="shop__items">
       <ShopSidebar />
       <CatalogShop />
     </div>
@@ -13,7 +13,7 @@
   display: flex;
   flex-direction: column;
 
-  &item-list {
+  &__items{
     display: flex;
     flex-direction: row;
     gap: 35px;

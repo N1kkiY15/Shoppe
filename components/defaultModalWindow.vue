@@ -24,7 +24,7 @@
 <script lang="ts" setup>
 import ExitButton from "SvgComponents/ExitButton.vue";
 import SuccessIcon from "SvgComponents/SuccessIcon.vue";
-import ErrorButton from "~/assets/pictures/svg/SvgComponents/errorButton.vue";
+import ErrorButton from "SvgComponents/errorButton.vue";
 
 // type result = "trueMessage" | "falseMessage" | "trueEmail";
 
@@ -110,14 +110,6 @@ watch(
   &::after {
     background-color: var(--color-error);
   }
-}
-
-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
 }
 
 .slide-enter-active,

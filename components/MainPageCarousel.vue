@@ -5,18 +5,18 @@
         <div class="carousel-container">
           <transition-group tag="div" name="slide">
             <div
-              v-if="products[currentPage - 1]"
-              :key="products[currentPage - 1].id"
+              v-if="currentProduct"
+              :key="currentProduct.id"
               class="carousel__container-card"
             >
               <img
                 class="carousel__container-photo"
                 src="assets/pictures/cover.png"
-                :alt="products[currentPage - 1].title"
+                :alt="currentProduct.title"
               />
               <div class="carousel__container-description">
-                <h1>{{ products[currentPage - 1].title }}</h1>
-                <h2>${{ products[currentPage - 1].price }}</h2>
+                <h1>{{ currentProduct.title }}</h1>
+                <h2>${{ currentProduct.price }}</h2>
               </div>
               <ButtonComp variant="special" size="xl">View product</ButtonComp>
             </div>
@@ -68,6 +68,10 @@ const autoChangePage = () => {
 const { isLoading, errorLoading, products, fetchByURL } = useFetch(
   "https://fakestoreapi.com/products"
 );
+
+const currentProduct = computed(() => {
+  return products.value[currentPage.value - 1];
+});
 
 const intervalId = ref<number | null>(null);
 

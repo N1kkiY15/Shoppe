@@ -75,7 +75,7 @@ watch(
   align-items: center;
   gap: 60px;
   margin-bottom: 250px;
-  
+
   &__list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

@@ -14,6 +14,7 @@
 const route = useRoute();
 const showElement = computed(() => !route.meta?.isHomePage);
 </script>
+
 <style lang="scss" scoped>
 .items__header {
   display: flex;

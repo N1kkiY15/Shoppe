@@ -19,7 +19,7 @@
         src="assets/pictures/OurStory/Img_01.webp"
         class="about__card-image"
       />
-      <p>
+      <p class="about__card-text">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
         placerat, augue a volutpat hendrerit, sapien tortor faucibus augue, a
         maximus elit ex vitae libero. Sed quis mauris eget arcu facilisis
@@ -36,7 +36,7 @@
         src="assets/pictures/OurStory/Img_02.webp"
         class="about__card-image"
       />
-      <p>
+      <p class="about__card-text">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
         placerat, augue a volutpat hendrerit, sapien tortor faucibus augue, a
         maximus elit ex vitae libero. Sed quis mauris eget arcu facilisis
@@ -55,53 +55,53 @@
   margin: auto;
   gap: var(--spacing-paragraph);
   margin-bottom: 250px;
-}
 
-.about__headings {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-}
+  &__headings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
 
-.about__description {
-  display: flex;
-  flex-direction: column;
-  gap: 46px;
-}
+  &__description {
+    display: flex;
+    flex-direction: column;
+    gap: 46px;
+  }
 
-.about__card {
-  display: flex;
-  flex-direction: column;
-}
+  &__card {
+    display: flex;
+    flex-direction: column;
 
-.about__card p {
-  margin-bottom: 16px;
-}
+    &-text {
+      margin-bottom: 16px;
+    }
 
-.about__card ul {
-  margin-left: 15px;
-  list-style-type: disc;
-  line-height: var(--line-height-h5);
-}
+    ul {
+      margin-left: 15px;
+      list-style-type: disc;
+      line-height: var(--line-height-h5);
+    }
 
-.about__card li {
-  margin-left: 15px;
-}
+    li {
+      margin-left: 15px;
+    }
 
-.about__card-heading {
-  margin-bottom: 23px;
-}
+    &-heading {
+      margin-bottom: 23px;
+    }
 
-.about__card-image {
-  max-height: 300px;
-  max-width: 670px;
-  margin-bottom: 48px;
-}
+    &-image {
+      max-height: 300px;
+      max-width: 670px;
+      margin-bottom: 48px;
+    }
+  }
 
-.about__text {
-  font-size: var(--font-size-text-large);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-h5);
+  &__text {
+    font-size: var(--font-size-text-large);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-h5);
+  }
 }
 </style>

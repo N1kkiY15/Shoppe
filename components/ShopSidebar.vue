@@ -29,32 +29,8 @@
     </div>
 
     <InputSlider />
-
-    <div class="sidebar__checkbox">
-      <label for="on-sale" class="toggle-label">On sale</label>
-      <div class="toggle-switch" @click="toggleOnSale">
-        <input
-          type="checkbox"
-          class="toggle-input"
-          v-model="isCheckedOnSale"
-          id="on-sale"
-        />
-        <span class="slider"></span>
-      </div>
-    </div>
-
-    <div class="sidebar__checkbox">
-      <label for="in-stock">In stock</label>
-      <div class="toggle-switch" @click="toggleInStoke">
-        <input
-          type="checkbox"
-          class="toggle-input"
-          v-model="isCheckedInStock"
-          id="in-stock"
-        />
-        <span class="slider"></span>
-      </div>
-    </div>
+    <CheckboxSlider v-model="isCheckedOnSale"/>
+    <CheckboxSlider v-model="isCheckedInStock"/>
   </div>
 </template>
 
@@ -62,10 +38,12 @@
 import SearchIcon from "SvgComponents/SearchIcon.vue";
 import MarkDown from "SvgComponents/MarkDown.vue";
 
-const isCheckedOnSale = ref<boolean>(false); // чекбокс будет вынесен в отдельный компонент
-const isCheckedInStock = ref<boolean>(false); // чекбокс будет вынесен в отдельный компонент
+const isCheckedOnSale = ref<boolean>(false); 
+const isCheckedInStock = ref<boolean>(false); 
 
 const item = ref<string>('')
+
+//////////////////////////////////////////////////////////
 
 const submitSearch = () => {
   const searchItem = item.value;
@@ -75,13 +53,8 @@ const submitSearch = () => {
 
 const emit = defineEmits(["submitSearch"]);
 
-const toggleOnSale = () => {
-  isCheckedOnSale.value = !isCheckedOnSale.value;
-};
+//////////////////////////////////////////////////////////
 
-const toggleInStoke = () => {
-  isCheckedInStock.value = !isCheckedInStock.value;
-};
 </script>
 
 <style lang="scss" scoped>
