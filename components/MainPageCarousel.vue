@@ -11,7 +11,7 @@
             >
               <img
                 class="carousel__container-photo"
-                src="assets/pictures/cover.png"
+                src="pictures/cover.png"
                 :alt="currentProduct.title"
               />
               <div class="carousel__container-description">

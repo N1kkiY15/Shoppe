@@ -14,6 +14,7 @@ export default defineNuxtConfig({
         'images': path.resolve(__dirname, './assets/images'),
         'fonts': path.resolve(__dirname, './assets/fonts'),
         'style': path.resolve(__dirname, './assets/styles'),
+        'pictures': path.resolve(__dirname, './assets/pictures'),
         'svg': path.resolve(__dirname, './assets/pictures/svg'),
         'SvgComponents': path.resolve(__dirname, './assets/pictures/svg/SvgComponents'),
         'composables': path.resolve(__dirname, './composables'),

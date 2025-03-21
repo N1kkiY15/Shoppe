@@ -87,8 +87,10 @@ watch(
   &__list {
     display: grid;
     grid-template-columns: repeat(3, minmax(300px, 1fr));
-    row-gap: 50px;
+    grid-template-rows: min-content;
+    row-gap: 70px;
     column-gap: 24px;
   }
 }
+
 </style>

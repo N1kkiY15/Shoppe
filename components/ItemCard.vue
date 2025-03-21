@@ -1,6 +1,6 @@
 <template>
   <div class="item-card">
-    <img src="assets/pictures/Img 01.png" class="item-card__image" />
+    <img src="pictures/Img 01.png" class="item-card__image" />
     <div class="item-card__description">
       <h3 class="item-card__description-title">{{ props.title }}</h3>
       <span class="span-accent">$ {{ props.price }}</span>

@@ -13,15 +13,15 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  width: 100%;
-  max-width: 380px;
+  height: 100%;
   background: #e0e0e0;
   border-radius: 8px;
   overflow: hidden;
 
   &__image {
     width: 100%;
-    height: 380px;
+    min-height: 300px;
+    height: 100%;
     background: #c0c0c0;
     border-radius: 8px;
     animation: shimmer 1.5s ease-in-out infinite;
@@ -41,7 +41,7 @@
 
     &-text {
       width: 100%;
-      height: 50px;
+      height: 52px;
     }
 
     &-price {
