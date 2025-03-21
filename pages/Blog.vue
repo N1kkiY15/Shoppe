@@ -1,5 +1,5 @@
 <template>
-    <p>SIUUU</p>
+    <p>bu</p>
 </template>
 
 <script lang="ts" setup>

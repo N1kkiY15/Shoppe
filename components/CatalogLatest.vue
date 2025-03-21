@@ -1,20 +1,31 @@
 <template>
-  <div class="catalog-latest">
-    <ItemCard
-      v-for="cards in displayedItems"
-      :key="cards.id"
-      :title="cards.title"
-      :price="cards.price"
-      :image="cards.image"
-      size="big"
-    />
+  <div>
+
+    <div v-if="isLoading" class="catalog-latest">
+      <LoadingSkeletonCard v-for="cards in cardNumber" :key="cards" />
+    </div>
+
+    <div v-else class="catalog-latest">
+      <ItemCard
+        v-for="cards in displayedItems"
+        :key="cards.id"
+        :title="cards.title"
+        :price="cards.price"
+        :image="cards.image"
+      />
+    </div>
+
   </div>
 </template>
 
 <script lang="ts" setup>
+
 const { isLoading, cardsOnPage, errorLoading, products, fetchByURL } = useFetch(
   "https://fakestoreapi.com/products"
 );
+
+let cardNumber: number = 6;
+
 
 onMounted(async () => {
   await fetchByURL();

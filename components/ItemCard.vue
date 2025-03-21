@@ -1,15 +1,9 @@
 <template>
-  <div
-    class="item-card"
-    :class="{
-      'card-size-medium': props.size === 'medium',
-      'card-size-big': props.size === 'big',
-    }"
-  >
+  <div class="item-card">
     <img src="assets/pictures/Img 01.png" class="item-card__image" />
     <div class="item-card__description">
-      <h3>{{ props.title }}</h3>
-      <span>$ {{ props.price }}</span>
+      <h3 class="item-card__description-title">{{ props.title }}</h3>
+      <span class="span-accent">$ {{ props.price }}</span>
     </div>
   </div>
 </template>
@@ -17,13 +11,10 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
 
-type cardSize = "medium" | "big";
-
 interface CardInfo {
   title: string;
   image: string;
   price: number;
-  size: cardSize;
 }
 
 const props = defineProps<CardInfo>();
@@ -34,11 +25,10 @@ const props = defineProps<CardInfo>();
   display: flex;
   flex-direction: column;
   gap: 24px;
-  width: 100%;
 
   &__image {
-    background-color: aqua;
     max-height: 380px;
+    max-width: 380px;
   }
 
   &__description {
@@ -47,14 +37,14 @@ const props = defineProps<CardInfo>();
     justify-content: space-between;
     height: 100%;
     gap: 16px;
+
+    &-title {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
-}
-
-.card-size-medium {
-  max-width: 300px;
-}
-
-.card-size-big {
-  max-width: 380px;
 }
 </style>

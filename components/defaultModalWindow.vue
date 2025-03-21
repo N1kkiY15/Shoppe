@@ -14,7 +14,7 @@
         </div>
         <p>{{ messageTotal }}</p>
       </div>
-      <button @click="closeModal">
+      <button @click="closeModal" class="modal__section-button">
         <ExitButton />
       </button>
     </div>
@@ -101,6 +101,10 @@ watch(
     display: flex;
     flex-direction: row;
     gap: 16px;
+
+    &-button {
+      background-color: transparent;
+    }
   }
 }
 

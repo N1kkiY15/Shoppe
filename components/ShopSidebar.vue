@@ -27,7 +27,7 @@
         <option value="third">Третий элемент</option>
       </select>
     </div>
-
+    
     <InputSlider />
     <CheckboxSlider v-model="isCheckedOnSale"/>
     <CheckboxSlider v-model="isCheckedInStock"/>
@@ -73,8 +73,6 @@ const emit = defineEmits(["submitSearch"]);
   display: flex;
   flex-direction: column;
   gap: 39px;
-  max-width: 260px;
-  width: 100%;
 
   &__checkbox {
     display: flex;

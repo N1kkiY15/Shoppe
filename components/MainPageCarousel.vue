@@ -3,7 +3,7 @@
     <div v-if="errorLoading" class="carousel__container">
       <div v-if="!isLoading">
         <div class="carousel-container">
-          <transition-group tag="div" name="slide">
+          <transition tag="div" name="slide">
             <div
               v-if="currentProduct"
               :key="currentProduct.id"
@@ -20,7 +20,7 @@
               </div>
               <ButtonComp variant="special" size="xl">View product</ButtonComp>
             </div>
-          </transition-group>
+          </transition>
         </div>
 
         <nav class="carousel__navigation">

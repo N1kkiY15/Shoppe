@@ -1,15 +1,20 @@
 <template>
   <div class="catalog-shop">
-    <div class="catalog-shop__list">
+
+    <div v-if="!isLoading" class="catalog-shop__list">
       <ItemCard
         v-for="cards in displayedItems"
         :key="cards.id"
         :title="cards.title"
         :price="cards.price"
         :image="cards.image"
-        size="medium"
       />
     </div>
+
+    <div v-else class="catalog-shop__list">
+      <LoadingSkeletonCard v-for="cards in cardNumber" :key="cards" />
+    </div>
+
     <DefaultPagination
       :totalPages="totalPages"
       :currentPage="currentPage"
@@ -21,8 +26,11 @@
 </template>
 
 <script lang="ts" setup>
+
 import useScrollToTop from "composables/scrollToTop";
+
 const currentPage = ref<number>(1);
+let cardNumber: number = 6;
 
 const { isLoading, cardsOnPage, errorLoading, products, fetchByURL } = useFetch(
   "https://fakestoreapi.com/products"
@@ -78,7 +86,7 @@ watch(
 
   &__list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(300px, 1fr));
     row-gap: 50px;
     column-gap: 24px;
   }
