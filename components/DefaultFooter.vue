@@ -1,16 +1,8 @@
 <template>
   <footer class="footer">
-    
     <div class="footer__section">
       <FooterLinks class="footer__section-links" />
-      <p>
-        <span class="text__accent">© 2021 Shelly.</span> Terms of
-        <NuxtLink to="/privacypolice" class="text__accent">use</NuxtLink> and
-        privacy policy.
-      </p>
-    </div>
 
-    <div class="footer__section footer__section--right">
       <form
         class="footer__section-form footer-form"
         @submit.prevent="submitForm"
@@ -21,13 +13,29 @@
           placeholder="Give an email, get the newsletter."
           @blur="validateFooterEmail"
         />
+
         <button class="footer-form__button" type="submit">
           <ArrowToRigth />
         </button>
+
         <p v-if="errors.email" class="error-message">
           {{ errors.email }}
         </p>
+
+        <div class="footer-form__checkbox">
+          <input type="checkbox" class="footer-form__checkbox-item" />
+          <p>i agree to the website’s terms and conditions</p>
+        </div>
       </form>
+    </div>
+
+    <div class="footer__section">
+      <p class="footer__section-text">
+        <span class="text__accent">© 2021 Shelly.</span> Terms of
+        <NuxtLink to="/privacypolice" class="text__accent">use</NuxtLink> and
+        privacy policy.
+      </p>
+
       <FooterSocials class="footer__section-socials" />
     </div>
 
@@ -36,7 +44,6 @@
       :status="status"
       @close="modalClose"
     />
-
   </footer>
 </template>
 
@@ -71,41 +78,88 @@ const submitForm = () => {
 
 <style scoped lang="scss">
 .footer {
+  display: flex;
+  flex-direction: column;
+  gap: 57px;
   padding: 52px 0 10px;
   border-top: 1px solid var(--color-decorative);
   color: var(--color-text);
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 
-  .footer__section {
+  &__section {
     display: flex;
-    flex-direction: column;
-    gap: 48px;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 50px;
 
-    &--right {
-      align-items: end;
-    }
-
-    .footer__section-links {
+    &-links {
       gap: 40px;
     }
 
-    .footer__section-socials {
-      gap: 30px;
+    &-socials {
     }
+
+    &-text {
+      font-size: clamp(0.75rem, 0.679rem + 0.357vw, 1rem);
+    }
+  }
+
+  &-form {
+    position: relative;
+    width: 100%;
+    max-width: 396px;
   }
 }
 
-.footer-form {
-  position: relative;
+.footer-form__button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: transparent;
+}
 
-  &__button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background-color: transparent;
+.footer-form__checkbox {
+  display: none;
+  flex-direction: row;
+  gap: 3px;
+  font-family: DM Sans;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  color: black;
+  margin-top: 15px;
+
+  &-item {
+    width: 13px;
+    height: 13px;
+    border: 1px solid #000;
+    border-radius: 2px;
+    align-self: center;
+  }
+}
+
+@media (width <= 376px) {
+  .footer {
+    border-top: none;
+    gap: 40px;
+    padding: 0;
+
+    &__section {
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 40px;
+      font-size: 12px;
+
+      &-links {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  }
+
+  .footer-form__checkbox {
+    display: flex;
   }
 }
 </style>

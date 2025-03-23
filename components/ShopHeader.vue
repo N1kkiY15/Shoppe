@@ -1,6 +1,6 @@
 <template>
   <div class="items__header">
-    <h1>Shop The Latest</h1>
+    <h1 class="items__header-heading">Shop The Latest</h1>
     <NuxtLink
       v-if="!showElement"
       to="/shop"
@@ -23,9 +23,12 @@ const showElement = computed(() => !route.meta?.isHomePage);
   justify-content: space-between;
   margin-bottom: 39px;
 
+  &-heading {
+    font-size: clamp(1rem, 0.696rem + 1.518vw, 2.063rem);
+  }
+
   &-span {
-    font-size: var(--font-size-h4);
-    font-weight: var(--font-weight-medium);
+    font-size: clamp(0.75rem, 0.607rem + 0.714vw, 1.25rem);
   }
 }
 </style>

@@ -3,7 +3,9 @@
     <img src="pictures/Img 01.png" class="item-card__image" />
     <div class="item-card__description">
       <h3 class="item-card__description-title">{{ props.title }}</h3>
-      <span class="span-accent">$ {{ props.price }}</span>
+      <span class="item-card__description-price span-accent"
+        >$ {{ props.price }}</span
+      >
     </div>
   </div>
 </template>
@@ -44,6 +46,11 @@ const props = defineProps<CardInfo>();
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
+      font-size: clamp(0.875rem, 0.768rem + 0.536vw, 1.25rem);
+    }
+
+    &-price {
+      font-size: clamp(0.75rem, 0.607rem + 0.714vw, 1.25rem);
     }
   }
 }

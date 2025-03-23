@@ -9,6 +9,7 @@
     </div>
     <form @submit.prevent="submitForm" class="contacts__form">
       <div class="contacts__form-inputs">
+
         <div class="input-error">
           <DefaultTextInput
             v-model="form.firstName"
@@ -162,6 +163,27 @@ const submitForm = () => {
       row-gap: 94px;
       width: 100%;
     }
+  }
+}
+
+
+@media (width <= 376px) { 
+
+  .contacts { 
+    margin-bottom: 96px;
+  }
+  
+  .contacts__form-inputs { 
+    grid-template-columns: 1fr;
+    row-gap: 47px;
+  }
+
+  h3 { 
+    display: none;
+  }
+
+  .input-error { 
+    grid-column: span 2;
   }
 }
 </style>

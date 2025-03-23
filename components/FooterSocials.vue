@@ -1,5 +1,7 @@
 <template>
   <ul class="footer-socials">
+    <span class="footer-socials__text">Follow us</span>
+    <div class="footer-socials__line"></div>
     <li>
       <a href="https://vk.com/nderevyanko15" target="blank"><InIcon /></a>
     </li>
@@ -28,5 +30,39 @@ import TwitterIcon from "SvgComponents/TwitterIcon.vue";
 .footer-socials {
   display: flex;
   flex-direction: row;
+  gap: 30px;
+
+  &__text  {
+    display: none;
+  }
+
+  &__line  {
+    display: none;
+    height: 11px;
+    width: 47px;
+    border-bottom: 1px solid black;
+  }
 }
+
+
+@media (width <= 376px) { 
+
+  .footer-socials { 
+    gap: 16px;
+
+    &__text  {
+    display: block;
+  }
+
+  &__line  {
+    display: block;
+  }
+  }
+
+  li:nth-child(3) {
+      display: none;
+    }
+
+}
+
 </style>

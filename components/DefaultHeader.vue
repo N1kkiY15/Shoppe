@@ -1,7 +1,7 @@
 <template>
-  <div :class="{ header__border: showElement }" class="header">
+  <div class="header" :class="{ header__border: showElement }">
     <div class="header__container">
-      <NuxtLink to="/MainPage" class="header__container-logo">shoppe</NuxtLink>
+      <NuxtLink to="/MainPage" class="header__logo">shoppe</NuxtLink>
       <div class="header__info">
         <nav>
           <ul class="header__info-navigation">
@@ -28,13 +28,14 @@
             </li>
           </ul>
         </nav>
-        <span class="header__line"></span>
+        <span class="header__info-line"></span>
         <div class="header__info-links">
           <SearchIcon />
           <ShoppingCartIcon />
           <ProfileIcon />
         </div>
       </div>
+      <!-- здесь контейнер с инфой для мобилки?  -->
     </div>
   </div>
 </template>
@@ -49,37 +50,25 @@ const showElement = computed(() => !route.meta?.isHomePage);
 </script>
 
 <style scoped lang="scss">
-.active-page-slider {
-  position: relative;
-  padding-bottom: 28px;
-  border-bottom: 2px solid #000;
-  z-index: 2;
-}
-
 .header {
   position: relative;
   display: flex;
   flex-direction: column;
-}
 
-.header__border::after {
-  content: "";
-  border-bottom: 1px solid var(--color-decorative);
-  margin-bottom: 81px;
-}
+  &__container {
+    display: flex;
+    flex-direction: row;
+    gap: 48px;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 16px;
+  }
 
-.header__container {
-  display: flex;
-  flex-direction: row;
-  gap: 48px;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 17px;
-
-  &-logo {
+  &__logo {
     text-transform: uppercase;
-    font-family: var(--font-logo), sans-serif;
-    font-size: var(--font-size-logo);
+    font-family: var(--font-logo);
+    font-size: clamp(1.563rem, 1.384rem + 0.893vw, 2.188rem);
     font-weight: var(--font-weight-regular);
     color: var(--color-main);
 
@@ -91,6 +80,7 @@ const showElement = computed(() => !route.meta?.isHomePage);
   .header__info {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 48px;
     font-weight: var(--font-weight-regular);
     font-size: var(--font-size-text-large);
@@ -100,7 +90,7 @@ const showElement = computed(() => !route.meta?.isHomePage);
       flex-direction: row;
       gap: 64px;
 
-      .header__line {
+      &-line {
         position: relative;
       }
     }
@@ -111,10 +101,54 @@ const showElement = computed(() => !route.meta?.isHomePage);
       gap: 39px;
     }
 
-    .header__line::after {
+    &-line::after {
       content: "";
       border-right: 1px solid var(--color-main);
     }
+  }
+}
+
+.header__border {
+  margin-bottom: 80px;
+  border-bottom: 1px solid var(--color-decorative);
+}
+
+.active-page-slider {
+  position: relative;
+  padding-bottom: 28px;
+  border-bottom: 2px solid #000;
+  z-index: 2;
+}
+
+@media (width <= 376px) {
+  .header {
+    &__container {
+    }
+
+    &__logo {
+      &:first-letter {
+      }
+    }
+
+    .header__info {
+      display: none;
+      &-navigation {
+        &-line {
+        }
+      }
+
+      &-links {
+      }
+
+      .header__line::after {
+      }
+    }
+  }
+
+  .header__border {
+  }
+
+  .active-page-slider {
   }
 }
 </style>

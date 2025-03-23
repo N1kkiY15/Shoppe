@@ -21,4 +21,11 @@
   max-width: 1248px;
   margin: auto;
 }
+
+@media (width <= 376px) { 
+  .default__container { 
+    margin: 16px 16px 24px;
+  }
+}
+
 </style>

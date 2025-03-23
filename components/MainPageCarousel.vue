@@ -101,6 +101,14 @@ onUnmounted(() => {
       gap: 48px;
       position: absolute;
       padding: 226px 857px 213px 39px;
+
+      // experemental 
+
+      // padding-top: clamp(14.125rem, 13.964rem + 0.804vw, 14.688rem);
+      // padding-left: clamp(3.938rem, -10.241rem + 70.893vw, 53.563rem);
+      // padding-bottom: clamp(1.625rem, -1.714rem + 16.696vw, 13.313rem);
+      // padding-right: clamp(0.5rem, -0.054rem + 2.768vw, 2.438rem);
+      
       z-index: 2;
       margin-right: 200px;
     }

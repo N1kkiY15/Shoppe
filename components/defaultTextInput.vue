@@ -27,7 +27,9 @@ const model = defineModel<string>();
 
   &-small {
     height: 20px;
-    width: 396px;
+    max-width: 396px; 
+    min-width: 200px; 
+    width: 100%;
     padding-right: 30px;
   }
 
