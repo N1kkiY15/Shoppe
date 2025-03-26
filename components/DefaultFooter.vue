@@ -36,13 +36,14 @@
         privacy policy.
       </p>
 
-      <FooterSocials class="footer__section-socials" />
+      <FooterSocials />
     </div>
 
     <DefaultModalWindow
       :isOpen="isModalOpen"
       :status="status"
       @close="modalClose"
+      :message="message"
     />
   </footer>
 </template>
@@ -59,21 +60,23 @@ const { footerEmail, errors, validateFooterEmail } = useFormValidation();
 const type = "footer";
 const { saveFooterEmailToLocalStorage } = useSaveToLocalStorage(type);
 
-const { isModalOpen, status, modalClose, modalOpen } = useModalWindow();
+const { isModalOpen, status, modalClose, modalOpen, message } = useModalWindow();
+
 
 const submitForm = () => {
   validateFooterEmail();
   if (!errors.email && saveFooterEmailToLocalStorage) {
     saveFooterEmailToLocalStorage(footerEmail.value);
-    footerEmail.value = "";
     status.value = "trueEmail";
-    modalOpen();
+    message.value = "Your email has been sent successfully! We will definitely contact you!" // funct to  clear message
   } else {
     console.log("Form has errors");
     status.value = "falseMessage";
-    modalOpen();
-  }
+    message.value = "Form has error"
+  } 
+  modalOpen();
 };
+
 </script>
 
 <style scoped lang="scss">
@@ -94,9 +97,6 @@ const submitForm = () => {
 
     &-links {
       gap: 40px;
-    }
-
-    &-socials {
     }
 
     &-text {

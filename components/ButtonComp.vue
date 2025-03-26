@@ -1,13 +1,6 @@
 <template>
   <button
-    :class="{
-      primary: props.variant === 'primary',
-      secondary: props.variant === 'secondary',
-      special: props.variant === 'special',
-      'button__size-xl': props.size === 'xl',
-      'button__size-l': props.size === 'l',
-      'button__size-m': props.size === 'm',
-    }"
+    :class="buttonClasses"
   >
     <slot></slot>
   </button>
@@ -23,6 +16,17 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+
+
+const buttonClasses = computed(() => ({
+  primary: props.variant === 'primary',
+  secondary: props.variant === 'secondary',
+  special: props.variant === 'special',
+  'button__size-xl': props.size === 'xl',
+  'button__size-l': props.size === 'l',
+  'button__size-m': props.size === 'm'
+}));
+
 </script>
 
 <style lang="scss" scoped>
@@ -62,7 +66,6 @@ const props = defineProps<Props>();
 
   &:hover {
     @include primary-colors;
-    outline: 2px solid var(--color-contrast);
   }
 }
 

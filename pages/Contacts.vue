@@ -81,6 +81,7 @@
       :isOpen="isModalOpen"
       :status="status"
       @close="modalClose"
+      :message="message"
     />
   </div>
 </template>
@@ -105,18 +106,23 @@ const saveToLocalStorage = () => {
   }
 };
 
-const { isModalOpen, status, modalClose, modalOpen } = useModalWindow();
+const { isModalOpen, status, modalClose, modalOpen, message } = useModalWindow();
 
 const submitForm = () => {
   if (validateForm()) {
     saveToLocalStorage();
     status.value = "trueMessage";
-    modalOpen();
+    message.value = "Your message has been sent successfully." // funct to  clear message
+
   } else {
     status.value = "falseMessage";
-    modalOpen();
+    message.value = "Form has error" // funct to  clear message
   }
+  modalOpen();
+  // clearMessage()
 };
+
+
 </script>
 
 <style lang="scss" scoped>

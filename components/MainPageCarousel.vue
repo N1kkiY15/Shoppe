@@ -45,8 +45,16 @@ import ErrorMessage from "./ErrorMessage.vue";
 
 onMounted(async () => {
   await fetchByURL();
-  intervalId.value = window.setInterval(autoChangePage, 5000);
-});
+  startInterval()
+}); // restart timer func 
+
+
+const startInterval = () => {
+  if (intervalId.value) {
+    clearInterval(intervalId.value)
+  }
+  intervalId.value = window.setInterval(autoChangePage, 6000)
+}
 
 const pagesNumber = 5;
 const currentPage = ref(1);
@@ -55,6 +63,7 @@ const isActive = (page: number): boolean => page === currentPage.value;
 
 const changePage = (page: number) => {
   currentPage.value = page;
+  startInterval()
 };
 
 const autoChangePage = () => {
@@ -65,15 +74,15 @@ const autoChangePage = () => {
   }
 };
 
-const { isLoading, errorLoading, products, fetchByURL } = useFetch(
+const { isLoading, errorLoading, data, fetchByURL } = useFetch(
   "https://fakestoreapi.com/products"
 );
 
 const currentProduct = computed(() => {
-  return products.value[currentPage.value - 1];
+  return data.value[currentPage.value - 1];
 });
 
-const intervalId = ref<number | null>(null);
+const intervalId = ref<number | null>(null); 
 
 onUnmounted(() => {
   if (intervalId.value) {

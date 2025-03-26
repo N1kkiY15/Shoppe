@@ -33,9 +33,16 @@
           <SearchIcon />
           <ShoppingCartIcon />
           <ProfileIcon />
-        </div>
+        </div> 
       </div>
+      <!-- 
+      <div>
+        <div></div>
+        <ShoppingCartIcon />
+      </div> -->
       <!-- здесь контейнер с инфой для мобилки?  -->
+
+      
     </div>
   </div>
 </template>
@@ -47,11 +54,20 @@ import ShoppingCartIcon from "SvgComponents/ShoppingCartIcon.vue";
 
 const route = useRoute();
 const showElement = computed(() => !route.meta?.isHomePage);
+
+// const { $breakpoints } = useNuxtApp();
+
+// const placeholderText = computed(() => {
+//   return $breakpoints.s
+//     ? 'Введите адрес или название'
+//     : 'Введите адрес или название проекта';
+// });
+
 </script>
 
 <style scoped lang="scss">
 .header {
-  position: relative;
+  position: relative; // zaebisto - skinul v TG 
   display: flex;
   flex-direction: column;
 
@@ -89,10 +105,6 @@ const showElement = computed(() => !route.meta?.isHomePage);
       display: flex;
       flex-direction: row;
       gap: 64px;
-
-      &-line {
-        position: relative;
-      }
     }
 
     &-links {
@@ -122,33 +134,9 @@ const showElement = computed(() => !route.meta?.isHomePage);
 
 @media (width <= 376px) {
   .header {
-    &__container {
-    }
-
-    &__logo {
-      &:first-letter {
-      }
-    }
-
     .header__info {
       display: none;
-      &-navigation {
-        &-line {
-        }
-      }
-
-      &-links {
-      }
-
-      .header__line::after {
-      }
     }
-  }
-
-  .header__border {
-  }
-
-  .active-page-slider {
   }
 }
 </style>

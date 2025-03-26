@@ -151,4 +151,13 @@ input[type="range"]::-webkit-slider-thumb {
   font-size: 14px;
   color: var(--color-text);
 }
+
+.range-input-slider { 
+  width: 100%;
+  height: 2px;
+  background: var(--color-decorative); 
+  outline: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
 </style>

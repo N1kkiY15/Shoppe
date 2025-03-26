@@ -2,7 +2,7 @@ export default function useFetch(url: string) {
   
   const isLoading = ref<boolean>(true);
   const errorLoading = ref<boolean>(true);
-  const products = ref<Array<Products>>([]);
+  const data = ref<Array<Products>>([]);
   const cardsOnPage: number = 6;
 
   interface Rating {
@@ -23,8 +23,8 @@ export default function useFetch(url: string) {
   const fetchByURL = async () => {
     try {
       const response = await fetch(url);
-      const data = await response.json();
-      products.value = data;
+      const dataResponse = await response.json();
+      data.value = dataResponse;
     } catch (error) {
       errorLoading.value = false;
       console.error("Error fetching products:", error);
@@ -36,7 +36,7 @@ export default function useFetch(url: string) {
   return {
     isLoading,
     errorLoading,
-    products,
+    data,
     fetchByURL,
     cardsOnPage,
   };

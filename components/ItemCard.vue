@@ -17,7 +17,7 @@ interface CardInfo {
   title: string;
   image: string;
   price: number;
-}
+} //rotate
 
 const props = defineProps<CardInfo>();
 </script>
@@ -38,6 +38,7 @@ const props = defineProps<CardInfo>();
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    line-height: var(--line-height-h3);
     gap: 16px;
 
     &-title {
@@ -53,5 +54,19 @@ const props = defineProps<CardInfo>();
       font-size: clamp(0.75rem, 0.607rem + 0.714vw, 1.25rem);
     }
   }
+}
+
+@media (width <= 376px) {
+  .item-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  &__description {
+    line-height: var(--line-height-body-small);
+    gap: 4px;
+  }
+}
+  
 }
 </style>

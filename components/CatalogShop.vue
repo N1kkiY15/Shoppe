@@ -32,7 +32,7 @@ import useScrollToTop from "composables/scrollToTop";
 const currentPage = ref<number>(1);
 let cardNumber: number = 6;
 
-const { isLoading, cardsOnPage, errorLoading, products, fetchByURL } = useFetch(
+const { isLoading, cardsOnPage, errorLoading, data, fetchByURL } = useFetch(
   "https://fakestoreapi.com/products"
 );
 
@@ -44,28 +44,25 @@ const totalPages = computed(() =>
   Math.ceil(productsLength.value / cardsOnPage)
 );
 
-const productsLength = computed(() => products.value.length);
+const productsLength = computed(() => data.value.length);
 
 const displayedItems = computed(() => {
   const startIndex = (currentPage.value - 1) * cardsOnPage;
-  return products.value.slice(startIndex, startIndex + cardsOnPage);
+  return data.value.slice(startIndex, startIndex + cardsOnPage);
 });
 
 const { scrollToTop } = useScrollToTop();
 
 const changePage = (page: number) => {
   currentPage.value = page;
-  // scrollToTop()
 };
 
 const previousPage = () => {
   currentPage.value = currentPage.value - 1;
-  // scrollToTop()
 };
 
 const nextPage = () => {
   currentPage.value = currentPage.value + 1;
-  // scrollToTop()
 };
 
 watch(

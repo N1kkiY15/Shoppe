@@ -26,26 +26,25 @@ import ExitButton from "SvgComponents/ExitButton.vue";
 import SuccessIcon from "SvgComponents/SuccessIcon.vue";
 import ErrorButton from "SvgComponents/errorButton.vue";
 
-// type result = "trueMessage" | "falseMessage" | "trueEmail";
-
 interface statusMessage {
   messageSent: string;
   messageErrorSent: string;
-  emailSent: string;
+  emailSent: string; // notification / modal - center
 }
 
 const messageTotal = ref<string>("");
 
-const message: statusMessage = {
-  messageSent: "Your message has been sent successfully.",
-  messageErrorSent: "Form has error",
-  emailSent:
-    "Your email has been sent successfully! We will definitely contact you!",
-};
+// const message: statusMessage = {
+//   messageSent: "Your message has been sent successfully.",
+//   messageErrorSent: "Form has error",
+//   emailSent:
+//     "Your email has been sent successfully! We will definitely contact you!",
+// }; 
 
 interface Props {
   isOpen: Boolean;
   status: string;
+  message: string;
 }
 
 const props = defineProps<Props>();
@@ -59,14 +58,8 @@ const closeModal = () => {
 
 watch(
   () => props.status,
-  (newValue: string) => {
-    if (newValue === "trueMessage") {
-      messageTotal.value = message.messageSent;
-    } else if (newValue === "falseMessage") {
-      messageTotal.value = message.messageErrorSent;
-    } else if (newValue === "trueEmail") {
-      messageTotal.value = message.emailSent;
-    }
+  () => {
+      messageTotal.value = props.message;
   }
 );
 </script>
@@ -78,7 +71,6 @@ watch(
   left: 96px;
   width: calc(100% - 96px * 2);
   height: 68px;
-  border-top: 2px solid var(--color-accent);
   display: flex;
   z-index: 2;
   padding: 20px 20px 20px 75px;
@@ -108,12 +100,8 @@ watch(
   }
 }
 
-.modal-error {
-  border-top: 2px solid var(--color-error);
-
-  &::after {
+.modal-error::after {
     background-color: var(--color-error);
-  }
 }
 
 .slide-enter-active,

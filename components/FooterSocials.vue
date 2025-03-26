@@ -32,11 +32,11 @@ import TwitterIcon from "SvgComponents/TwitterIcon.vue";
   flex-direction: row;
   gap: 30px;
 
-  &__text  {
+  &__text {
     display: none;
   }
 
-  &__line  {
+  &__line {
     display: none;
     height: 11px;
     width: 47px;
@@ -44,25 +44,21 @@ import TwitterIcon from "SvgComponents/TwitterIcon.vue";
   }
 }
 
-
-@media (width <= 376px) { 
-
-  .footer-socials { 
+@media (width <= 376px) {
+  .footer-socials {
     gap: 16px;
 
-    &__text  {
-    display: block;
-  }
+    &__text {
+      display: block;
+    }
 
-  &__line  {
-    display: block;
-  }
+    &__line {
+      display: block;
+    }
   }
 
   li:nth-child(3) {
-      display: none;
-    }
-
+    display: none;
+  }
 }
-
 </style>

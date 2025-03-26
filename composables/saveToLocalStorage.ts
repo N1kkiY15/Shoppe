@@ -17,7 +17,7 @@ export default function useSaveToLocalStorage(
   const saveFooterEmailToLocalStorage = (email: string) => {
     localStorage.setItem(`footerEmail_${getTime()}`, email);
     return (email = "");
-  };
+  }; // peredelivaem + func SaveToLS -> key && value: generic(?) i udalenie tozhe peredelat )) =)))
 
   const saveContactsToLocalStorage = () => {
     if (typeof object === "string" || !object) {
@@ -38,11 +38,15 @@ export default function useSaveToLocalStorage(
     case "footer":
       return {
         saveFooterEmailToLocalStorage,
+        // 
+        //
       };
 
     case "contacts":
       return {
         saveContactsToLocalStorage,
+        //
+        //
       };
 
     default:

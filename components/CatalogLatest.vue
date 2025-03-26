@@ -1,38 +1,48 @@
 <template>
   <div>
-    <div v-if="isLoading" class="catalog-latest">
-      <LoadingSkeletonCard v-for="cards in cardNumber" :key="cards" />
-    </div>
-
-    <div v-else class="catalog-latest">
-      <ItemCard
+    <div class="catalog-latest">
+      <template v-if="isLoading">
+        <LoadingSkeletonCard 
+          v-for="n in REQUIRED_NUMBER_OF_CARDS" 
+          :key="`skeleton-${n}`" 
+        />
+      </template>
+      <template v-else>
+        <ItemCard
         v-for="cards in displayedItems"
         :key="cards.id"
         :title="cards.title"
         :price="cards.price"
         :image="cards.image"
-      />
-    </div>
+        @click="goToItemPage(cards.id)"
+        />
+      </template>
+  </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-const { isLoading, cardsOnPage, errorLoading, products, fetchByURL } = useFetch(
+const { isLoading, cardsOnPage, errorLoading, data, fetchByURL } = useFetch(
   "https://fakestoreapi.com/products"
 );
 
-let cardNumber: number = 6;
+const REQUIRED_NUMBER_OF_CARDS: number = 6;
 
 onMounted(async () => {
   await fetchByURL();
 });
 
+const goToItemPage = (productsID: number) => {
+  navigateTo(`/item/${productsID}`);
+};
+
 const displayedItems = computed(() => {
-  const filteredProducts = products.value.filter(
-    (product: { category: string }) => product.category === "electronics"
+  const filteredProducts = data.value.filter((data) => data.category === "electronics"
   );
   return filteredProducts.slice(0, cardsOnPage);
 });
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -43,7 +53,6 @@ const displayedItems = computed(() => {
   column-gap: 57px;
   margin-bottom: 250px;
 }
-
 
 @media (width <= 376px) { 
   .catalog-latest {

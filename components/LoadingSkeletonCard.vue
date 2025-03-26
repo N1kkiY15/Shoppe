@@ -13,14 +13,16 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  height: 100%;
+  min-height: 188px;
+  max-height: 472px;
   background: #e0e0e0;
   border-radius: 8px;
   overflow: hidden;
 
   &__image {
     width: 100%;
-    min-height: 300px;
+    min-height: 160px;
+    max-height: 380px;
     height: 100%;
     background: #c0c0c0;
     border-radius: 8px;
