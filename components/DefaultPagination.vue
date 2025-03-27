@@ -5,7 +5,7 @@
       @click="previousPage"
       class="pagination__item pagination__item-navigation"
     >
-      <MarkRight />
+      <MarkLeft />
     </button>
     <ul class="pagination">
       <li
@@ -30,6 +30,7 @@
 
 <script setup lang="ts">
 import MarkRight from "SvgComponents/MarkRight.vue";
+import MarkLeft from "../assets/pictures/svg/SvgComponents/MarkLeft.vue";
 
 const props = defineProps<pages>();
 

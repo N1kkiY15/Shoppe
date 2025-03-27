@@ -83,13 +83,41 @@
     </div>
 
     <div class="item-container__pages">
-      <div class="item-container__pages-headings pages-headings">
-        <h3 class="pages-headings__underline"><a>Description</a></h3>
-        <h3 class="pages-headings__underline"><a>Aditional information</a></h3>
-        <h3 class="pages-headings__underline"><a>Reviews(0)</a></h3>
+      <div class="item-container__page-heading page-heading">
+        <h3
+          @click="changeItemPage('description')"
+          :class="{
+            'page-heading__underline': currentPage === 'description',
+          }"
+          id="description"
+        >
+          <a>Description</a>
+        </h3>
+        <h3
+          @click="changeItemPage('information')"
+          :class="{
+            'page-heading__underline': currentPage === 'information',
+          }"
+          id="information"
+        >
+          <a>Aditional information</a>
+        </h3>
+        <h3
+          @click="changeItemPage('reviews')"
+          :class="{ 'page-heading__underline': currentPage === 'reviews' }"
+          id="reviews"
+        >
+          <a>Reviews(0)</a>
+        </h3>
       </div>
 
+      <ItemPageDescription v-if="currentPage === 'description'" />
+
+      <ItemPageInformation v-if="currentPage === 'information'" />
+
+      <ItemPageReviews v-if="currentPage === 'reviews'" />
     </div>
+
 
     <div class="item-container__similar"></div>
   </div>
@@ -103,12 +131,14 @@ import InstagramIcon from "SvgComponents/InstagramIcon.vue";
 import TwitterIcon from "SvgComponents/TwitterIcon.vue";
 import StarFilled from "SvgComponents/StarFilled.vue";
 import StarPool from "SvgComponents/StarPool.vue";
+import ItemPageInformation from "../../components/ItemPageInformation.vue";
+import ItemPageDescription from "../../components/itemPageDescription.vue";
 
 const route = useRoute();
 
 const currentId: number = Number(route.params.id) || 0;
 const { isLoading, data, fetchByURL } = useFetch(
-  `https://fakestoreapi.com/products/${currentId}`
+  `https://fakestoreapi.com/products/${currentId}`,
 );
 
 onMounted(async () => {
@@ -116,16 +146,17 @@ onMounted(async () => {
   console.log(data.value);
 });
 
-// const fetchProductById = async (id: number) => {
-//   try {
-//     const response = await fetch(`https://fakestoreapi.com/products/${id}`);
-//     if (!response.ok) throw new Error("Product not found");
-//     products.value = await response.json(); // Store directly
-//     console.log(products.value[0].id) // Now this works
-//     console.log(products.value) // Now this works
-//   } catch (error) {
-//   }
-// }
+const currentPage = ref<string>("description");
+
+const changeItemPage = (pageId: string) => {
+  if (pageId === "description") {
+    currentPage.value = pageId;
+  } else if (pageId === "information") {
+    currentPage.value = pageId;
+  } else if (pageId === "reviews") {
+    currentPage.value = pageId;
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -134,35 +165,31 @@ onMounted(async () => {
   flex-direction: column;
   gap: 123px;
 
-  &__info {
+  &__info { // в нем может ничего не быть, но для бэм мы оставляем его?
   }
 
-  &__pages {
+  &__page {
     position: relative;
     display: flex;
     flex-direction: column;
 
-    &-headings {
+    &-heading {
       display: flex;
       flex-direction: row;
       gap: 96px;
       margin-bottom: 34px;
     }
   }
-
-  &__similar {
-  }
 }
 
-.pages-headings { 
+.page-heading {
+  border-bottom: 2px solid var(--color-decorative);
   position: relative;
-  margin-bottom: 28px;
-  border-bottom: 2px solid #000;
-  z-index: 2;
 
-  &__underline { 
+  &__underline {
     position: relative;
-    border-bottom: 2px solid #000;
+    padding-bottom: 28px;
+    border-bottom: 2px solid var(--color-main);
     z-index: 2;
   }
 }

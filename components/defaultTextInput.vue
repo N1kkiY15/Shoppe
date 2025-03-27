@@ -24,9 +24,9 @@ const model = defineModel<string>();
 <style lang="scss" scoped>
 .input {
   border-bottom: 1px solid var(--color-decorative);
+  padding-bottom: 13px;
 
   &-small {
-    height: 20px;
     max-width: 396px; 
     min-width: 200px; 
     width: 100%;
@@ -34,7 +34,6 @@ const model = defineModel<string>();
   }
 
   &-medium {
-    height: 40px;
     width: 100%;
     font-size: var(--font-size-text-medium);
     font-weight: var(--font-weight-regular);
