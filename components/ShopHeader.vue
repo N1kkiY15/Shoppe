@@ -31,4 +31,10 @@ const showElement = computed(() => !route.meta?.isHomePage);
     font-size: clamp(0.75rem, 0.607rem + 0.714vw, 1.25rem);
   }
 }
+
+@media (width < 375px) {
+  .items__header {
+    margin-bottom: 13px;
+  }
+}
 </style>

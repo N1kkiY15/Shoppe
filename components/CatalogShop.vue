@@ -8,6 +8,7 @@
         :title="cards.title"
         :price="cards.price"
         :image="cards.image"
+        @click="goToPage(cards.id)"
       />
     </div>
 
@@ -28,13 +29,21 @@
 <script lang="ts" setup>
 
 import useScrollToTop from "composables/scrollToTop";
+import type { Product } from '~/types/product';
 
 const currentPage = ref<number>(1);
 let cardNumber: number = 6;
 
-const { isLoading, cardsOnPage, errorLoading, data, fetchByURL } = useFetch(
+const { navigateToPage } = goToPageItem();
+
+const goToPage = (value: number) => {
+  navigateToPage(value);
+}
+
+const { isLoading, cardsOnPage, errorLoading, data, fetchByURL } = useFetch<Product[]>(
   "https://fakestoreapi.com/products"
 );
+
 
 onMounted(async () => {
   await fetchByURL();
@@ -44,11 +53,11 @@ const totalPages = computed(() =>
   Math.ceil(productsLength.value / cardsOnPage)
 );
 
-const productsLength = computed(() => data.value.length);
+const productsLength = computed(() => data.value?.length);
 
 const displayedItems = computed(() => {
   const startIndex = (currentPage.value - 1) * cardsOnPage;
-  return data.value.slice(startIndex, startIndex + cardsOnPage);
+  return data.value?.slice(startIndex, startIndex + cardsOnPage);
 });
 
 const { scrollToTop } = useScrollToTop();

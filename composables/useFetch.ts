@@ -1,29 +1,15 @@
-export default function useFetch(url: string) {
+export default function useFetch<T>(url: string) {
   
   const isLoading = ref<boolean>(true);
   const errorLoading = ref<boolean>(true);
-  const data = ref<Array<Products>>([]);
+  const data = ref<T | null>(null);
   const cardsOnPage: number = 6;
 
-  interface Rating {
-    rate: number;
-    count: number;
-  }
-
-  interface Products {
-    id: number;
-    title: string;
-    price: number;
-    description: string;
-    category: string;
-    image: string;
-    rating: Rating;
-  }
 
   const fetchByURL = async () => {
     try {
       const response = await fetch(url);
-      const dataResponse = await response.json();
+      const dataResponse = await response.json() as T;
       data.value = dataResponse;
     } catch (error) {
       errorLoading.value = false;

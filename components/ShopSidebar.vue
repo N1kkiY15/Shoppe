@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar">
-    <form  @submit.prevent="submitSearch" class="sidebar__form">
+    <form @submit.prevent="submitSearch" class="sidebar__form">
       <input type="text" v-model="item" placeholder="Search..." />
       <button type="submit" class="sidebar__form-button">
         <search-icon />
@@ -10,27 +10,33 @@
     <div class="sidebar__select">
       <div class="select">
         <select id="mySelect" name="mySelect" class="select-input">
-          <option value="">Shop By</option>
+          <option value="">Category</option>
           <option value="first">Первый элемент</option>
           <option value="second">Второй элемент</option>
           <option value="third">Третий элемент</option>
         </select>
-        <div class="select-mark">
+        <button class="select-mark">
           <MarkDown />
-        </div>
+        </button>
       </div>
 
-      <select id="mySelect" name="mySelect" class="select-input">
-        <option value="">Sort By</option>
-        <option value="first">Первый элемент</option>
-        <option value="second">Второй элемент</option>
-        <option value="third">Третий элемент</option>
-      </select>
+      <div class="select">
+        <select id="mySelect" name="mySelect" class="select-input">
+          <option value="">Sort By</option>
+          <option value="first">Первый элемент</option>
+          <option value="second">Второй элемент</option>
+          <option value="third">Третий элемент</option>
+        </select>
+        <button class="select-mark">
+          <MarkDown />
+        </button>
+      </div>
     </div>
-    
+
     <InputSlider />
-    <CheckboxSlider v-model="isCheckedOnSale"/>
-    <CheckboxSlider v-model="isCheckedInStock"/>
+
+    <CheckboxSlider v-model="isCheckedOnSale" label="On Sale" id="sale"/>
+    <CheckboxSlider v-model="isCheckedInStock" label="On Stock" id="stock"/>
   </div>
 </template>
 
@@ -38,23 +44,23 @@
 import SearchIcon from "SvgComponents/SearchIcon.vue";
 import MarkDown from "SvgComponents/MarkDown.vue";
 
-const isCheckedOnSale = ref<boolean>(false); 
-const isCheckedInStock = ref<boolean>(false); 
+const isCheckedOnSale = ref<boolean>(false);
 
-const item = ref<string>('')
+const isCheckedInStock = ref<boolean>(false);
+
+const item = ref<string>("");
 
 //////////////////////////////////////////////////////////
 
 const submitSearch = () => {
   const searchItem = item.value;
   console.log(searchItem);
-  emit("submitSearch", searchItem); // pinia maybe? 
-}
+  emit("submitSearch", searchItem); // pinia maybe?
+};
 
 const emit = defineEmits(["submitSearch"]);
 
 //////////////////////////////////////////////////////////
-
 </script>
 
 <style lang="scss" scoped>
@@ -67,6 +73,8 @@ const emit = defineEmits(["submitSearch"]);
   position: absolute;
   right: 12px;
   bottom: 12px;
+  pointer-events: none;
+  background-color: transparent;
 }
 
 .sidebar {
@@ -100,14 +108,6 @@ const emit = defineEmits(["submitSearch"]);
   right: 0;
   bottom: 5px;
   background-color: transparent;
-}
-
-.toggle-switch {
-  position: relative;
-  display: inline-block;
-  width: 33px;
-  height: 20px;
-  cursor: pointer;
 }
 
 .toggle-input {

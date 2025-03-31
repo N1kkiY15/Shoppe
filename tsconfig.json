@@ -3,8 +3,13 @@
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
     "paths": {
-      "composables/*": ["./composables/*"]
+      "composables/*": ["./composables/*"],
+      "~/types/*": ["./types/*"],
+      "#imports": ["./.nuxt/imports.d.ts"]
     },
+    "typeRoots": [
+      ".types"
+    ],
     "types": ["vite/client", "vue"]
   }
 }

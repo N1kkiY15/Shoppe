@@ -9,22 +9,22 @@
               <NuxtLink
                 to="/shop"
                 :class="{ 'active-page-slider': route.path === '/shop' }"
-                >Shop</NuxtLink
-              >
+                >Shop
+              </NuxtLink>
             </li>
             <li>
               <NuxtLink
                 to="/blog"
                 :class="{ 'active-page-slider': route.path === '/blog' }"
-                >Blog</NuxtLink
-              >
+                >Blog
+              </NuxtLink>
             </li>
             <li>
               <NuxtLink
                 to="/ourstory"
                 :class="{ 'active-page-slider': route.path === '/ourstory' }"
-                >Our story</NuxtLink
-              >
+                >Our story
+              </NuxtLink>
             </li>
           </ul>
         </nav>
@@ -33,17 +33,21 @@
           <SearchIcon />
           <ShoppingCartIcon />
           <ProfileIcon />
-        </div> 
+        </div>
       </div>
-      <!-- 
-      <div>
-        <div></div>
-        <ShoppingCartIcon />
-      </div> -->
-      <!-- здесь контейнер с инфой для мобилки?  -->
 
-      
+      <div class="header__container-mobile">
+          <ShoppingCartIcon />
+          <MenuList />
+      </div>
+      <!-- здесь контейнер с инфой для мобилки?  -->
     </div>
+
+    <div class="header__input">
+      <input type="text" class="header__input-text" placeholder="Search" />
+      <SearchIconMobile class="header__input-icon"/>
+    </div>
+
   </div>
 </template>
 
@@ -51,6 +55,8 @@
 import ProfileIcon from "SvgComponents/ProfileIcon.vue";
 import SearchIcon from "SvgComponents/SearchIcon.vue";
 import ShoppingCartIcon from "SvgComponents/ShoppingCartIcon.vue";
+import MenuList from "../assets/pictures/svg/SvgComponents/MenuList.vue";
+import SearchIconMobile from "../assets/pictures/svg/SvgComponents/SearchIconMobile.vue";
 
 const route = useRoute();
 const showElement = computed(() => !route.meta?.isHomePage);
@@ -62,12 +68,11 @@ const showElement = computed(() => !route.meta?.isHomePage);
 //     ? 'Введите адрес или название'
 //     : 'Введите адрес или название проекта';
 // });
-
 </script>
 
 <style scoped lang="scss">
 .header {
-  position: relative; // zaebisto - skinul v TG 
+  position: relative; // zaebisto - skinul v TG
   display: flex;
   flex-direction: column;
 
@@ -78,7 +83,33 @@ const showElement = computed(() => !route.meta?.isHomePage);
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin-bottom: 16px;
+
+    &-mobile {
+      display: none;
+      flex-direction: row;
+      gap: 13px;
+      align-items: center;
+    }
+  }
+
+  &__input {
+    display: none;
+    position: relative;
+
+    &-text {
+      background-color: #EFEFEF;
+      border-radius: 4px;
+      padding: 5px 0 5px 30px;
+      height: 32px;
+      width: 100%;
+      margin-bottom: 16px;
+    }
+
+    &-icon {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
   }
 
   &__logo {
@@ -125,18 +156,20 @@ const showElement = computed(() => !route.meta?.isHomePage);
   border-bottom: 1px solid var(--color-decorative);
 }
 
-.active-page-slider {
-  position: relative;
-  padding-bottom: 28px;
-  border-bottom: 2px solid #000;
-  z-index: 2;
-}
-
 @media (width <= 376px) {
   .header {
     .header__info {
       display: none;
     }
+
+    &__container {
+      margin-bottom: 16px;
+      &-mobile {
+        display: flex;
+      }
+    }
+
+    &__input { display: block}
   }
 }
 </style>

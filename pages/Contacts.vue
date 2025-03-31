@@ -9,7 +9,6 @@
     </div>
     <form @submit.prevent="submitForm" class="contacts__form">
       <div class="contacts__form-inputs">
-
         <div class="input-error">
           <DefaultTextInput
             v-model="form.firstName"
@@ -49,16 +48,7 @@
         </div>
 
         <div class="input-error">
-          <DefaultTextInput
-            id="subject"
-            v-model="form.subject"
-            size="medium"
-            placeholder="Subject"
-            @blur="handleBlur('subject')"
-          />
-          <p v-if="errors.subject" class="error-message">
-            {{ errors.subject }}
-          </p>
+          <DefaultSelect v-model="selectedSubject"/>
         </div>
 
         <div class="input-error">
@@ -90,6 +80,8 @@
 import useSaveToLocalStorage from "composables/saveToLocalStorage";
 import useFormValidation from "composables/useFormValidation";
 import useModalWindow from "composables/useModalWindow";
+import DefaultSelect from "../components/DefaultSelect.vue";
+const selectedSubject = ref('');
 
 const { form, errors, validateField, validateForm } = useFormValidation();
 
@@ -106,23 +98,21 @@ const saveToLocalStorage = () => {
   }
 };
 
-const { isModalOpen, status, modalClose, modalOpen, message } = useModalWindow();
+const { isModalOpen, status, modalClose, modalOpen, message } =
+  useModalWindow();
 
 const submitForm = () => {
   if (validateForm()) {
     saveToLocalStorage();
     status.value = "trueMessage";
-    message.value = "Your message has been sent successfully." // funct to  clear message
-
+    message.value = "Your message has been sent successfully."; // funct to  clear message
   } else {
     status.value = "falseMessage";
-    message.value = "Form has error" // funct to  clear message
+    message.value = "Form has error"; // funct to  clear message
   }
   modalOpen();
   // clearMessage()
 };
-
-
 </script>
 
 <style lang="scss" scoped>
@@ -172,23 +162,21 @@ const submitForm = () => {
   }
 }
 
-
-@media (width <= 376px) { 
-
-  .contacts { 
+@media (width <= 376px) {
+  .contacts {
     margin-bottom: 96px;
   }
-  
-  .contacts__form-inputs { 
+
+  .contacts__form-inputs {
     grid-template-columns: 1fr;
     row-gap: 47px;
   }
 
-  h3 { 
+  h3 {
     display: none;
   }
 
-  .input-error { 
+  .input-error {
     grid-column: span 2;
   }
 }

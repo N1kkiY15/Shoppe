@@ -15,10 +15,19 @@
                 :alt="currentProduct.title"
               />
               <div class="carousel__container-description">
-                <h1>{{ currentProduct.title }}</h1>
-                <h2>${{ currentProduct.price }}</h2>
+                <h1 class="carousel__container-description-heading">
+                  {{ currentProduct.title }}
+                </h1>
+                <h2 class="carousel__container-description-price">
+                  ${{ currentProduct.price }}
+                </h2>
+                <ButtonComp
+                  @click="goToPage(currentProduct.id)"
+                  variant="special"
+                  size="xl"
+                  >View product
+                </ButtonComp>
               </div>
-              <ButtonComp variant="special" size="xl">View product</ButtonComp>
             </div>
           </transition>
         </div>
@@ -42,19 +51,19 @@
 
 <script lang="ts" setup>
 import ErrorMessage from "./ErrorMessage.vue";
+import type { Product } from "~/types/product";
 
 onMounted(async () => {
   await fetchByURL();
-  startInterval()
-}); // restart timer func 
-
+  startInterval();
+}); // restart timer func
 
 const startInterval = () => {
   if (intervalId.value) {
-    clearInterval(intervalId.value)
+    clearInterval(intervalId.value);
   }
-  intervalId.value = window.setInterval(autoChangePage, 6000)
-}
+  intervalId.value = window.setInterval(autoChangePage, 6000);
+};
 
 const pagesNumber = 5;
 const currentPage = ref(1);
@@ -63,7 +72,7 @@ const isActive = (page: number): boolean => page === currentPage.value;
 
 const changePage = (page: number) => {
   currentPage.value = page;
-  startInterval()
+  startInterval();
 };
 
 const autoChangePage = () => {
@@ -74,15 +83,21 @@ const autoChangePage = () => {
   }
 };
 
-const { isLoading, errorLoading, data, fetchByURL } = useFetch(
-  "https://fakestoreapi.com/products"
+const { isLoading, errorLoading, data, fetchByURL } = useFetch<Product[]>(
+  "https://fakestoreapi.com/products",
 );
 
+const { navigateToPage } = goToPageItem();
+
+const goToPage = (value: number) => {
+  navigateToPage(value);
+};
+
 const currentProduct = computed(() => {
-  return data.value[currentPage.value - 1];
+  return data.value?.[currentPage.value - 1];
 });
 
-const intervalId = ref<number | null>(null); 
+const intervalId = ref<number | null>(null);
 
 onUnmounted(() => {
   if (intervalId.value) {
@@ -109,15 +124,16 @@ onUnmounted(() => {
       height: 100%;
       gap: 48px;
       position: absolute;
-      padding: 226px 857px 213px 39px;
+      justify-content: center;
+      padding-left: 30px;
+      //padding: 226px 857px 213px 39px;
 
-      // experemental 
+      // experemental
 
-      // padding-top: clamp(14.125rem, 13.964rem + 0.804vw, 14.688rem);
-      // padding-left: clamp(3.938rem, -10.241rem + 70.893vw, 53.563rem);
-      // padding-bottom: clamp(1.625rem, -1.714rem + 16.696vw, 13.313rem);
-      // padding-right: clamp(0.5rem, -0.054rem + 2.768vw, 2.438rem);
-      
+      //padding-top: clamp(14.125rem, 13.964rem + 0.804vw, 14.688rem);
+      //padding-left: clamp(3.938rem, -10.241rem + 70.893vw, 53.563rem);
+      //padding-bottom: clamp(1.625rem, -1.714rem + 16.696vw, 13.313rem);
+      //padding-right: clamp(0.5rem, -0.054rem + 2.768vw, 2.438rem);
       z-index: 2;
       margin-right: 200px;
     }
@@ -125,16 +141,27 @@ onUnmounted(() => {
     &-photo {
       position: absolute;
       height: 100%;
+      width: 100%;
       top: 0;
       left: 0;
       z-index: -1;
     }
 
     &-description {
+      margin-right: auto;
+      //max-width: 600px;
       display: flex;
       flex-direction: column;
       min-width: 400px;
       gap: 16px;
+
+      &-heading {
+        font-size: clamp(1.25rem, 0.964rem + 1.221vw, 2.063rem);
+      }
+
+      &-price {
+        margin-bottom: 48px;
+      }
     }
   }
 
@@ -180,5 +207,58 @@ onUnmounted(() => {
 
 .slide-leave-to {
   transform: translateX(calc(-100% - 200px));
+}
+
+@media (width <= 375px) {
+  .carousel {
+    height: 354px;
+    border-radius: 8px;
+    margin-bottom: 21px;
+
+    &__container {
+      &-card {
+        display: flex;
+        justify-content: flex-end;
+        padding-left: 8px;
+        padding-bottom: 26px;
+      }
+
+      &-description {
+        gap: 3px;
+
+        &-heading {
+          max-width: 217px;
+          flex-wrap: wrap;
+
+        }
+
+        &-price {
+          margin-bottom: 10px;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 26px;
+
+        }
+      }
+    }
+
+    &__navigation {
+      bottom: 8px;
+
+      & ul {
+        gap: 6px;
+      }
+
+      & li {
+        width: 4px;
+        height: 4px;
+      }
+
+      & .activePage {
+        width: 7px;
+        height: 7px;
+      }
+    }
+  }
 }
 </style>

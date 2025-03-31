@@ -3,7 +3,6 @@ const status = ref<string>("");
 let message = ref<string>("");
 
 export default function useModalWindow() {
-
   const modalClose = () => {
     isModalOpen.value = false;
     clearStatus();
@@ -12,25 +11,27 @@ export default function useModalWindow() {
 
   const modalOpen = () => {
     isModalOpen.value = true;
-    starTimeout()
+    starTimeout();
   };
 
-  const timeoutId = ref<number | null>(null); 
+  const timeoutId = ref<number | null>(null);
 
   const starTimeout = () => {
     if (timeoutId.value) {
-      clearInterval(timeoutId.value)
+      clearInterval(timeoutId.value);
     }
-    timeoutId.value = setTimeout(() => {modalClose();}, 5000);
-  }
+    timeoutId.value = setTimeout(() => {
+      modalClose();
+    }, 5000);
+  };
 
   const clearStatus = () => {
     status.value = "";
   };
 
-  const clearMessage = () => { 
-    message.value = ""
-  }
+  const clearMessage = () => {
+    message.value = "";
+  };
 
   return {
     isModalOpen,
@@ -38,6 +39,6 @@ export default function useModalWindow() {
     clearStatus,
     modalClose,
     modalOpen,
-    message
+    message,
   };
 }

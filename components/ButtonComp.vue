@@ -1,7 +1,5 @@
 <template>
-  <button
-    :class="buttonClasses"
-  >
+  <button :class="buttonClasses">
     <slot></slot>
   </button>
 </template>
@@ -17,16 +15,14 @@ interface Props {
 
 const props = defineProps<Props>();
 
-
 const buttonClasses = computed(() => ({
-  primary: props.variant === 'primary',
-  secondary: props.variant === 'secondary',
-  special: props.variant === 'special',
-  'button__size-xl': props.size === 'xl',
-  'button__size-l': props.size === 'l',
-  'button__size-m': props.size === 'm'
+  primary: props.variant === "primary",
+  secondary: props.variant === "secondary",
+  special: props.variant === "special",
+  "button__size-xl": props.size === "xl",
+  "button__size-l": props.size === "l",
+  "button__size-m": props.size === "m",
 }));
-
 </script>
 
 <style lang="scss" scoped>
@@ -35,9 +31,11 @@ const buttonClasses = computed(() => ({
   padding: 12px 31px;
   outline: 2px solid var(--color-main);
   font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-h5);
+  font-size: clamp(0.75rem, 0.574rem + 0.751vw, 1.25rem);
   width: 100%;
-  transition: background-color 0.4s ease, color 0.4s ease;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
 }
 
 @mixin primary-colors {
@@ -75,7 +73,11 @@ const buttonClasses = computed(() => ({
   outline: 2px solid var(--color-contrast);
   color: var(--color-contrast);
   background-color: var(--color-transparent);
-  font-size: var(--font-size-h4);
+  font-size: clamp(0.75rem, 0.574rem + 0.751vw, 1.25rem);
+
+  &:hover {
+    @include secondary-colors;
+  }
 }
 
 .button__size-xl {
@@ -88,5 +90,23 @@ const buttonClasses = computed(() => ({
 
 .button__size-m {
   max-width: 123px;
+}
+
+@media (width <= 375px) {
+
+  .special {
+    outline: 1px solid var(--color-contrast);
+  }
+
+  .button__size-xl {
+    max-width: 102px;
+    max-height: 32px;
+    padding: 6px 9px;
+    font-family: DM Sans;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+  }
+  
 }
 </style>

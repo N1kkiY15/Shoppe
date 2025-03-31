@@ -1,6 +1,7 @@
 <template>
   <div class="item-card">
     <img src="pictures/Img 01.png" class="item-card__image" />
+    <div class="item-card__details">Info</div>
     <div class="item-card__description">
       <h3 class="item-card__description-title">{{ props.title }}</h3>
       <span class="item-card__description-price span-accent"
@@ -17,7 +18,7 @@ interface CardInfo {
   title: string;
   image: string;
   price: number;
-} //rotate
+}
 
 const props = defineProps<CardInfo>();
 </script>
@@ -29,8 +30,22 @@ const props = defineProps<CardInfo>();
   gap: 24px;
 
   &__image {
-    max-height: 380px;
-    max-width: 380px;
+    position: relative;
+  }
+
+  &__details {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 15px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    opacity: 0;
+    transform: translateY(0%);
+    transition: all 0.3s ease;
   }
 
   &__description {
@@ -58,15 +73,14 @@ const props = defineProps<CardInfo>();
 
 @media (width <= 376px) {
   .item-card {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 
-  &__description {
-    line-height: var(--line-height-body-small);
-    gap: 4px;
+    &__description {
+      line-height: var(--line-height-body-small);
+      gap: 4px;
+    }
   }
-}
-  
 }
 </style>

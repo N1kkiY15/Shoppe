@@ -22,18 +22,25 @@
           {{ errors.email }}
         </p>
 
-        <div class="footer-form__checkbox">
-          <input type="checkbox" class="footer-form__checkbox-item" />
-          <p>i agree to the website’s terms and conditions</p>
-        </div>
+        <!--        <div class="footer-form__checkbox">-->
+        <!--          <input type="checkbox" class="footer-form__checkbox-item" />-->
+        <!--          <p>i agree to the website’s terms and conditions</p>-->
+        <!--        </div>-->
+
+        <DefaultCheckbox
+          form="rounded"
+          size="small"
+          class="footer-form__checkbox"
+          text="i agree to the website’s terms and conditions"
+        />
       </form>
     </div>
 
     <div class="footer__section">
       <p class="footer__section-text">
         <span class="text__accent">© 2021 Shelly.</span> Terms of
-        <NuxtLink to="/privacypolice" class="text__accent">use</NuxtLink> and
-        privacy policy.
+        <NuxtLink to="/privacypolice" class="text__accent">use</NuxtLink>
+        and privacy policy.
       </p>
 
       <FooterSocials />
@@ -60,23 +67,23 @@ const { footerEmail, errors, validateFooterEmail } = useFormValidation();
 const type = "footer";
 const { saveFooterEmailToLocalStorage } = useSaveToLocalStorage(type);
 
-const { isModalOpen, status, modalClose, modalOpen, message } = useModalWindow();
-
+const { isModalOpen, status, modalClose, modalOpen, message } =
+  useModalWindow();
 
 const submitForm = () => {
   validateFooterEmail();
   if (!errors.email && saveFooterEmailToLocalStorage) {
     saveFooterEmailToLocalStorage(footerEmail.value);
     status.value = "trueEmail";
-    message.value = "Your email has been sent successfully! We will definitely contact you!" // funct to  clear message
+    message.value =
+      "Your email has been sent successfully! We will definitely contact you!"; // funct to  clear message
   } else {
     console.log("Form has errors");
     status.value = "falseMessage";
-    message.value = "Form has error"
-  } 
+    message.value = "Form has error";
+  }
   modalOpen();
 };
-
 </script>
 
 <style scoped lang="scss">
@@ -128,14 +135,6 @@ const submitForm = () => {
   line-height: 20px;
   color: black;
   margin-top: 15px;
-
-  &-item {
-    width: 13px;
-    height: 13px;
-    border: 1px solid #000;
-    border-radius: 2px;
-    align-self: center;
-  }
 }
 
 @media (width <= 376px) {

@@ -1,7 +1,7 @@
 <template>
   <div class="reviews">
     <div class="reviews__list">
-      <h3>2 Reviews for lira earings</h3>
+      <h3>{{ props.count }} Reviews for {{ props.title }}</h3>
       <div class="reviews__list-container review-block">
         <div class="review-block__header">
           <h3>Scarlet withch</h3>
@@ -74,13 +74,13 @@
             type="text"
             class="review-form__input"
           />
-          <div class="review-form__email-input review-checkbox">
-            <input type="checkbox" class="review-checkbox__input" />
-            <p class="review-checkbox__description">
-              Save my name, email, and website in this browser for the next time
-              I comment
-            </p>
-          </div>
+
+          <DefaultCheckbox
+            v-model="checkboxValue"
+            size="medium"
+            form="square"
+            text="Save my name, email, and website in this browser for the next time I comment"
+          />
         </div>
 
         <div class="review-form__rate">
@@ -107,6 +107,15 @@
 <script lang="ts" setup>
 import StarFilled from "SvgComponents/StarFilled.vue";
 import StarPool from "SvgComponents/StarPool.vue";
+
+interface Props {
+  title?: string;
+  count?: number;
+}
+
+const checkboxValue = ref<boolean>(false);
+
+const props = defineProps<Props>();
 </script>
 
 <style lang="scss" scoped>
@@ -197,22 +206,6 @@ import StarPool from "SvgComponents/StarPool.vue";
     display: flex;
     flex-direction: column;
     gap: 24px;
-  }
-}
-
-.review-checkbox {
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-
-  &__input {
-    width: 18px;
-    height: 18px;
-    border: 1px solid var(--color-text);
-  }
-
-  &__description {
-    font-size: var(--font-size-text-small);
   }
 }
 </style>

@@ -1,12 +1,11 @@
 <template>
   <div class="checkbox-slider">
-    <label for="checkboxSlider">On sale</label>
+    <label>{{ props.label }}</label>
     <div class="toggle-switch" @click="toggle">
       <input
         type="checkbox"
         class="toggle-input"
         v-model="model"
-        id="checkboxSlider"
       />
       <span class="slider"></span>
     </div>
@@ -18,9 +17,17 @@ import { defineModel } from "vue";
 
 const model = defineModel<boolean>();
 
+interface Props {
+  label: string;
+  id: string;
+}
+
+const props = defineProps<Props>();
+
 const toggle = () => {
   model.value = !model.value;
 };
+
 </script>
 
 <style lang="scss" scoped>

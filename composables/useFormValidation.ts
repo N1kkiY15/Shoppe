@@ -1,25 +1,11 @@
-interface ContactForm {
-  firstName: string;
-  lastName: string;
-  email: string;
-  subject: string;
-  message: string;
-}
-
-interface Errors {
-  firstName: string;
-  lastName: string;
-  email: string;
-  subject: string;
-  message: string;
-}
+import type { ContactForm, Errors, ContactSubject } from '~/types/contact';
 
 export default function useFormValidation() {
   const form = reactive<ContactForm>({
     firstName: "",
     lastName: "",
     email: "",
-    subject: "",
+    subject: "" as ContactSubject, // Explicit type assertion
     message: "",
   });
 
@@ -62,10 +48,10 @@ export default function useFormValidation() {
         break;
 
       case "subject":
-        if (!value.trim()) {
-          errors.subject = "Subject is required.";
+        if (value.trim() as ContactSubject) {
+          errors.message = "Subject is required.";
         } else {
-          errors.subject = "";
+          errors.message = "";
         }
         break;
 

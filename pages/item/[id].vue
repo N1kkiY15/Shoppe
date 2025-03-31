@@ -30,8 +30,8 @@
       </div>
       <div class="item-card__description item-description">
         <div class="item-description__headings">
-          <h2>Lira Earrings</h2>
-          <h4 class="span-accent">$ {{ data }}</h4>
+          <h2>{{ data?.title }}</h2>
+          <h4 class="span-accent">$ {{ data?.price }}</h4>
         </div>
 
         <div class="item-description__rewiew">
@@ -43,15 +43,10 @@
               <StarFilled />
               <StarPool />
             </div>
-            <span>1 customer review</span>
+            <span> {{ data?.rating.count }} customer review</span>
           </div>
           <div class="item-description__rewiew-text">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-              placerat, augue a volutpat hendrerit, sapien tortor faucibus
-              augue, a maximus elit ex vitae libero. Sed quis mauris eget arcu
-              facilisis consequat sed eu felis.
-            </p>
+            <p>{{ data?.description }}</p>
           </div>
         </div>
 
@@ -77,7 +72,7 @@
 
         <div class="item-description__details">
           <span>SKU: 12</span>
-          <span>Categories: Fashion, Style</span>
+          <span>Category: {{ data?.category }}</span>
         </div>
       </div>
     </div>
@@ -87,7 +82,7 @@
         <h3
           @click="changeItemPage('description')"
           :class="{
-            'page-heading__underline': currentPage === 'description',
+            'active-page-slider': currentPage === 'description',
           }"
           id="description"
         >
@@ -107,17 +102,22 @@
           :class="{ 'page-heading__underline': currentPage === 'reviews' }"
           id="reviews"
         >
-          <a>Reviews(0)</a>
+          <a>Reviews({{ data?.rating.count }})</a>
         </h3>
       </div>
-
-      <ItemPageDescription v-if="currentPage === 'description'" />
-
+      <ItemPageDescription
+        v-if="currentPage === 'description'"
+        :text="data?.description"
+      />
       <ItemPageInformation v-if="currentPage === 'information'" />
-
-      <ItemPageReviews v-if="currentPage === 'reviews'" />
+      <keep-alive>
+        <ItemPageReviews
+          v-if="currentPage === 'reviews'"
+          :title="data?.title"
+          :count="data?.rating.count"
+        />
+      </keep-alive>
     </div>
-
 
     <div class="item-container__similar"></div>
   </div>
@@ -131,13 +131,11 @@ import InstagramIcon from "SvgComponents/InstagramIcon.vue";
 import TwitterIcon from "SvgComponents/TwitterIcon.vue";
 import StarFilled from "SvgComponents/StarFilled.vue";
 import StarPool from "SvgComponents/StarPool.vue";
-import ItemPageInformation from "../../components/ItemPageInformation.vue";
-import ItemPageDescription from "../../components/itemPageDescription.vue";
 
 const route = useRoute();
 
 const currentId: number = Number(route.params.id) || 0;
-const { isLoading, data, fetchByURL } = useFetch(
+const { isLoading, data, fetchByURL } = useFetch<Product>(
   `https://fakestoreapi.com/products/${currentId}`,
 );
 
@@ -165,7 +163,8 @@ const changeItemPage = (pageId: string) => {
   flex-direction: column;
   gap: 123px;
 
-  &__info { // в нем может ничего не быть, но для бэм мы оставляем его?
+  &__info {
+    // в нем может ничего не быть, но для бэм мы оставляем его?
   }
 
   &__page {
@@ -174,21 +173,20 @@ const changeItemPage = (pageId: string) => {
     flex-direction: column;
 
     &-heading {
-      display: flex;
-      flex-direction: row;
-      gap: 96px;
-      margin-bottom: 34px;
     }
   }
 }
 
 .page-heading {
+  display: flex;
+  flex-direction: row;
+  gap: 96px;
+  margin-bottom: 34px;
   border-bottom: 2px solid var(--color-decorative);
-  position: relative;
 
   &__underline {
     position: relative;
-    padding-bottom: 28px;
+    padding-bottom: 40px;
     border-bottom: 2px solid var(--color-main);
     z-index: 2;
   }

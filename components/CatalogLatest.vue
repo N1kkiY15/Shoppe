@@ -14,7 +14,7 @@
         :title="cards.title"
         :price="cards.price"
         :image="cards.image"
-        @click="goToItemPage(cards.id)"
+        @click="goToPage(cards.id)"
         />
       </template>
   </div>
@@ -26,18 +26,24 @@ const { isLoading, cardsOnPage, errorLoading, data, fetchByURL } = useFetch(
   "https://fakestoreapi.com/products"
 );
 
-const REQUIRED_NUMBER_OF_CARDS: number = 6;
+import type { Product } from '~/types/product';
+
+const { navigateToPage } = goToPageItem();
+
+const goToPage = (value: number) => {
+  navigateToPage(value);
+}
+
+const REQUIRED_NUMBER_OF_CARDS = 6;
 
 onMounted(async () => {
   await fetchByURL();
 });
 
-const goToItemPage = (productsID: number) => {
-  navigateTo(`/item/${productsID}`);
-};
-
 const displayedItems = computed(() => {
-  const filteredProducts = data.value.filter((data) => data.category === "electronics"
+  const products = data.value as Product[]; // Assert type
+  const filteredProducts = products.filter((product) =>
+      product.category === "electronics"
   );
   return filteredProducts.slice(0, cardsOnPage);
 });

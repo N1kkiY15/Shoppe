@@ -1,13 +1,5 @@
 <template>
-  <input
-    v-model="model"
-    type="text"
-    class="input"
-    :class="{
-      'input-small': props.size === 'small',
-      'input-medium': props.size === 'medium',
-    }"
-  />
+  <input v-model="model" type="text" class="input" :class="inputSize" />
 </template>
 
 <script lang="ts" setup>
@@ -19,6 +11,11 @@ interface Props {
 
 const props = defineProps<Props>();
 const model = defineModel<string>();
+
+const inputSize = computed(() => ({
+  "input-small": props.size === "small",
+  "input-medium": props.size === "medium",
+}));
 </script>
 
 <style lang="scss" scoped>
@@ -27,8 +24,8 @@ const model = defineModel<string>();
   padding-bottom: 13px;
 
   &-small {
-    max-width: 396px; 
-    min-width: 200px; 
+    max-width: 396px;
+    min-width: 200px;
     width: 100%;
     padding-right: 30px;
   }
