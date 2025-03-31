@@ -22,11 +22,6 @@
           {{ errors.email }}
         </p>
 
-        <!--        <div class="footer-form__checkbox">-->
-        <!--          <input type="checkbox" class="footer-form__checkbox-item" />-->
-        <!--          <p>i agree to the website’s terms and conditions</p>-->
-        <!--        </div>-->
-
         <DefaultCheckbox
           form="rounded"
           size="small"

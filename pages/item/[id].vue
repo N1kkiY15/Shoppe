@@ -1,5 +1,5 @@
 <template>
-  <div class="item-container">
+  <div v-if="data" class="item-container">
     <div class="item-container__info item-card">
       <div class="item-card__photos">
         <div class="item-card__photos-menu">
@@ -43,7 +43,7 @@
               <StarFilled />
               <StarPool />
             </div>
-            <span> {{ data?.rating.count }} customer review</span>
+            <span> {{ data.rating.count }} customer review</span>
           </div>
           <div class="item-description__rewiew-text">
             <p>{{ data?.description }}</p>
@@ -72,7 +72,7 @@
 
         <div class="item-description__details">
           <span>SKU: 12</span>
-          <span>Category: {{ data?.category }}</span>
+          <span>Category: {{ data.category }}</span>
         </div>
       </div>
     </div>
@@ -82,7 +82,7 @@
         <h3
           @click="changeItemPage('description')"
           :class="{
-            'active-page-slider': currentPage === 'description',
+            'page-heading__underline': currentPage === 'description',
           }"
           id="description"
         >
@@ -102,7 +102,7 @@
           :class="{ 'page-heading__underline': currentPage === 'reviews' }"
           id="reviews"
         >
-          <a>Reviews({{ data?.rating.count }})</a>
+          <a>Reviews({{ data.rating.count }})</a>
         </h3>
       </div>
       <ItemPageDescription
@@ -113,13 +113,13 @@
       <keep-alive>
         <ItemPageReviews
           v-if="currentPage === 'reviews'"
-          :title="data?.title"
-          :count="data?.rating.count"
+          :title="data.title"
+          :count="data.rating.count"
         />
       </keep-alive>
     </div>
 
-    <div class="item-container__similar"></div>
+    <SimilarItems :category='data.category' />
   </div>
 </template>
 
@@ -133,6 +133,7 @@ import StarFilled from "SvgComponents/StarFilled.vue";
 import StarPool from "SvgComponents/StarPool.vue";
 
 const route = useRoute();
+import type { Product } from "~/types/product";
 
 const currentId: number = Number(route.params.id) || 0;
 const { isLoading, data, fetchByURL } = useFetch<Product>(
@@ -145,6 +146,7 @@ onMounted(async () => {
 });
 
 const currentPage = ref<string>("description");
+// const currentCategory = ref<string>("");
 
 const changeItemPage = (pageId: string) => {
   if (pageId === "description") {
@@ -185,7 +187,7 @@ const changeItemPage = (pageId: string) => {
   border-bottom: 2px solid var(--color-decorative);
 
   &__underline {
-    position: relative;
+    //position: relative;
     padding-bottom: 40px;
     border-bottom: 2px solid var(--color-main);
     z-index: 2;

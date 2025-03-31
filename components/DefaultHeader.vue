@@ -81,8 +81,10 @@ const showElement = computed(() => !route.meta?.isHomePage);
     flex-direction: row;
     gap: 48px;
     justify-content: space-between;
+    flex-wrap: wrap;
     align-items: center;
     width: 100%;
+    margin-bottom: 20px;
 
     &-mobile {
       display: none;

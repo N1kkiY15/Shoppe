@@ -22,12 +22,11 @@
 </template>
 
 <script lang="ts" setup>
-const { isLoading, cardsOnPage, errorLoading, data, fetchByURL } = useFetch(
+const { isLoading, errorLoading, data, fetchByURL } = useFetch(
   "https://fakestoreapi.com/products"
 );
 
 import type { Product } from '~/types/product';
-
 const { navigateToPage } = goToPageItem();
 
 const goToPage = (value: number) => {
@@ -45,7 +44,7 @@ const displayedItems = computed(() => {
   const filteredProducts = products.filter((product) =>
       product.category === "electronics"
   );
-  return filteredProducts.slice(0, cardsOnPage);
+  return filteredProducts.slice(0, REQUIRED_NUMBER_OF_CARDS);
 });
 
 

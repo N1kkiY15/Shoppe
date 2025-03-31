@@ -3,7 +3,6 @@ export default function useFetch<T>(url: string) {
   const isLoading = ref<boolean>(true);
   const errorLoading = ref<boolean>(true);
   const data = ref<T | null>(null);
-  const cardsOnPage: number = 6;
 
 
   const fetchByURL = async () => {
@@ -24,6 +23,5 @@ export default function useFetch<T>(url: string) {
     errorLoading,
     data,
     fetchByURL,
-    cardsOnPage,
   };
 }

@@ -1,6 +1,5 @@
 <template>
   <div class="catalog-shop">
-
     <div v-if="!isLoading" class="catalog-shop__list">
       <ItemCard
         v-for="cards in displayedItems"
@@ -27,9 +26,8 @@
 </template>
 
 <script lang="ts" setup>
-
 import useScrollToTop from "composables/scrollToTop";
-import type { Product } from '~/types/product';
+import type { Product } from "~/types/product";
 
 const currentPage = ref<number>(1);
 let cardNumber: number = 6;
@@ -38,26 +36,27 @@ const { navigateToPage } = goToPageItem();
 
 const goToPage = (value: number) => {
   navigateToPage(value);
-}
+};
 
-const { isLoading, cardsOnPage, errorLoading, data, fetchByURL } = useFetch<Product[]>(
-  "https://fakestoreapi.com/products"
-);
+const { isLoading, errorLoading, data, fetchByURL } = useFetch<
+  Product[]
+>("https://fakestoreapi.com/products");
 
+const REQUIRED_NUMBER_OF_CARDS = 6;
 
 onMounted(async () => {
   await fetchByURL();
 });
 
 const totalPages = computed(() =>
-  Math.ceil(productsLength.value / cardsOnPage)
+  Math.ceil(productsLength.value / REQUIRED_NUMBER_OF_CARDS),
 );
 
 const productsLength = computed(() => data.value?.length);
 
 const displayedItems = computed(() => {
-  const startIndex = (currentPage.value - 1) * cardsOnPage;
-  return data.value?.slice(startIndex, startIndex + cardsOnPage);
+  const startIndex = (currentPage.value - 1) * REQUIRED_NUMBER_OF_CARDS;
+  return data.value?.slice(startIndex, startIndex + REQUIRED_NUMBER_OF_CARDS);
 });
 
 const { scrollToTop } = useScrollToTop();
@@ -78,7 +77,7 @@ watch(
   () => currentPage.value,
   (newValue: number) => {
     scrollToTop();
-  }
+  },
 );
 </script>
 
@@ -98,5 +97,4 @@ watch(
     column-gap: 24px;
   }
 }
-
 </style>

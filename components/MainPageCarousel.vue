@@ -229,7 +229,6 @@ onUnmounted(() => {
         &-heading {
           max-width: 217px;
           flex-wrap: wrap;
-
         }
 
         &-price {
@@ -237,7 +236,6 @@ onUnmounted(() => {
           font-weight: 400;
           font-size: 14px;
           line-height: 26px;
-
         }
       }
     }
