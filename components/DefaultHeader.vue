@@ -36,7 +36,7 @@
         </div>
       </div>
 
-      <div class="header__container-mobile">
+      <div class="header__container-mobile mobile-menu">
           <ShoppingCartIcon />
           <MenuList />
       </div>
@@ -92,6 +92,10 @@ const showElement = computed(() => !route.meta?.isHomePage);
       gap: 13px;
       align-items: center;
     }
+  }
+
+  .mobile-menu {
+    ///////
   }
 
   &__input {

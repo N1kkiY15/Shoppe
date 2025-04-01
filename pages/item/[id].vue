@@ -146,7 +146,6 @@ onMounted(async () => {
 });
 
 const currentPage = ref<string>("description");
-// const currentCategory = ref<string>("");
 
 const changeItemPage = (pageId: string) => {
   if (pageId === "description") {

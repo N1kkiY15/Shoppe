@@ -1,9 +1,10 @@
 <template>
-  <div>
+  <div class="similar-items">
+    <h2>Similar Items</h2>
     <div class="catalog-latest">
       <template v-if="isLoading">
         <LoadingSkeletonCard
-          v-for="n in REQUIRED_NUMBER_OF_CARDS"
+          v-for="n in REQUIRED_NUMBER_OF_CARDS_SIMILAR"
           :key="`skeleton-${n}`"
         />
       </template>
@@ -22,25 +23,17 @@
 </template>
 
 <script setup lang="ts">
-const { isLoading, data, fetchByURL } = useFetch(
-  "https://fakestoreapi.com/products",
-);
+// const { isLoading, data, fetchByURL } = useFetch(
+//   "https://fakestoreapi.com/products",
+// );
+//
+// import type { Product } from "~/types/product";
+// const { navigateToPage } = goToPageItem();
+// const goToPage = (value: number) => {
+//   navigateToPage(value);
+// };
 
-import type { Product } from "~/types/product";
-
-const { navigateToPage } = goToPageItem();
-
-const goToPage = (value: number) => {
-  navigateToPage(value);
-};
-
-const REQUIRED_NUMBER_OF_CARDS = 3;
-
-onMounted(async () => {
-  await fetchByURL();
-});
-
-const category = ref<string>("");
+const REQUIRED_NUMBER_OF_CARDS_SIMILAR = 3;
 
 interface PropsCategory {
   category: string;
@@ -48,18 +41,18 @@ interface PropsCategory {
 
 const propsCategory = defineProps<PropsCategory>();
 
-console.log("category.value:", category.value);
-
-const displayedItems = computed(() => {
-  const products = data.value as Product[]; // Assert type
-  const filteredProducts = products.filter(
-    (product) => product.category === propsCategory.category,
-  );
-  return filteredProducts.slice(0, REQUIRED_NUMBER_OF_CARDS);
-});
+const { displayedItems, goToPage, isLoading } =
+    useDisplayedItems(REQUIRED_NUMBER_OF_CARDS_SIMILAR, propsCategory.category);
 </script>
 
 <style scoped lang="scss">
+
+
+.similar-items {
+  display: flex;
+  flex-direction: column;
+  gap: 3em;
+}
 .catalog-latest {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
