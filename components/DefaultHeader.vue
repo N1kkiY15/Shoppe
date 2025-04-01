@@ -32,22 +32,25 @@
         <div class="header__info-links">
           <SearchIcon />
           <ShoppingCartIcon />
-          <ProfileIcon />
+
+          <NuxtLink
+              to="/login"
+          > <ProfileIcon />
+          </NuxtLink>
+
         </div>
       </div>
 
       <div class="header__container-mobile mobile-menu">
-          <ShoppingCartIcon />
-          <MenuList />
+        <ShoppingCartIcon />
+        <MenuList />
       </div>
-      <!-- здесь контейнер с инфой для мобилки?  -->
     </div>
-
+    <!-- исправить -->
     <div class="header__input">
       <input type="text" class="header__input-text" placeholder="Search" />
-      <SearchIconMobile class="header__input-icon"/>
+      <SearchIconMobile class="header__input-icon" />
     </div>
-
   </div>
 </template>
 
@@ -94,16 +97,17 @@ const showElement = computed(() => !route.meta?.isHomePage);
     }
   }
 
-  .mobile-menu {
-    ///////
-  }
+  //
+  //.mobile-menu {
+  //  ///////
+  //}
 
   &__input {
     display: none;
     position: relative;
 
     &-text {
-      background-color: #EFEFEF;
+      background-color: #efefef;
       border-radius: 4px;
       padding: 5px 0 5px 30px;
       height: 32px;
@@ -170,12 +174,20 @@ const showElement = computed(() => !route.meta?.isHomePage);
 
     &__container {
       margin-bottom: 16px;
+
       &-mobile {
         display: flex;
       }
     }
 
-    &__input { display: block}
+    &__input {
+      display: block;
+    }
+  }
+
+  .header__border {
+    margin-bottom: 24px;
+    border-bottom: none;
   }
 }
 </style>

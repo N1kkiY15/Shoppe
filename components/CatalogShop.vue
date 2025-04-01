@@ -97,4 +97,17 @@ watch(
     column-gap: 24px;
   }
 }
+
+@media (width <= 376px) {
+  .catalog-shop {
+    margin-bottom: 50px;
+    gap: 0;
+    &__list {
+      grid-template-columns: repeat(2, minmax(136px, 1fr));
+      column-gap: 16px;
+      row-gap: 24px;
+      margin-bottom: 94px;
+    }
+  }
+}
 </style>

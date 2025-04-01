@@ -34,7 +34,7 @@ const showElement = computed(() => !route.meta?.isHomePage);
 
 @media (width < 375px) {
   .items__header {
-    margin-bottom: 13px;
+    display: none;
   }
 }
 </style>

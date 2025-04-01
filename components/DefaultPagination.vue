@@ -81,4 +81,16 @@ const isActive = (page: number) => page === props.currentPage;
     background-color: transparent;
   }
 }
+
+@media (width <= 376px) {
+  .pagination {
+    gap: 8px;
+
+    &__item {
+      width: 20px;
+      height: 20px;
+      font-size: 10px;
+    }
+  }
+}
 </style>

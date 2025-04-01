@@ -1,11 +1,15 @@
 <template>
   <div class="item-card">
-    <img src="pictures/Img 01.png" class="item-card__image" />
-    <div class="item-card__details">Info</div>
+    <div class="item-card__wrapper">
+      <img src="pictures/Img 01.png" class="item-card__wrapper-image" />
+      <div class="item-card__wrapper-details hover-details">
+        <a class="hover-details__button">ADD TO CART</a>
+      </div>
+    </div>
     <div class="item-card__description">
       <h3 class="item-card__description-title">{{ props.title }}</h3>
       <span class="item-card__description-price span-accent"
-        >$ {{ props.price }}</span
+      >$ {{ props.price }}</span
       >
     </div>
   </div>
@@ -28,24 +32,51 @@ const props = defineProps<CardInfo>();
   display: flex;
   flex-direction: column;
   gap: 24px;
+  cursor: pointer;
 
-  &__image {
+  &__wrapper {
     position: relative;
+    border-radius: 8px;
+
+    &-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+    }
+
+    &-details {
+      height: 20%;
+    }
+
+    &:hover &-details {
+      opacity: 1;
+      visibility: visible;
+    }
   }
 
-  &__details {
+  .hover-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.7);
+    background: rgba(216, 216, 216, 0.5);
     color: white;
-    padding: 10px 15px;
-    border-bottom-right-radius: 4px;
-    border-bottom-left-radius: 4px;
+    padding: 15px;
     opacity: 0;
-    transform: translateY(0%);
+    visibility: hidden;
     transition: all 0.3s ease;
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+
+    &__button {
+      color: black;
+      font-weight:var(--font-weight-bold);
+    }
   }
 
   &__description {
@@ -73,8 +104,6 @@ const props = defineProps<CardInfo>();
 
 @media (width <= 376px) {
   .item-card {
-    display: flex;
-    flex-direction: column;
     gap: 6px;
 
     &__description {
