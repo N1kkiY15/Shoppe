@@ -23,7 +23,6 @@
 <script setup lang="ts"></script>
 
 <style scoped lang="scss">
-
 .reset-pass-heading {
   text-align: center;
   margin-bottom: 40px;

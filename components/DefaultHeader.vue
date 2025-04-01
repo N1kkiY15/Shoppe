@@ -33,28 +33,47 @@
           <SearchIcon />
           <ShoppingCartIcon />
 
-          <NuxtLink
-              to="/login"
-          > <ProfileIcon />
+          <NuxtLink to="/login">
+            <ProfileIcon />
           </NuxtLink>
-
         </div>
       </div>
 
-      <div class="header__container-mobile mobile-menu">
+      <div class="header__container-mobile">
         <ShoppingCartIcon />
-        <MenuList />
+        <button @click="toggleDropdown">
+          <MenuList />
+        </button>
       </div>
+
     </div>
     <!-- исправить -->
     <div class="header__input">
       <input type="text" class="header__input-text" placeholder="Search" />
       <SearchIconMobile class="header__input-icon" />
     </div>
+
+    <transition name="slide">
+      <div v-if="isOpen" class="mobile-menu" @click.stop>
+        <ul class="mobile-menu__list">
+          <li><NuxtLink to="/mainpage" @click="toggleDropdown">Home</NuxtLink></li>
+          <li><NuxtLink to="/shop" @click="toggleDropdown">Shop</NuxtLink></li>
+          <li><NuxtLink to="/ourstory" @click="toggleDropdown">About</NuxtLink></li>
+          <li><NuxtLink to="/blog" @click="toggleDropdown">Blog</NuxtLink></li>
+          <li><NuxtLink to="/login" @click="toggleDropdown">Help</NuxtLink></li>
+          <li><NuxtLink to="/contacts" @click="toggleDropdown">Contact</NuxtLink></li>
+          <li><NuxtLink to="/login" @click="toggleDropdown">Search</NuxtLink></li>
+        </ul>
+        <ul class="mobile-menu__list">
+          <li>My account</li>
+          <li>Logout</li>
+        </ul>
+      </div>
+    </transition>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import ProfileIcon from "SvgComponents/ProfileIcon.vue";
 import SearchIcon from "SvgComponents/SearchIcon.vue";
 import ShoppingCartIcon from "SvgComponents/ShoppingCartIcon.vue";
@@ -63,6 +82,13 @@ import SearchIconMobile from "../assets/pictures/svg/SvgComponents/SearchIconMob
 
 const route = useRoute();
 const showElement = computed(() => !route.meta?.isHomePage);
+
+const isOpen = ref<boolean>(false);
+
+const toggleDropdown = () => {
+  isOpen.value = !isOpen.value;
+  document.body.style.overflow = isOpen.value ? 'hidden' : '';
+};
 
 // const { $breakpoints } = useNuxtApp();
 
@@ -96,11 +122,6 @@ const showElement = computed(() => !route.meta?.isHomePage);
       align-items: center;
     }
   }
-
-  //
-  //.mobile-menu {
-  //  ///////
-  //}
 
   &__input {
     display: none;
@@ -164,6 +185,55 @@ const showElement = computed(() => !route.meta?.isHomePage);
 .header__border {
   margin-bottom: 80px;
   border-bottom: 1px solid var(--color-decorative);
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 110px;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: white;
+  z-index: 3;
+  overflow-y: auto;
+  padding: 16px;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    font-size: 20px;
+    margin-bottom: 24px;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--color-decorative);
+    }
+
+    & li:last-child {
+      margin-bottom: 40px;
+    }
+  }
+}
+
+/* Transitions */
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.3s ease;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(100%);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 
 @media (width <= 376px) {
