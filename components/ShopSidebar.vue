@@ -169,9 +169,4 @@ const emit = defineEmits(["submitSearch"]);
   transform: translateX(12px);
 }
 
-@media (width <= 376px) {
-  .sidebar {
-    display: none;
-  }
-}
 </style>

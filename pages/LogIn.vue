@@ -93,6 +93,8 @@ const moveButtonRight = () => {
 
 @media (width <= 375px) {
   .login {
+    margin-bottom: 92px;
+
     &__heading {
       font-weight: 400;
       margin-bottom: 24px;

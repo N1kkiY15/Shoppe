@@ -51,89 +51,14 @@
           <XIcon v-if="isOpen" class="header__menu-icon" />
         </button>
       </div>
-    </div>
 
+    </div>
     <div class="header__search">
       <input type="text" class="header__search-input" placeholder="Search" />
       <SearchIconMobile class="header__search-icon" />
     </div>
 
-    <transition name="slide">
-      <div v-if="isOpen" class="header__mobile-menu" @click.stop>
-        <ul class="header__mobile-list">
-          <li class="header__mobile-item">
-            <NuxtLink
-              to="/mainpage"
-              @click="toggleDropdown"
-              class="header__mobile-link"
-              >Home</NuxtLink
-            >
-          </li>
-          <li class="header__mobile-item">
-            <NuxtLink
-              to="/shop"
-              @click="toggleDropdown"
-              class="header__mobile-link"
-              >Shop</NuxtLink
-            >
-          </li>
-          <li class="header__mobile-item">
-            <NuxtLink
-              to="/ourstory"
-              @click="toggleDropdown"
-              class="header__mobile-link"
-              >About</NuxtLink
-            >
-          </li>
-          <li class="header__mobile-item">
-            <NuxtLink
-              to="/blog"
-              @click="toggleDropdown"
-              class="header__mobile-link"
-              >Blog</NuxtLink
-            >
-          </li>
-          <li class="header__mobile-item">
-            <NuxtLink
-              to="/login"
-              @click="toggleDropdown"
-              class="header__mobile-link"
-              >Help</NuxtLink
-            >
-          </li>
-          <li class="header__mobile-item">
-            <NuxtLink
-              to="/contacts"
-              @click="toggleDropdown"
-              class="header__mobile-link"
-              >Contact</NuxtLink
-            >
-          </li>
-          <li class="header__mobile-item">
-            <NuxtLink
-              to="/login"
-              @click="toggleDropdown"
-              class="header__mobile-link"
-              >Search</NuxtLink
-            >
-          </li>
-        </ul>
-        <ul class="header__mobile-list">
-          <li class="header__mobile-item">
-            <NuxtLink to="/login" @click="toggleDropdown" class="header__account-link">
-              <ProfileIcon @click="toggleDropdown" class="header__account-icon" />
-              My account
-            </NuxtLink>
-          </li>
-          <li class="header__mobile-item">
-            <NuxtLink class="header__account-link">
-              <LogOutIcon class="header__account-icon" />
-              Logout
-            </NuxtLink>
-          </li>
-        </ul>
-      </div>
-    </transition>
+    <MobileHeaderMenu :openMenu="isOpen" @toggle-dropdown="toggleDropdown" />
   </div>
 </template>
 
@@ -143,7 +68,6 @@ import SearchIcon from "SvgComponents/SearchIcon.vue";
 import ShoppingCartIcon from "SvgComponents/ShoppingCartIcon.vue";
 import MenuList from "../assets/pictures/svg/SvgComponents/MenuList.vue";
 import SearchIconMobile from "../assets/pictures/svg/SvgComponents/SearchIconMobile.vue";
-import LogOutIcon from "../assets/pictures/svg/SvgComponents/LogOutIcon.vue";
 import XIcon from "../assets/pictures/svg/SvgComponents/XIcon.vue";
 
 const route = useRoute();
@@ -226,10 +150,6 @@ const toggleDropdown = () => {
     gap: 39px;
   }
 
-  &__action-icon {
-    // Styles for action icons
-  }
-
   &__mobile-controls {
     display: none;
     flex-direction: row;
@@ -240,14 +160,6 @@ const toggleDropdown = () => {
   &__menu-button {
     display: flex;
     align-items: center;
-  }
-
-  &__menu-icon {
-    // Styles for menu icons
-  }
-
-  &__mobile-icon {
-    // Styles for mobile icons
   }
 
   &__search {
@@ -269,60 +181,6 @@ const toggleDropdown = () => {
       left: 10px;
     }
   }
-
-  &__mobile-menu {
-    position: fixed;
-    top: 110px;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: white;
-    z-index: 3;
-    overflow-y: auto;
-    padding: 16px;
-  }
-
-  &__mobile-list {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    font-size: 20px;
-
-    &:not(:last-child) {
-      border-bottom: 1px solid var(--color-decorative);
-      margin-bottom: 24px;
-    }
-
-    & li:last-child {
-      margin-bottom: 40px;
-    }
-  }
-
-  &__mobile-link {
-    // Styles for mobile menu links
-  }
-
-  &__account-link {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
-  }
-
-  &__account-icon {
-    // Styles for account icons
-  }
-}
-
-/* Transitions */
-.slide-enter-active,
-.slide-leave-active {
-  transition: transform 0.3s ease;
-}
-
-.slide-enter-from,
-.slide-leave-to {
-  transform: translateX(100%);
 }
 
 @media (width <= 376px) {

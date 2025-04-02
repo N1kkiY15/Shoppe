@@ -3,7 +3,7 @@
     <button
       v-show="props.currentPage !== 1"
       @click="previousPage"
-      class="pagination__nav-button pagination__nav-button--prev"
+      class="pagination__item pagination__nav-button--prev"
       aria-label="Previous page"
     >
       <MarkLeft class="pagination__icon" />
@@ -26,7 +26,7 @@
     <button
       v-show="props.totalPages !== props.currentPage"
       @click="nextPage"
-      class="pagination__nav-button pagination__nav-button--next"
+      class="pagination__item pagination__nav-button--next"
       aria-label="Next page"
     >
       <MarkRight class="pagination__icon" />
@@ -92,9 +92,8 @@ const isActive = (page: number) => page === props.currentPage;
     transition: all 0.2s ease;
 
     &--active {
-      background-color: var(--color-accent);
+      background-color: var(--color-main);
       color: white;
-      border-color: var(--color-accent);
     }
 
     &:hover:not(&--active) {
@@ -103,14 +102,6 @@ const isActive = (page: number) => page === props.currentPage;
   }
 
   &__nav-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
     &:hover {
       opacity: 0.8;
     }

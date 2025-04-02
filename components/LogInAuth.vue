@@ -52,7 +52,9 @@
   }
 
   &__link {
+    font-weight: 400;
     align-self: center;
+    font-size: clamp(0.75rem, 0.662rem + 0.376vw, 1rem);
   }
 }
 </style>

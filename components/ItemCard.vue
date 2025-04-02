@@ -59,10 +59,10 @@ const props = defineProps<CardInfo>();
     justify-content: center;
     align-items: center;
     padding: 15px;
-    opacity: 0;
+    opacity: 1;
     visibility: hidden;
     transition: all 0.3s ease;
-    transform: translateY(10px);
+    transform: translateY(100%);
   }
 
   &__add-button {
@@ -98,13 +98,12 @@ const props = defineProps<CardInfo>();
   }
 
   &:hover &__overlay {
-    opacity: 1;
     visibility: visible;
     transform: translateY(0);
   }
 
   &:hover &__image {
-    transform: scale(1.02);
+    transform: scale(1.05);
   }
 }
 
@@ -119,6 +118,18 @@ const props = defineProps<CardInfo>();
     &__title {
       line-height: var(--line-height-body-small);
     }
+
+    &__overlay {
+      //transform: translateY(20px);
+      padding: 5px;
+    }
+
+    &:hover &__overlay {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
   }
 }
 </style>
