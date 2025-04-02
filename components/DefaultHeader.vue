@@ -1,72 +1,136 @@
 <template>
-  <div class="header" :class="{ header__border: showElement }">
+  <div class="header" :class="{ 'header--bordered': showElement }">
     <div class="header__container">
       <NuxtLink to="/MainPage" class="header__logo">shoppe</NuxtLink>
-      <div class="header__info">
-        <nav>
-          <ul class="header__info-navigation">
-            <li>
+
+      <div class="header__desktop-nav">
+        <nav class="header__nav">
+          <ul class="header__nav-list">
+            <li class="header__nav-item">
               <NuxtLink
                 to="/shop"
-                :class="{ 'active-page-slider': route.path === '/shop' }"
+                :class="{ 'header__nav-link--active': route.path === '/shop' }"
+                class="header__nav-link"
                 >Shop
               </NuxtLink>
             </li>
-            <li>
+            <li class="header__nav-item">
               <NuxtLink
                 to="/blog"
-                :class="{ 'active-page-slider': route.path === '/blog' }"
+                :class="{ 'header__nav-link--active': route.path === '/blog' }"
+                class="header__nav-link"
                 >Blog
               </NuxtLink>
             </li>
-            <li>
+            <li class="header__nav-item">
               <NuxtLink
                 to="/ourstory"
-                :class="{ 'active-page-slider': route.path === '/ourstory' }"
+                :class="{
+                  'header__nav-link--active': route.path === '/ourstory',
+                }"
+                class="header__nav-link"
                 >Our story
               </NuxtLink>
             </li>
           </ul>
         </nav>
-        <span class="header__info-line"></span>
-        <div class="header__info-links">
-          <SearchIcon />
-          <ShoppingCartIcon />
-
-          <NuxtLink to="/login">
+        <span class="header__divider"></span>
+        <div class="header__actions">
+          <SearchIcon class="header__action-icon" />
+          <ShoppingCartIcon class="header__action-icon" />
+          <NuxtLink to="/login" class="header__action-icon">
             <ProfileIcon />
           </NuxtLink>
         </div>
       </div>
 
-      <div class="header__container-mobile">
-        <ShoppingCartIcon />
-        <button @click="toggleDropdown">
-          <MenuList />
+      <div class="header__mobile-controls">
+        <ShoppingCartIcon class="header__mobile-icon" />
+        <button @click="toggleDropdown" class="header__menu-button">
+          <MenuList v-if="!isOpen" class="header__menu-icon" />
+          <XIcon v-if="isOpen" class="header__menu-icon" />
         </button>
       </div>
-
     </div>
-    <!-- исправить -->
-    <div class="header__input">
-      <input type="text" class="header__input-text" placeholder="Search" />
-      <SearchIconMobile class="header__input-icon" />
+
+    <div class="header__search">
+      <input type="text" class="header__search-input" placeholder="Search" />
+      <SearchIconMobile class="header__search-icon" />
     </div>
 
     <transition name="slide">
-      <div v-if="isOpen" class="mobile-menu" @click.stop>
-        <ul class="mobile-menu__list">
-          <li><NuxtLink to="/mainpage" @click="toggleDropdown">Home</NuxtLink></li>
-          <li><NuxtLink to="/shop" @click="toggleDropdown">Shop</NuxtLink></li>
-          <li><NuxtLink to="/ourstory" @click="toggleDropdown">About</NuxtLink></li>
-          <li><NuxtLink to="/blog" @click="toggleDropdown">Blog</NuxtLink></li>
-          <li><NuxtLink to="/login" @click="toggleDropdown">Help</NuxtLink></li>
-          <li><NuxtLink to="/contacts" @click="toggleDropdown">Contact</NuxtLink></li>
-          <li><NuxtLink to="/login" @click="toggleDropdown">Search</NuxtLink></li>
+      <div v-if="isOpen" class="header__mobile-menu" @click.stop>
+        <ul class="header__mobile-list">
+          <li class="header__mobile-item">
+            <NuxtLink
+              to="/mainpage"
+              @click="toggleDropdown"
+              class="header__mobile-link"
+              >Home</NuxtLink
+            >
+          </li>
+          <li class="header__mobile-item">
+            <NuxtLink
+              to="/shop"
+              @click="toggleDropdown"
+              class="header__mobile-link"
+              >Shop</NuxtLink
+            >
+          </li>
+          <li class="header__mobile-item">
+            <NuxtLink
+              to="/ourstory"
+              @click="toggleDropdown"
+              class="header__mobile-link"
+              >About</NuxtLink
+            >
+          </li>
+          <li class="header__mobile-item">
+            <NuxtLink
+              to="/blog"
+              @click="toggleDropdown"
+              class="header__mobile-link"
+              >Blog</NuxtLink
+            >
+          </li>
+          <li class="header__mobile-item">
+            <NuxtLink
+              to="/login"
+              @click="toggleDropdown"
+              class="header__mobile-link"
+              >Help</NuxtLink
+            >
+          </li>
+          <li class="header__mobile-item">
+            <NuxtLink
+              to="/contacts"
+              @click="toggleDropdown"
+              class="header__mobile-link"
+              >Contact</NuxtLink
+            >
+          </li>
+          <li class="header__mobile-item">
+            <NuxtLink
+              to="/login"
+              @click="toggleDropdown"
+              class="header__mobile-link"
+              >Search</NuxtLink
+            >
+          </li>
         </ul>
-        <ul class="mobile-menu__list">
-          <li>My account</li>
-          <li>Logout</li>
+        <ul class="header__mobile-list">
+          <li class="header__mobile-item">
+            <NuxtLink to="/login" @click="toggleDropdown" class="header__account-link">
+              <ProfileIcon @click="toggleDropdown" class="header__account-icon" />
+              My account
+            </NuxtLink>
+          </li>
+          <li class="header__mobile-item">
+            <NuxtLink class="header__account-link">
+              <LogOutIcon class="header__account-icon" />
+              Logout
+            </NuxtLink>
+          </li>
         </ul>
       </div>
     </transition>
@@ -79,6 +143,8 @@ import SearchIcon from "SvgComponents/SearchIcon.vue";
 import ShoppingCartIcon from "SvgComponents/ShoppingCartIcon.vue";
 import MenuList from "../assets/pictures/svg/SvgComponents/MenuList.vue";
 import SearchIconMobile from "../assets/pictures/svg/SvgComponents/SearchIconMobile.vue";
+import LogOutIcon from "../assets/pictures/svg/SvgComponents/LogOutIcon.vue";
+import XIcon from "../assets/pictures/svg/SvgComponents/XIcon.vue";
 
 const route = useRoute();
 const showElement = computed(() => !route.meta?.isHomePage);
@@ -87,23 +153,20 @@ const isOpen = ref<boolean>(false);
 
 const toggleDropdown = () => {
   isOpen.value = !isOpen.value;
-  document.body.style.overflow = isOpen.value ? 'hidden' : '';
+  document.body.style.overflow = isOpen.value ? "hidden" : "";
 };
-
-// const { $breakpoints } = useNuxtApp();
-
-// const placeholderText = computed(() => {
-//   return $breakpoints.s
-//     ? 'Введите адрес или название'
-//     : 'Введите адрес или название проекта';
-// });
 </script>
 
 <style scoped lang="scss">
 .header {
-  position: relative; // zaebisto - skinul v TG
+  position: relative;
   display: flex;
   flex-direction: column;
+
+  &--bordered {
+    margin-bottom: 80px;
+    border-bottom: 1px solid var(--color-decorative);
+  }
 
   &__container {
     display: flex;
@@ -114,20 +177,84 @@ const toggleDropdown = () => {
     align-items: center;
     width: 100%;
     margin-bottom: 20px;
+  }
 
-    &-mobile {
-      display: none;
-      flex-direction: row;
-      gap: 13px;
-      align-items: center;
+  &__logo {
+    text-transform: uppercase;
+    font-family: var(--font-logo);
+    font-size: clamp(1.563rem, 1.384rem + 0.893vw, 2.188rem);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-main);
+
+    &:first-letter {
+      color: var(--color-accent);
     }
   }
 
-  &__input {
+  &__desktop-nav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 48px;
+    font-weight: var(--font-weight-regular);
+    font-size: var(--font-size-text-large);
+  }
+
+  &__nav-list {
+    display: flex;
+    flex-direction: row;
+    gap: 64px;
+  }
+
+  &__nav-link {
+    &--active {
+      cursor: pointer;
+      padding-bottom: 31px;
+      border-bottom: 2px solid #000;
+      z-index: 2;
+    }
+  }
+
+  &__divider::after {
+    content: "";
+    border-right: 1px solid var(--color-main);
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: row;
+    gap: 39px;
+  }
+
+  &__action-icon {
+    // Styles for action icons
+  }
+
+  &__mobile-controls {
+    display: none;
+    flex-direction: row;
+    gap: 15px;
+    align-content: center;
+  }
+
+  &__menu-button {
+    display: flex;
+    align-items: center;
+  }
+
+  &__menu-icon {
+    // Styles for menu icons
+  }
+
+  &__mobile-icon {
+    // Styles for mobile icons
+  }
+
+  &__search {
     display: none;
     position: relative;
 
-    &-text {
+    &-input {
       background-color: #efefef;
       border-radius: 4px;
       padding: 5px 0 5px 30px;
@@ -143,75 +270,47 @@ const toggleDropdown = () => {
     }
   }
 
-  &__logo {
-    text-transform: uppercase;
-    font-family: var(--font-logo);
-    font-size: clamp(1.563rem, 1.384rem + 0.893vw, 2.188rem);
-    font-weight: var(--font-weight-regular);
-    color: var(--color-main);
-
-    &:first-letter {
-      color: var(--color-accent);
-    }
+  &__mobile-menu {
+    position: fixed;
+    top: 110px;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: white;
+    z-index: 3;
+    overflow-y: auto;
+    padding: 16px;
   }
 
-  .header__info {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 48px;
-    font-weight: var(--font-weight-regular);
-    font-size: var(--font-size-text-large);
-
-    &-navigation {
-      display: flex;
-      flex-direction: row;
-      gap: 64px;
-    }
-
-    &-links {
-      display: flex;
-      flex-direction: row;
-      gap: 39px;
-    }
-
-    &-line::after {
-      content: "";
-      border-right: 1px solid var(--color-main);
-    }
-  }
-}
-
-.header__border {
-  margin-bottom: 80px;
-  border-bottom: 1px solid var(--color-decorative);
-}
-
-.mobile-menu {
-  position: fixed;
-  top: 110px;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: white;
-  z-index: 3;
-  overflow-y: auto;
-  padding: 16px;
-
-  &__list {
+  &__mobile-list {
     display: flex;
     flex-direction: column;
     gap: 24px;
     font-size: 20px;
-    margin-bottom: 24px;
 
     &:not(:last-child) {
       border-bottom: 1px solid var(--color-decorative);
+      margin-bottom: 24px;
     }
 
     & li:last-child {
       margin-bottom: 40px;
     }
+  }
+
+  &__mobile-link {
+    // Styles for mobile menu links
+  }
+
+  &__account-link {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+  }
+
+  &__account-icon {
+    // Styles for account icons
   }
 }
 
@@ -226,38 +325,28 @@ const toggleDropdown = () => {
   transform: translateX(100%);
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
 @media (width <= 376px) {
   .header {
-    .header__info {
+    &__desktop-nav {
       display: none;
     }
 
     &__container {
       margin-bottom: 16px;
-
-      &-mobile {
-        display: flex;
-      }
     }
 
-    &__input {
+    &__mobile-controls {
+      display: flex;
+    }
+
+    &__search {
       display: block;
     }
-  }
 
-  .header__border {
-    margin-bottom: 24px;
-    border-bottom: none;
+    &--bordered {
+      margin-bottom: 24px;
+      border-bottom: none;
+    }
   }
 }
 </style>

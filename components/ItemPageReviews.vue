@@ -1,14 +1,14 @@
 <template>
   <div class="reviews">
     <div class="reviews__list">
-      <h3>{{ props.count }} Reviews for {{ props.title }}</h3>
-      <div class="reviews__list-container review-block">
-        <div class="review-block__header">
-          <h3>Scarlet withch</h3>
-          <div class="review-block__header-date">6 May, 2020</div>
+      <h3 class="reviews__title">{{ props.count }} Reviews for {{ props.title }}</h3>
+      <div class="reviews__item">
+        <div class="reviews__item-header">
+          <h3 class="reviews__item-author">Scarlet withch</h3>
+          <div class="reviews__item-date">6 May, 2020</div>
         </div>
 
-        <div class="review-block__rating">
+        <div class="reviews__item-rating">
           <StarFilled />
           <StarFilled />
           <StarFilled />
@@ -16,19 +16,19 @@
           <StarPool />
         </div>
 
-        <h5 class="review-block__text">
+        <h5 class="reviews__item-text">
           Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
           nonummy nibh euismod tincidunt ut laoreet.
         </h5>
       </div>
 
-      <div class="reviews__list-container review-block">
-        <div class="review-block__header">
-          <h3>Scarlet withch</h3>
-          <div class="review-block__header-date">6 May, 2020</div>
+      <div class="reviews__item">
+        <div class="reviews__item-header">
+          <h3 class="reviews__item-author">Scarlet withch</h3>
+          <div class="reviews__item-date">6 May, 2020</div>
         </div>
 
-        <div class="review-block__rating">
+        <div class="reviews__item-rating">
           <StarFilled />
           <StarFilled />
           <StarFilled />
@@ -36,7 +36,7 @@
           <StarPool />
         </div>
 
-        <h5 class="review-block__text">
+        <h5 class="reviews__item-text">
           Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
           nonummy nibh euismod tincidunt ut laoreet.
         </h5>
@@ -44,47 +44,47 @@
     </div>
 
     <div class="reviews__form">
-      <div class="reviews__form-heading form-heading">
-        <h3 class="form-heading__header">Add a Review</h3>
-        <p class="form-heading__text">
+      <div class="reviews__form-header">
+        <h3 class="reviews__form-title">Add a Review</h3>
+        <p class="reviews__form-notice">
           Your email address will not be published. Required fields are marked *
         </p>
       </div>
 
-      <form @submit.prevent class="reviews__form-block review-form">
+      <form @submit.prevent class="reviews__form-content">
         <default-text-input
-          size="medium"
-          placeholder="Your Review*"
-          type="text"
-          class="review-form__input"
-          :style="'padding-bottom: 60px'"
-        />
-
-        <default-text-input
-          size="medium"
-          placeholder="Enter your name*"
-          type="text"
-          class="review-form__input"
-        />
-
-        <div class="review-form__email">
-          <default-text-input
             size="medium"
-            placeholder="Enter your Email*"
+            placeholder="Your Review*"
             type="text"
-            class="review-form__input"
+            class="reviews__form-input"
+            :style="'padding-bottom: 60px'"
+        />
+
+        <default-text-input
+            size="medium"
+            placeholder="Enter your name*"
+            type="text"
+            class="reviews__form-input"
+        />
+
+        <div class="reviews__form-email">
+          <default-text-input
+              size="medium"
+              placeholder="Enter your Email*"
+              type="text"
+              class="reviews__form-input"
           />
 
           <DefaultCheckbox
-            v-model="checkboxValue"
-            size="medium"
-            form="square"
-            text="Save my name, email, and website in this browser for the next time I comment"
+              v-model="checkboxValue"
+              size="medium"
+              form="square"
+              text="Save my name, email, and website in this browser for the next time I comment"
           />
         </div>
 
-        <div class="review-form__rate">
-          <p>Your Rating*</p>
+        <div class="reviews__form-rating">
+          <p class="reviews__form-rating-label">Your Rating*</p>
           <star-pool />
           <star-pool />
           <star-pool />
@@ -93,11 +93,11 @@
         </div>
 
         <ButtonComp
-          variant="primary"
-          size="m"
-          class="review-form__button"
-          type="submit"
-          >Submit
+            variant="primary"
+            size="m"
+            class="reviews__form-button"
+            type="submit"
+        >Submit
         </ButtonComp>
       </form>
     </div>
@@ -130,82 +130,101 @@ const props = defineProps<Props>();
     flex-direction: column;
     max-width: 580px;
     gap: 76px;
-
-    &-container {
-      display: flex;
-      flex-direction: column;
-    }
   }
 
-  &__form {
+  &__title {
+    margin: 0;
+  }
+
+  &__item {
     display: flex;
     flex-direction: column;
-    gap: 46px;
+    border-bottom: 1px solid var(--color-decorative);
+    width: 100%;
+    padding-bottom: 39px;
 
-    &-heading {
-      display: flex;
-      flex-direction: column;
-      gap: 11px;
+    &:last-child {
+      margin-bottom: 0;
+      border-bottom: none;
     }
   }
-}
 
-.form-heading {
-  &__text {
-    color: var(--color-text);
-    font-weight: var(--font-weight-regular);
-    font-size: var(--font-size-text-medium);
-  }
-}
-
-.review-block {
-  border-bottom: 1px solid var(--color-decorative);
-  width: 100%;
-
-  &__header {
+  &__item-header {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 16px;
     margin-bottom: 16px;
-
-    &-date {
-      color: var(--color-text);
-      font-size: var(--font-size-text-medium);
-      font-weight: var(--font-weight-regular);
-    }
   }
 
-  &__rating {
+  &__item-author {
+    margin: 0;
+  }
+
+  &__item-date {
+    color: var(--color-text);
+    font-size: var(--font-size-text-medium);
+    font-weight: var(--font-weight-regular);
+  }
+
+  &__item-rating {
     display: flex;
     flex-direction: row;
     gap: 10px;
     margin-bottom: 24px;
   }
 
-  &__text {
+  &__item-text {
     color: var(--color-text);
-    margin-bottom: 39px;
+    margin: 0;
     font-weight: var(--font-weight-regular);
   }
-}
 
-.review-block:last-child {
-  margin-bottom: 0;
-  border-bottom: none;
-}
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 46px;
+  }
 
-.review-form {
-  display: flex;
-  flex-direction: column;
-  gap: 46px;
-  color: var(--color-text);
-  font-weight: var(--font-weight-regular);
+  &__form-header {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
 
-  &__email {
+  &__form-title {
+    margin: 0;
+  }
+
+  &__form-notice {
+    color: var(--color-text);
+    font-weight: var(--font-weight-regular);
+    font-size: var(--font-size-text-medium);
+    margin: 0;
+  }
+
+  &__form-content {
+    display: flex;
+    flex-direction: column;
+    gap: 46px;
+    color: var(--color-text);
+    font-weight: var(--font-weight-regular);
+  }
+
+  &__form-email {
     display: flex;
     flex-direction: column;
     gap: 24px;
+  }
+
+  &__form-rating {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__form-rating-label {
+    margin: 0;
   }
 }
 </style>

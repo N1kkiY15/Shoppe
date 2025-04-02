@@ -152,10 +152,10 @@ input[type="range"]::-webkit-slider-thumb {
   color: var(--color-text);
 }
 
-.range-input-slider { 
+.range-input-slider {
   width: 100%;
   height: 2px;
-  background: var(--color-decorative); 
+  background: var(--color-decorative);
   outline: none;
   opacity: 0.7;
   transition: opacity 0.2s;

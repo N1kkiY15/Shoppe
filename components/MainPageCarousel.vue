@@ -213,6 +213,7 @@ onUnmounted(() => {
         justify-content: flex-end;
         padding-left: 8px;
         padding-bottom: 26px;
+        margin-right: 0px;
       }
 
       &-description {
@@ -249,6 +250,14 @@ onUnmounted(() => {
         height: 7px;
       }
     }
+  }
+
+  .slide-enter-from {
+    transform: translateX(calc(100% + 50px));
+  }
+
+  .slide-leave-to {
+    transform: translateX(calc(-100% - 50px));
   }
 }
 </style>

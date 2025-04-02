@@ -5,8 +5,8 @@
       v-if="!showElement"
       to="/shop"
       class="span-accent items__header-span"
-      >View All</NuxtLink
-    >
+      >View All
+    </NuxtLink>
   </div>
 </template>
 

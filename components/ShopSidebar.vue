@@ -1,42 +1,57 @@
 <template>
   <div class="sidebar">
     <form @submit.prevent="submitSearch" class="sidebar__form">
-      <input type="text" v-model="item" placeholder="Search..." />
-      <button type="submit" class="sidebar__form-button">
-        <search-icon />
+      <input
+        type="text"
+        v-model="item"
+        placeholder="Search..."
+        class="sidebar__input"
+      />
+      <button type="submit" class="sidebar__submit">
+        <search-icon class="sidebar__icon" />
       </button>
     </form>
 
-    <div class="sidebar__select">
-      <div class="select">
-        <select id="mySelect" name="mySelect" class="select-input">
+    <div class="sidebar__selects">
+      <div class="sidebar__select">
+        <select id="mySelect" name="mySelect" class="sidebar__select-input">
           <option value="">Category</option>
           <option value="first">Первый элемент</option>
           <option value="second">Второй элемент</option>
           <option value="third">Третий элемент</option>
         </select>
-        <button class="select-mark">
-          <MarkDown />
+        <button class="sidebar__select-mark">
+          <MarkDown class="sidebar__select-icon" />
         </button>
       </div>
 
-      <div class="select">
-        <select id="mySelect" name="mySelect" class="select-input">
+      <div class="sidebar__select">
+        <select id="mySelect" name="mySelect" class="sidebar__select-input">
           <option value="">Sort By</option>
           <option value="first">Первый элемент</option>
           <option value="second">Второй элемент</option>
           <option value="third">Третий элемент</option>
         </select>
-        <button class="select-mark">
-          <MarkDown />
+        <button class="sidebar__select-mark">
+          <MarkDown class="sidebar__select-icon" />
         </button>
       </div>
     </div>
 
-    <InputSlider />
+    <InputSlider class="sidebar__slider" />
 
-    <CheckboxSlider v-model="isCheckedOnSale" label="On Sale" id="sale"/>
-    <CheckboxSlider v-model="isCheckedInStock" label="On Stock" id="stock"/>
+    <CheckboxSlider
+      v-model="isCheckedOnSale"
+      label="On Sale"
+      id="sale"
+      class="sidebar__checkbox"
+    />
+    <CheckboxSlider
+      v-model="isCheckedInStock"
+      label="On Stock"
+      id="stock"
+      class="sidebar__checkbox"
+    />
   </div>
 </template>
 
@@ -64,12 +79,19 @@ const emit = defineEmits(["submitSearch"]);
 </script>
 
 <style lang="scss" scoped>
-.select {
+.sidebar__select {
   position: relative;
   width: 100%;
+
+  &-input {
+    border: 1px solid var(--color-decorative);
+    padding: 15px 12px;
+    border-radius: 4px;
+    width: 100%;
+  }
 }
 
-.select-mark {
+.sidebar__select-mark {
   position: absolute;
   right: 12px;
   bottom: 12px;
@@ -90,7 +112,7 @@ const emit = defineEmits(["submitSearch"]);
   }
 }
 
-.sidebar__select {
+.sidebar__selects {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -103,7 +125,7 @@ const emit = defineEmits(["submitSearch"]);
   border-bottom: 1px solid var(--color-decorative);
 }
 
-.sidebar__form-button {
+.sidebar__submit {
   position: absolute;
   right: 0;
   bottom: 5px;

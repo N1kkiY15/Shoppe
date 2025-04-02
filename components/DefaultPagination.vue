@@ -3,27 +3,33 @@
     <button
       v-show="props.currentPage !== 1"
       @click="previousPage"
-      class="pagination__item pagination__item-navigation"
+      class="pagination__nav-button pagination__nav-button--prev"
+      aria-label="Previous page"
     >
-      <MarkLeft />
+      <MarkLeft class="pagination__icon" />
     </button>
-    <ul class="pagination">
+
+    <ul class="pagination__list">
       <li
         v-for="pageIndex in props.totalPages"
         :key="pageIndex"
         class="pagination__item"
+        :class="{
+          'pagination__item--active': isActive(pageIndex),
+        }"
         @click="changingPage(pageIndex)"
-        :class="{ activePage: isActive(pageIndex) }"
       >
         {{ pageIndex }}
       </li>
     </ul>
+
     <button
       v-show="props.totalPages !== props.currentPage"
       @click="nextPage"
-      class="pagination__item pagination__item-navigation"
+      class="pagination__nav-button pagination__nav-button--next"
+      aria-label="Next page"
     >
-      <MarkRight />
+      <MarkRight class="pagination__icon" />
     </button>
   </nav>
 </template>
@@ -63,8 +69,16 @@ const isActive = (page: number) => page === props.currentPage;
 <style lang="scss" scoped>
 .pagination {
   display: flex;
-  flex-direction: row;
+  align-items: center;
   gap: 8px;
+
+  &__list {
+    display: flex;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 
   &__item {
     width: 40px;
@@ -75,21 +89,50 @@ const isActive = (page: number) => page === props.currentPage;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    transition: all 0.2s ease;
+
+    &--active {
+      background-color: var(--color-accent);
+      color: white;
+      border-color: var(--color-accent);
+    }
+
+    &:hover:not(&--active) {
+      background-color: var(--color-decorative-light);
+    }
   }
 
-  &__item-navigation {
+  &__nav-button {
     background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__icon {
+    width: 16px;
+    height: 16px;
   }
 }
 
 @media (width <= 376px) {
   .pagination {
-    gap: 8px;
-
     &__item {
       width: 20px;
       height: 20px;
       font-size: 10px;
+    }
+
+    &__icon {
+      width: 12px;
+      height: 12px;
     }
   }
 }

@@ -93,20 +93,21 @@ const buttonClasses = computed(() => ({
 }
 
 @media (width <= 375px) {
-
   .special {
     outline: 1px solid var(--color-contrast);
-  }
-
-  .button__size-xl {
     max-width: 102px;
     max-height: 32px;
     padding: 6px 9px;
-    font-family: DM Sans;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 20px;
   }
-  
+
+  //.button__size-xl {
+  //  max-width: 102px;
+  //  max-height: 32px;
+  //  padding: 6px 9px;
+  //  font-family: DM Sans;
+  //  font-weight: 400;
+  //  font-size: 12px;
+  //  line-height: 20px;
+  //}
 }
 </style>

@@ -3,18 +3,24 @@
     <span class="footer-socials__text">Follow us</span>
     <div class="footer-socials__line"></div>
     <li>
-      <a href="https://vk.com/nderevyanko15" target="blank"><InIcon /></a>
+      <a href="https://vk.com/nderevyanko15" target="blank">
+        <InIcon />
+      </a>
     </li>
     <li>
-      <a href="https://vk.com/nderevyanko15" target="blank"><FacebookIcon /></a>
+      <a href="https://vk.com/nderevyanko15" target="blank">
+        <FacebookIcon />
+      </a>
     </li>
     <li>
-      <a href="https://vk.com/nderevyanko15" target="blank"
-        ><InstagramIcon
-      /></a>
+      <a href="https://vk.com/nderevyanko15" target="blank">
+        <InstagramIcon />
+      </a>
     </li>
     <li>
-      <a href="https://vk.com/nderevyanko15" target="blank"><TwitterIcon /></a>
+      <a href="https://vk.com/nderevyanko15" target="blank">
+        <TwitterIcon />
+      </a>
     </li>
   </ul>
 </template>

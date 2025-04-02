@@ -1,47 +1,46 @@
 <template>
   <footer class="footer">
     <div class="footer__section">
-      <FooterLinks class="footer__section-links" />
+      <FooterLinks class="footer__links" />
 
-      <form
-        class="footer__section-form footer-form"
-        @submit.prevent="submitForm"
-      >
-        <DefaultTextInput
-          v-model="footerEmail"
-          size="small"
-          placeholder="Give an email, get the newsletter."
-          @blur="validateFooterEmail"
-        />
+      <form class="footer__form" @submit.prevent="submitForm">
+        <div class="footer__form-group">
+          <DefaultTextInput
+            v-model="footerEmail"
+            size="small"
+            placeholder="Give an email, get the newsletter."
+            @blur="validateFooterEmail"
+            :class="{ 'footer__input--error': errors.email }"
+          />
+          <button class="footer__submit-button" type="submit">
+            <ArrowToRigth />
+          </button>
+        </div>
 
-        <button class="footer-form__button" type="submit">
-          <ArrowToRigth />
-        </button>
-
-        <p v-if="errors.email" class="error-message">
+        <p v-if="errors.email" class="footer__error-message">
           {{ errors.email }}
         </p>
 
         <DefaultCheckbox
           form="rounded"
           size="small"
-          class="footer-form__checkbox"
-          text="i agree to the website’s terms and conditions"
+          class="footer__checkbox"
+          text="i agree to the website's terms and conditions"
         />
       </form>
     </div>
 
     <div class="footer__section">
-      <p class="footer__section-text">
-        <span class="text__accent">© 2021 Shelly.</span> Terms of
-        <NuxtLink to="/privacypolice" class="text__accent">use</NuxtLink>
+      <p class="footer__copyright">
+        <span class="footer__accent-text">© 2021 Shelly.</span> Terms of
+        <NuxtLink to="/privacypolice" class="footer__accent-text">use</NuxtLink>
         and privacy policy.
       </p>
 
-      <FooterSocials />
+      <FooterSocials class="footer__socials" />
     </div>
 
-    <DefaultModalWindow
+    <DefaultMessage
       :isOpen="isModalOpen"
       :status="status"
       @close="modalClose"
@@ -52,7 +51,6 @@
 
 <script lang="ts" setup>
 import ArrowToRigth from "SvgComponents/ArrowToRight.vue";
-
 import useSaveToLocalStorage from "composables/saveToLocalStorage";
 import useFormValidation from "composables/useFormValidation";
 import useModalWindow from "composables/useModalWindow";
@@ -71,9 +69,8 @@ const submitForm = () => {
     saveFooterEmailToLocalStorage(footerEmail.value);
     status.value = "trueEmail";
     message.value =
-      "Your email has been sent successfully! We will definitely contact you!"; // funct to  clear message
+      "Your email has been sent successfully! We will definitely contact you!";
   } else {
-    console.log("Form has errors");
     status.value = "falseMessage";
     message.value = "Form has error";
   }
@@ -92,68 +89,84 @@ const submitForm = () => {
 
   &__section {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 50px;
-
-    &-links {
-      gap: 40px;
-    }
-
-    &-text {
-      font-size: clamp(0.75rem, 0.679rem + 0.357vw, 1rem);
-    }
   }
 
-  &-form {
+  &__links {
+    gap: 40px;
+  }
+
+  &__form {
     position: relative;
     width: 100%;
     max-width: 396px;
   }
-}
 
-.footer-form__button {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: transparent;
-}
+  &__form-group {
+    position: relative;
+  }
 
-.footer-form__checkbox {
-  display: none;
-  flex-direction: row;
-  gap: 3px;
-  font-family: DM Sans;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 20px;
-  color: black;
-  margin-top: 15px;
-}
+  &__submit-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
 
-@media (width <= 376px) {
-  .footer {
+  &__error-message {
+    color: var(--color-error);
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  &__input--error {
+    border-color: var(--color-error);
+  }
+
+  &__checkbox {
+    display: none;
+    margin-top: 15px;
+  }
+
+  &__copyright {
+    font-size: clamp(0.75rem, 0.679rem + 0.357vw, 1rem);
+  }
+
+  &__accent-text {
+    color: var(--color-accent);
+  }
+
+  &__socials {
+    /* Additional socials styling if needed */
+  }
+
+  @media (width <= 376px) {
     border-top: none;
     gap: 40px;
     padding: 0;
 
     &__section {
-      display: flex;
       flex-direction: column-reverse;
       gap: 40px;
-      font-size: 12px;
-
-      &-links {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
     }
-  }
 
-  .footer-form__checkbox {
-    display: flex;
+    &__links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    &__checkbox {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 12px;
+      line-height: 20px;
+    }
   }
 }
 </style>

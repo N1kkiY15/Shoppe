@@ -24,9 +24,9 @@
 <script lang="ts" setup>
 const REQUIRED_NUMBER_OF_CARDS_LATEST = 6;
 
-const { displayedItems, goToPage, isLoading } =
-  useDisplayedItems(REQUIRED_NUMBER_OF_CARDS_LATEST);
-
+const { displayedItems, goToPage, isLoading } = useDisplayedItems(
+  REQUIRED_NUMBER_OF_CARDS_LATEST,
+);
 </script>
 
 <style lang="scss" scoped>

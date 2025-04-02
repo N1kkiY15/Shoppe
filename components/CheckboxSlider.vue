@@ -2,11 +2,7 @@
   <div class="checkbox-slider">
     <label>{{ props.label }}</label>
     <div class="toggle-switch" @click="toggle">
-      <input
-        type="checkbox"
-        class="toggle-input"
-        v-model="model"
-      />
+      <input type="checkbox" class="toggle-input" v-model="model" />
       <span class="slider"></span>
     </div>
   </div>
@@ -27,7 +23,6 @@ const props = defineProps<Props>();
 const toggle = () => {
   model.value = !model.value;
 };
-
 </script>
 
 <style lang="scss" scoped>

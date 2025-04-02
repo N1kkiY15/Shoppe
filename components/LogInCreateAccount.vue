@@ -7,13 +7,10 @@
       <default-text-input size="medium" placeholder="Password" />
     </div>
     <button-comp size="xl" variant="primary" type="submit">CREATE</button-comp>
-
   </div>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang="scss">
 .create-account {

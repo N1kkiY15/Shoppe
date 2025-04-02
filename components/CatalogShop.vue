@@ -38,9 +38,9 @@ const goToPage = (value: number) => {
   navigateToPage(value);
 };
 
-const { isLoading, errorLoading, data, fetchByURL } = useFetch<
-  Product[]
->("https://fakestoreapi.com/products");
+const { isLoading, errorLoading, data, fetchByURL } = useFetch<Product[]>(
+  "https://fakestoreapi.com/products",
+);
 
 const REQUIRED_NUMBER_OF_CARDS = 6;
 
@@ -102,6 +102,7 @@ watch(
   .catalog-shop {
     margin-bottom: 50px;
     gap: 0;
+
     &__list {
       grid-template-columns: repeat(2, minmax(136px, 1fr));
       column-gap: 16px;

@@ -34,13 +34,6 @@ interface statusMessage {
 
 const messageTotal = ref<string>("");
 
-// const message: statusMessage = {
-//   messageSent: "Your message has been sent successfully.",
-//   messageErrorSent: "Form has error",
-//   emailSent:
-//     "Your email has been sent successfully! We will definitely contact you!",
-// }; 
-
 interface Props {
   isOpen: Boolean;
   status: string;
