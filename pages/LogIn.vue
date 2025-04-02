@@ -24,6 +24,12 @@ import LogInAuth from "../components/LogInAuth.vue";
 
 const isPressed = ref(false);
 
+import type { NuxtError } from '#app'
+
+const props = defineProps({
+  error: Object as () => NuxtError
+})
+
 const moveButtonLeft = () => {
   isPressed.value = true;
 };
