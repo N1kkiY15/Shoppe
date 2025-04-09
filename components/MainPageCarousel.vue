@@ -56,13 +56,15 @@ import type { Product } from "~/types/product";
 onMounted(async () => {
   await fetchByURL();
   startInterval();
-}); // restart timer func
+});
+
+const intervalId = ref<number | null>(null);
 
 const startInterval = () => {
   if (intervalId.value) {
     clearInterval(intervalId.value);
   }
-  intervalId.value = window.setInterval(autoChangePage, 6000);
+  intervalId.value = window.setInterval(autoChangePage, 6000); // почему виндов
 };
 
 const pagesNumber = 5;
@@ -96,8 +98,6 @@ const goToPage = (value: number) => {
 const currentProduct = computed(() => {
   return data.value?.[currentPage.value - 1];
 });
-
-const intervalId = ref<number | null>(null);
 
 onUnmounted(() => {
   if (intervalId.value) {

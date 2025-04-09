@@ -1,28 +1,30 @@
 <template>
-  <ul class="footer-socials">
+  <div class="footer-socials">
     <span class="footer-socials__text">Follow us</span>
     <div class="footer-socials__line"></div>
-    <li>
-      <a href="https://vk.com/nderevyanko15" target="blank">
-        <InIcon />
-      </a>
-    </li>
-    <li>
-      <a href="https://vk.com/nderevyanko15" target="blank">
-        <FacebookIcon />
-      </a>
-    </li>
-    <li>
-      <a href="https://vk.com/nderevyanko15" target="blank">
-        <InstagramIcon />
-      </a>
-    </li>
-    <li>
-      <a href="https://vk.com/nderevyanko15" target="blank">
-        <TwitterIcon />
-      </a>
-    </li>
-  </ul>
+    <ul class="footer-socials__links">
+      <li>
+        <a href="https://vk.com/nderevyanko15" target="blank">
+          <InIcon />
+        </a>
+      </li>
+      <li>
+        <a href="https://vk.com/nderevyanko15" target="blank">
+          <FacebookIcon />
+        </a>
+      </li>
+      <li>
+        <a href="https://vk.com/nderevyanko15" target="blank">
+          <InstagramIcon />
+        </a>
+      </li>
+      <li>
+        <a href="https://vk.com/nderevyanko15" target="blank">
+          <TwitterIcon />
+        </a>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -36,6 +38,7 @@ import TwitterIcon from "SvgComponents/TwitterIcon.vue";
 .footer-socials {
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 30px;
 
   &__text {
@@ -44,9 +47,14 @@ import TwitterIcon from "SvgComponents/TwitterIcon.vue";
 
   &__line {
     display: none;
-    height: 11px;
     width: 47px;
     border-bottom: 1px solid black;
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
   }
 }
 
@@ -56,11 +64,17 @@ import TwitterIcon from "SvgComponents/TwitterIcon.vue";
 
     &__text {
       display: block;
+      font-size: 12px;
     }
 
     &__line {
       display: block;
     }
+
+    &__links {
+      gap: 16px;
+    }
+
   }
 
   li:nth-child(3) {

@@ -106,3 +106,14 @@ button {
   color: var(--color-error);
   font-size: 10px;
 }
+
+@media (width < 376px) {
+  .hover-icon {
+    height: 12px;
+    max-width: 15px;
+  }
+
+  .hover-icon:hover path {
+    fill: #707070; /* Отключаем hover-эффект на мобильных */
+  }
+}

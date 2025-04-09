@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <div class="footer__section">
-      <FooterLinks class="footer__links" />
+      <FooterLinks />
 
       <form class="footer__form" @submit.prevent="handleSubmit">
         <div class="footer__form-group">
@@ -35,7 +35,7 @@
         and privacy policy.
       </p>
 
-      <FooterSocials class="footer__socials" />
+      <FooterSocials />
     </div>
 
     <DefaultNotification
@@ -96,10 +96,6 @@ const handleSubmit = () => {
     gap: 50px;
   }
 
-  &__links {
-    gap: 40px;
-  }
-
   &__form {
     position: relative;
     width: 100%;
@@ -112,7 +108,7 @@ const handleSubmit = () => {
 
   &__submit-button {
     position: absolute;
-    top: 0;
+    top: 20%;
     right: 0;
     background-color: transparent;
     border: none;
@@ -139,7 +135,7 @@ const handleSubmit = () => {
   }
 
   &__accent-text {
-    color: var(--color-accent);
+    color: var(--color-main);
   }
 
   @media (width <= 376px) {
@@ -150,12 +146,6 @@ const handleSubmit = () => {
     &__section {
       flex-direction: column-reverse;
       gap: 40px;
-    }
-
-    &__links {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
     }
 
     &__checkbox {
