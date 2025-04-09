@@ -36,7 +36,7 @@ const messageTotal = ref<string>("");
 
 interface Props {
   isOpen: Boolean;
-  status: string;
+  status: string | null;
   message: string;
 }
 
@@ -52,8 +52,8 @@ const closeModal = () => {
 watch(
   () => props.status,
   () => {
-      messageTotal.value = props.message;
-  }
+    messageTotal.value = props.message;
+  },
 );
 </script>
 
@@ -82,6 +82,7 @@ watch(
     background-color: var(--color-accent);
     animation: borderGrow 5s linear forwards;
   }
+
   &__section {
     display: flex;
     flex-direction: row;
@@ -94,12 +95,14 @@ watch(
 }
 
 .modal-error::after {
-    background-color: var(--color-error);
+  background-color: var(--color-error);
 }
 
 .slide-enter-active,
 .slide-leave-active {
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
 }
 
 .slide-enter-from,

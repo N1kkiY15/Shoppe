@@ -1,55 +1,18 @@
-type variant = "footer" | "contacts";
+import type { useForm } from "~/types/forms";
 
-interface ContactForm {
-  firstName: string;
-  lastName: string;
-  email: string;
-  subject: string;
-  message: string;
-}
-
-export default function useSaveToLocalStorage(
-  type: variant,
-  object?: ContactForm
-) {
+export default function useSaveToLocalStorage() {
   const getTime = () => new Date().getTime();
 
-  const saveFooterEmailToLocalStorage = (email: string) => {
-    localStorage.setItem(`footerEmail_${getTime()}`, email);
-    return (email = "");
-  }; // peredelivaem + func SaveToLS -> key && value: generic(?) i udalenie tozhe peredelat )) =)))
-
-  const saveContactsToLocalStorage = () => {
-    if (typeof object === "string" || !object) {
-      console.error("Invalid object for contacts");
-      return;
-    }
-
-    const objectString = JSON.stringify(object);
-    localStorage.setItem(`userContacts_${getTime()}`, objectString);
-    object.firstName = "";
-    object.lastName = "";
-    object.email = "";
-    object.subject = "";
-    object.message = "";
+  const saveToLocalStorage = (data: useForm, keyPrefix: string) => {
+    return new Promise<string>((resolve) => {
+      const storageKey = `${keyPrefix}_${getTime()}`;
+      const valueToStore = JSON.stringify(data);
+      localStorage.setItem(storageKey, valueToStore);
+      resolve(storageKey);
+    });
   };
 
-  switch (type) {
-    case "footer":
-      return {
-        saveFooterEmailToLocalStorage,
-        // 
-        //
-      };
-
-    case "contacts":
-      return {
-        saveContactsToLocalStorage,
-        //
-        //
-      };
-
-    default:
-      throw new Error(`Unknown type: ${type}`);
-  }
+  return {
+    saveToLocalStorage
+  };
 }

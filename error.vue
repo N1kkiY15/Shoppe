@@ -1,16 +1,16 @@
 <template>
   <div>
     <NuxtLayout>
-    <div class="error-container">
-      <h1 class="error-container__heading">404 ERROR</h1>
-      <h3 class="error-container__description">
-        This page not found; <br />
-        back to home and start again
-      </h3>
-      <button-comp size="l" variant="secondary">
-        <NuxtLink to="/">Homepage</NuxtLink>
-      </button-comp>
-    </div>
+      <div class="error-container">
+        <h1 class="error-container__heading">404 ERROR</h1>
+        <h3 class="error-container__description">
+          This page not found; <br />
+          back to home and start again
+        </h3>
+        <button-comp size="l" variant="secondary">
+          <NuxtLink to="/MainPage">Homepage</NuxtLink>
+        </button-comp>
+      </div>
     </NuxtLayout>
   </div>
 </template>
@@ -28,7 +28,6 @@ useHead({
   align-items: center;
   text-align: center;
   max-width: 400px;
-  margin: 0 auto;
   padding: 20px;
   font-family: var(--font-main);
   margin: 250px auto;
@@ -49,7 +48,17 @@ useHead({
 @media (width <= 375px) {
   .error-container {
     margin: 205px auto;
+
+    &__heading {
+      font-size: var(--font-size-h4);
+      margin-bottom: 10px;
+    }
+
+    &__description {
+      font-weight: 400;
+      font-size: 12px;
+      margin-bottom: 24px;
+    }
   }
-  
 }
 </style>

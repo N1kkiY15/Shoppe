@@ -3,25 +3,23 @@
     <div class="footer__section">
       <FooterLinks class="footer__links" />
 
-      <form class="footer__form" @submit.prevent="submitForm">
+      <form class="footer__form" @submit.prevent="handleSubmit">
         <div class="footer__form-group">
           <DefaultTextInput
-            v-model="footerEmail"
+            v-model="form.email"
             size="small"
             placeholder="Give an email, get the newsletter."
-            @blur="validateFooterEmail"
-            :class="{ 'footer__input--error': errors.email }"
+            @blur="handleBlur('email')"
+            :class="{ 'contacts__input--error': errors.firstName }"
+            :error="errors.email"
           />
           <button class="footer__submit-button" type="submit">
-            <ArrowToRigth />
+            <ArrowToRight />
           </button>
         </div>
 
-        <p v-if="errors.email" class="footer__error-message">
-          {{ errors.email }}
-        </p>
-
         <DefaultCheckbox
+          v-model="form.saveData"
           form="rounded"
           size="small"
           class="footer__checkbox"
@@ -40,7 +38,7 @@
       <FooterSocials class="footer__socials" />
     </div>
 
-    <DefaultMessage
+    <DefaultNotification
       :isOpen="isModalOpen"
       :status="status"
       @close="modalClose"
@@ -50,31 +48,35 @@
 </template>
 
 <script lang="ts" setup>
-import ArrowToRigth from "SvgComponents/ArrowToRight.vue";
+import ArrowToRight from "SvgComponents/ArrowToRight.vue";
 import useSaveToLocalStorage from "composables/saveToLocalStorage";
 import useFormValidation from "composables/useFormValidation";
-import useModalWindow from "composables/useModalWindow";
+import useFormSubmit from "composables/useFormSubmit";
 
-const { footerEmail, errors, validateFooterEmail } = useFormValidation();
+const { form, errors, handleBlur, validateForm, resetForm } = useFormValidation(
+  {
+    email: "",
+    saveData: false,
+  },
+);
 
 const type = "footer";
-const { saveFooterEmailToLocalStorage } = useSaveToLocalStorage(type);
 
-const { isModalOpen, status, modalClose, modalOpen, message } =
-  useModalWindow();
+const { saveToLocalStorage } = useSaveToLocalStorage();
 
-const submitForm = () => {
-  validateFooterEmail();
-  if (!errors.email && saveFooterEmailToLocalStorage) {
-    saveFooterEmailToLocalStorage(footerEmail.value);
-    status.value = "trueEmail";
-    message.value =
-      "Your email has been sent successfully! We will definitely contact you!";
-  } else {
-    status.value = "falseMessage";
-    message.value = "Form has error";
-  }
-  modalOpen();
+const { submitForm, isModalOpen, status, modalClose, message } =
+  useFormSubmit();
+
+const handleSubmit = () => {
+  submitForm(
+    "Your email has been sent successfully! We will definitely contact you!",
+    "Form has errors. Please check all fields.",
+    form,
+    type,
+    validateForm,
+    resetForm,
+    saveToLocalStorage,
+  );
 };
 </script>
 
@@ -138,10 +140,6 @@ const submitForm = () => {
 
   &__accent-text {
     color: var(--color-accent);
-  }
-
-  &__socials {
-    /* Additional socials styling if needed */
   }
 
   @media (width <= 376px) {

@@ -22,11 +22,16 @@
         send you an e-mail
       </p>
 
-      <form @submit.prevent class="password-reset__form">
+      <form @submit.prevent="handleSubmit" class="password-reset__form">
         <default-text-input
+          v-model="form.email"
           size="medium"
           placeholder="Email"
           class="password-reset__input"
+          type="email"
+          @blur="handleBlur('email')"
+          :class="{ 'contacts__input--error': errors.email }"
+          :error="errors.email"
         />
         <button-comp
           size="xl"
@@ -38,10 +43,46 @@
         </button-comp>
       </form>
     </div>
+
+    <DefaultNotification
+      :isOpen="isModalOpen"
+      :status="status"
+      @close="modalClose"
+      :message="message"
+    />
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import useSaveToLocalStorage from "composables/saveToLocalStorage";
+import useFormValidation from "composables/useFormValidation";
+import useFormSubmit from "composables/useFormSubmit";
+
+const { form, errors, validateForm, handleBlur, resetForm } = useFormValidation(
+  {
+    email: "",
+  },
+);
+
+const type = "resetPassword";
+
+const { saveToLocalStorage } = useSaveToLocalStorage();
+
+const { submitForm, isModalOpen, status, modalClose, message } =
+  useFormSubmit();
+
+const handleSubmit = () => {
+  submitForm(
+    "We were sent a new password to your email address.",
+    "Form has errors. Please check your email address.",
+    form,
+    type,
+    validateForm,
+    resetForm,
+    saveToLocalStorage,
+  );
+};
+</script>
 
 <style scoped lang="scss">
 .password-reset {

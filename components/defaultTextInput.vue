@@ -1,25 +1,56 @@
 <template>
-  <input v-model="model" type="text" class="input" :class="inputSize" />
+  <div class="text-input">
+    <input
+      v-model="model"
+      :type="type"
+      class="input"
+      :class="inputSize"
+      :placeholder="placeholder"
+      @blur="handleBlur"
+    />
+    <p v-if="props.error" class="error-message">
+      {{ props.error }}
+    </p>
+  </div>
 </template>
 
 <script lang="ts" setup>
+
 type size = "small" | "medium";
+type error = string | "";
 
 interface Props {
   size: size;
+  error?: error;
+  placeholder: string;
+  type?: string;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  type: "text"
+});
+
 const model = defineModel<string>();
+const emit = defineEmits(['blur']); // Добавлено здесь
+
 
 const inputSize = computed(() => ({
   "input-small": props.size === "small",
   "input-medium": props.size === "medium",
 }));
+
+const handleBlur = () => {
+  emit('blur'); // Эмитим событие без параметров
+};
 </script>
 
 <style lang="scss" scoped>
+
+.text-input {
+  position: relative;
+}
 .input {
+
   border-bottom: 1px solid var(--color-decorative);
   padding-bottom: 13px;
 

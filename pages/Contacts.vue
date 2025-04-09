@@ -8,73 +8,52 @@
       </h3>
     </div>
 
-    <form @submit.prevent="submitForm" class="contacts__form">
+    <form @submit.prevent="handleSubmit" class="contacts__form">
       <div class="contacts__form-grid">
-        <div class="contacts__field">
-          <DefaultTextInput
-            v-model="form.firstName"
-            id="firstname"
-            size="medium"
-            placeholder="First name"
-            @blur="handleBlur('firstName')"
-            :class="{ 'contacts__input--error': errors.firstName }"
-          />
-          <p v-if="errors.firstName" class="contacts__error">
-            {{ errors.firstName }}
-          </p>
-        </div>
+        <DefaultTextInput
+          v-model="form.firstName"
+          id="firstname"
+          size="medium"
+          placeholder="First name"
+          @blur="handleBlur('firstName')"
+          :class="{ 'contacts__input--error': errors.firstName }"
+          :error="errors.firstName"
+        />
 
-        <div class="contacts__field">
-          <DefaultTextInput
-            id="lastname"
-            v-model="form.lastName"
-            size="medium"
-            placeholder="Last name"
-            @blur="handleBlur('lastName')"
-            :class="{ 'contacts__input--error': errors.lastName }"
-          />
-          <p v-if="errors.lastName" class="contacts__error">
-            {{ errors.lastName }}
-          </p>
-        </div>
+        <DefaultTextInput
+          id="lastname"
+          v-model="form.lastName"
+          size="medium"
+          placeholder="Last name"
+          @blur="handleBlur('lastName')"
+          :class="{ 'contacts__input--error': errors.lastName }"
+          :error="errors.lastName"
+        />
 
-        <div class="contacts__field">
-          <DefaultTextInput
-            v-model="form.email"
-            size="medium"
-            placeholder="Email"
-            @blur="handleBlur('email')"
-            :class="{ 'contacts__input--error': errors.email }"
-          />
-          <p v-if="errors.email" class="contacts__error">
-            {{ errors.email }}
-          </p>
-        </div>
+        <DefaultTextInput
+          v-model="form.email"
+          size="medium"
+          placeholder="Email"
+          @blur="handleBlur('email')"
+          :class="{ 'contacts__input--error': errors.email }"
+          :error="errors.email"
+        />
 
-        <div class="contacts__field">
-          <DefaultSelect
-            v-model="selectedSubject"
-            :class="{ 'contacts__select--error': errors.subject }"
-          />
-          <p v-if="errors.subject" class="contacts__error">
-            {{ errors.subject }}
-          </p>
-        </div>
+        <DefaultSelect
+          v-model="selectedSubject"
+          :class="{ 'contacts__select--error': errors.subject }"
+          :error="errors.subject"
+        />
 
-        <div class="contacts__field contacts__field--full-width">
-          <DefaultTextInput
-            id="message"
-            v-model="form.message"
-            size="medium"
-            placeholder="Message"
-            @blur="handleBlur('message')"
-            :class="{ 'contacts__input--error': errors.message }"
-            style="padding-bottom: 65px"
-          />
-          <p v-if="errors.message" class="contacts__error">
-            {{ errors.message }}
-          </p>
-        </div>
+        <DefaultTextInput
+          v-model="form.message"
+          id="message"
+          size="medium"
+          placeholder="Message"
+          @blur="handleBlur('message')"
+          :class="{ 'contacts__input--error': errors.message }"
+          :error="errors.message"
+        />
       </div>
 
       <ButtonComp
@@ -87,7 +66,7 @@
       </ButtonComp>
     </form>
 
-    <DefaultMessage
+    <DefaultNotification
       :isOpen="isModalOpen"
       :status="status"
       @close="modalClose"
@@ -99,40 +78,42 @@
 <script lang="ts" setup>
 import useSaveToLocalStorage from "composables/saveToLocalStorage";
 import useFormValidation from "composables/useFormValidation";
-import useModalWindow from "composables/useModalWindow";
+import useFormSubmit from "composables/useFormSubmit";
 import DefaultSelect from "../components/DefaultSelect.vue";
 
 const selectedSubject = ref("");
 
-const { form, errors, validateField, validateForm } = useFormValidation();
+const { form, errors, handleBlur, validateForm, resetForm } = useFormValidation(
+  {
+    firstName: "",
+    lastName: "",
+    email: "",
+    subject: "",
+    message: "",
+  },
+);
 
-const handleBlur = (field: keyof typeof form) => {
-  validateField(field as string, form[field]);
-};
+watch(selectedSubject, (newVal) => {
+  form.subject = newVal;
+});
 
 const type = "contacts";
-const { saveContactsToLocalStorage } = useSaveToLocalStorage(type, form);
 
-const saveToLocalStorage = () => {
-  if (saveContactsToLocalStorage) {
-    saveContactsToLocalStorage();
-  }
-};
+const { saveToLocalStorage } = useSaveToLocalStorage();
 
-const { isModalOpen, status, modalClose, modalOpen, message } =
-  useModalWindow();
+const { submitForm, isModalOpen, status, modalClose, message } =
+  useFormSubmit();
 
-const submitForm = () => {
-  if (validateForm()) {
-    saveToLocalStorage();
-    status.value = "trueMessage";
-    message.value = "Your message has been sent successfully."; // funct to  clear message
-  } else {
-    status.value = "falseMessage";
-    message.value = "Form has error"; // funct to  clear message
-  }
-  modalOpen();
-  // clearMessage()
+const handleSubmit = () => {
+  submitForm(
+    "Your message has been sent successfully.",
+    "Form has errors. Please check all fields.",
+    form,
+    type,
+    validateForm,
+    resetForm,
+    saveToLocalStorage,
+  );
 };
 </script>
 
@@ -179,23 +160,10 @@ const submitForm = () => {
     column-gap: 116px;
     row-gap: 94px;
     width: 100%;
-  }
 
-  &__field {
-    position: relative;
-
-    &--full-width {
+    & > *:last-child {
       grid-column: span 2;
     }
-  }
-
-  &__error {
-    position: absolute;
-    bottom: -1.5rem;
-    left: 0;
-    color: var(--color-error);
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
   }
 
   &__input--error {
@@ -236,10 +204,10 @@ const submitForm = () => {
     &__form-grid {
       grid-template-columns: 1fr;
       row-gap: 47px;
-    }
 
-    &__field--full-width {
-      grid-column: span 1;
+      & > *:last-child {
+        grid-column: span 1;
+      }
     }
 
     &__subtitle {

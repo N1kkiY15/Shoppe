@@ -1,32 +1,89 @@
 <template>
   <div class="auth">
-    <form @submit.prevent class="auth__form">
+    <form @submit.prevent="handleSubmit" class="auth__form">
       <div class="auth__form-inputs">
-        <default-text-input size="medium" placeholder="Email" />
-        <default-text-input size="medium" placeholder="Password" />
+        <DefaultTextInput
+          v-model="form.email"
+          size="medium"
+          placeholder="Email"
+          @blur="handleBlur('email')"
+          :class="{ 'contacts__input--error': errors.email }"
+          :error="errors.email"
+        />
+
+        <DefaultTextInput
+          v-model="form.password"
+          size="medium"
+          placeholder="Password"
+          type="password"
+          @blur="handleBlur('password')"
+          :class="{ 'contacts__input--error': errors.password }"
+          :error="errors.password"
+        />
       </div>
+
       <DefaultCheckbox
+        v-model="form.saveData"
         class="auth__form-checkbox"
         size="small"
         form="rounded"
         text="Remember me"
       />
+
       <ButtonComp
         class="auth__form-button"
         size="xl"
         variant="primary"
         type="submit"
-        >SIGN IN
+      >
+        SIGN IN
       </ButtonComp>
     </form>
 
     <NuxtLink to="/resetpass" class="auth__link">
       Have you forgotten your password?
     </NuxtLink>
+
+    <DefaultNotification
+      :isOpen="isModalOpen"
+      :status="status"
+      @close="modalClose"
+      :message="message"
+    />
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import useFormValidation from "composables/useFormValidation";
+import useSaveToLocalStorage from "composables/saveToLocalStorage";
+import useFormSubmit from "composables/useFormSubmit";
+
+const { form, errors, validateForm, handleBlur, resetForm } = useFormValidation(
+  {
+    email: "",
+    password: "",
+    saveData: false,
+  },
+);
+
+const type = "LogIn";
+const { saveToLocalStorage } = useSaveToLocalStorage();
+
+const { submitForm, isModalOpen, status, modalClose, message } =
+  useFormSubmit();
+
+const handleSubmit = () => {
+  submitForm(
+    "GOOD",
+    "Form has errors. Please check all fields.",
+    form,
+    type,
+    validateForm,
+    resetForm,
+    saveToLocalStorage,
+  );
+};
+</script>
 
 <style scoped lang="scss">
 .auth {
@@ -49,6 +106,10 @@
     &-button {
       margin-bottom: 15px;
     }
+  }
+
+  &__input--error {
+    border-color: var(--color-error);
   }
 
   &__link {

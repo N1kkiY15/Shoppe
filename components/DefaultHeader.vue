@@ -51,7 +51,6 @@
           <XIcon v-if="isOpen" class="header__menu-icon" />
         </button>
       </div>
-
     </div>
     <div class="header__search">
       <input type="text" class="header__search-input" placeholder="Search" />

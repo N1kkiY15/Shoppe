@@ -1,16 +1,89 @@
 <template>
-  <div class="create-account">
+  <form @submit.prevent="handleSubmit" class="create-account">
     <div class="create-account__inputs">
-      <default-text-input size="medium" placeholder="Name" />
-      <default-text-input size="medium" placeholder="Surname" />
-      <default-text-input size="medium" placeholder="Email" />
-      <default-text-input size="medium" placeholder="Password" />
+      <default-text-input
+        v-model="form.firstName"
+        size="medium"
+        placeholder="Name"
+        @blur="handleBlur('firstName')"
+        :class="{ 'contacts__input--error': errors.firstName }"
+        :error="errors.firstName"
+      />
+      <default-text-input
+        v-model="form.lastName"
+        size="medium"
+        placeholder="Surname"
+        @blur="handleBlur('lastName')"
+        :class="{ 'contacts__input--error': errors.lastName }"
+        :error="errors.lastName"
+      />
+      <default-text-input
+        v-model="form.email"
+        size="medium"
+        placeholder="Email"
+        @blur="handleBlur('email')"
+        :class="{ 'contacts__input--error': errors.email }"
+        :error="errors.email"
+      />
+      <default-text-input
+        v-model="form.password"
+        size="medium"
+        placeholder="Password"
+        type="password"
+        @blur="handleBlur('password')"
+        :class="{ 'contacts__input--error': errors.password }"
+        :error="errors.password"
+      />
     </div>
     <button-comp size="xl" variant="primary" type="submit">CREATE</button-comp>
-  </div>
+  </form>
+
+  <DefaultNotification
+    :isOpen="isModalOpen"
+    :status="status"
+    @close="modalClose"
+    :message="message"
+  />
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import useSaveToLocalStorage from "composables/saveToLocalStorage";
+import useFormValidation from "composables/useFormValidation";
+import useFormSubmit from "composables/useFormSubmit";
+
+const { form, errors, validateForm, handleBlur, resetForm } = useFormValidation(
+  {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  },
+);
+
+const type = "createAccount";
+
+const { saveToLocalStorage } = useSaveToLocalStorage();
+
+const {
+  submitForm,
+  isModalOpen,
+  status,
+  modalClose,
+  message,
+} = useFormSubmit();
+
+const handleSubmit = () => {
+   submitForm(
+    "Your account is created!",
+    "Form has errors. Please check all fields.",
+    form,
+    type,
+    validateForm,
+    resetForm,
+    saveToLocalStorage,
+  );
+};
+</script>
 
 <style scoped lang="scss">
 .create-account {

@@ -73,26 +73,18 @@ a {
 }
 
 input, select {
-  -webkit-appearance: none; 
-  -moz-appearance: none;    
-  appearance: none;         
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
-button { 
+button {
   cursor: pointer;
   background-color: transparent;
 }
 
-.error-message {
-  position: absolute;
-  top: auto;
-  left: 0;
-  font-size: 8px;
-  color: var(--color-error);
-}
-
 .span-accent {
-   color: var(--color-accent)
+  color: var(--color-accent)
 }
 
 .text__accent {
@@ -105,4 +97,12 @@ button {
   padding-bottom: 31px;
   border-bottom: 2px solid #000;
   z-index: 2;
+}
+
+.error-message {
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  color: var(--color-error);
+  font-size: 10px;
 }
