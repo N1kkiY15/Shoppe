@@ -13,6 +13,7 @@
         sodales lectus placerat quis.
       </p>
     </div>
+
     <div class="about__card">
       <h2 class="about__card-heading">Top trends</h2>
       <img
@@ -30,6 +31,7 @@
         <li>Lorem ipsum dolor sit amet consectetur</li>
       </ul>
     </div>
+
     <div class="about__card">
       <h2 class="about__card-heading">Produced with care</h2>
       <img
@@ -52,9 +54,8 @@
   display: flex;
   flex-direction: column;
   max-width: 670px;
-  margin: auto;
+  margin: 0 auto 250px;
   gap: var(--spacing-paragraph);
-  margin-bottom: 250px;
 
   &__headings {
     display: flex;
@@ -67,11 +68,13 @@
     display: flex;
     flex-direction: column;
     gap: 46px;
+    margin-bottom: 39px;
   }
 
   &__card {
     display: flex;
     flex-direction: column;
+    margin-bottom: 39px;
 
     &-text {
       margin-bottom: 16px;

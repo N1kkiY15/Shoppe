@@ -1,11 +1,11 @@
 <template>
   <div class="default-checkbox">
     <input
-      type="checkbox"
-      id="save-info"
-      class="default-checkbox__input"
-      :class="CheckboxClass"
       v-model="checkboxValue"
+      type="checkbox"
+      class="default-checkbox__input"
+      id="save-info"
+      :class="CheckboxClass"
     />
     <label for="save-info" class="default-checkbox__description">
       {{ props.text }}

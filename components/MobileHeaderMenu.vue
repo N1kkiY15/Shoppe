@@ -2,69 +2,77 @@
   <transition name="slide">
     <div v-if="props.openMenu" class="header__mobile-menu" @click.stop>
       <ul class="header__mobile-list">
+
         <li class="header__mobile-item">
           <NuxtLink
             to="/mainpage"
-            @click="$emit('toggle-dropdown')"
             class="header__mobile-link"
+            @click="$emit('toggle-dropdown')"
             >Home
           </NuxtLink>
         </li>
+
         <li class="header__mobile-item">
           <NuxtLink
             to="/shop"
-            @click="$emit('toggle-dropdown')"
             class="header__mobile-link"
+            @click="$emit('toggle-dropdown')"
             >Shop
           </NuxtLink>
         </li>
+
         <li class="header__mobile-item">
           <NuxtLink
             to="/ourstory"
-            @click="$emit('toggle-dropdown')"
             class="header__mobile-link"
+            @click="$emit('toggle-dropdown')"
             >About
           </NuxtLink>
         </li>
+
         <li class="header__mobile-item">
           <NuxtLink
             to="/blog"
-            @click="$emit('toggle-dropdown')"
             class="header__mobile-link"
+            @click="$emit('toggle-dropdown')"
             >Blog
           </NuxtLink>
         </li>
+
         <li class="header__mobile-item">
           <NuxtLink
             to="/login"
-            @click="$emit('toggle-dropdown')"
             class="header__mobile-link"
+            @click="$emit('toggle-dropdown')"
             >Help
           </NuxtLink>
         </li>
+
         <li class="header__mobile-item">
           <NuxtLink
             to="/contacts"
-            @click="$emit('toggle-dropdown')"
             class="header__mobile-link"
+            @click="$emit('toggle-dropdown')"
             >Contact
           </NuxtLink>
         </li>
+
         <li class="header__mobile-item">
           <NuxtLink
             to="/login"
-            @click="$emit('toggle-dropdown')"
             class="header__mobile-link"
+            @click="$emit('toggle-dropdown')"
             >Search
           </NuxtLink>
         </li>
+
       </ul>
       <ul class="header__mobile-list">
         <li class="header__mobile-item">
           <NuxtLink
             to="/login"
-            @click="$emit('toggle-dropdown')"
             class="header__account-link"
+            @click="$emit('toggle-dropdown')"
           >
             <ProfileIcon @click="$emit('toggle-dropdown')" />
             My account

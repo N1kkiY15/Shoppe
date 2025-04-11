@@ -31,7 +31,7 @@ const buttonClasses = computed(() => ({
   padding: 12px 31px;
   outline: 2px solid var(--color-main);
   font-weight: var(--font-weight-bold);
-  font-size: clamp(0.75rem, 0.574rem + 0.751vw, 1.25rem);
+  font-size: 16px;
   width: 100%;
   transition:
     background-color 0.4s ease,

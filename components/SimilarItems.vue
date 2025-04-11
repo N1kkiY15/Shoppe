@@ -23,15 +23,7 @@
 </template>
 
 <script setup lang="ts">
-// const { isLoading, data, fetchByURL } = useFetch(
-//   "https://fakestoreapi.com/products",
-// );
-//
-// import type { Product } from "~/types/product";
-// const { navigateToPage } = goToPageItem();
-// const goToPage = (value: number) => {
-//   navigateToPage(value);
-// };
+import useDisplayedItems from "composables/useDisplayedItems";
 
 const REQUIRED_NUMBER_OF_CARDS_SIMILAR = 3;
 
@@ -41,18 +33,19 @@ interface PropsCategory {
 
 const propsCategory = defineProps<PropsCategory>();
 
-const { displayedItems, goToPage, isLoading } =
-    useDisplayedItems(REQUIRED_NUMBER_OF_CARDS_SIMILAR, propsCategory.category);
+const { displayedItems, goToPage, isLoading } = useDisplayedItems(
+  REQUIRED_NUMBER_OF_CARDS_SIMILAR,
+  propsCategory.category,
+);
 </script>
 
 <style scoped lang="scss">
-
-
 .similar-items {
   display: flex;
   flex-direction: column;
   gap: 3em;
 }
+
 .catalog-latest {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

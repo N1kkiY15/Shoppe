@@ -2,9 +2,9 @@
   <nav v-if="props.totalPages > 1" class="pagination">
     <button
       v-show="props.currentPage !== 1"
-      @click="previousPage"
       class="pagination__item pagination__nav-button--prev"
       aria-label="Previous page"
+      @click="previousPage"
     >
       <MarkLeft class="pagination__icon" />
     </button>
@@ -12,12 +12,12 @@
     <ul class="pagination__list">
       <li
         v-for="pageIndex in props.totalPages"
-        :key="pageIndex"
         class="pagination__item"
+        :key="pageIndex"
         :class="{
           'pagination__item--active': isActive(pageIndex),
         }"
-        @click="changingPage(pageIndex)"
+        @click="changePage(pageIndex)"
       >
         {{ pageIndex }}
       </li>
@@ -25,9 +25,9 @@
 
     <button
       v-show="props.totalPages !== props.currentPage"
-      @click="nextPage"
       class="pagination__item pagination__nav-button--next"
       aria-label="Next page"
+      @click="nextPage"
     >
       <MarkRight class="pagination__icon" />
     </button>
@@ -46,7 +46,7 @@ const emits = defineEmits<{
   (event: "nextPage"): void;
 }>();
 
-const changingPage = (page: number) => {
+const changePage = (page: number) => {
   emits("changePage", page);
 };
 

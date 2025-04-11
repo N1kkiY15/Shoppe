@@ -2,8 +2,8 @@
   <div class="text-input">
     <input
       v-model="model"
-      :type="type"
       class="input"
+      :type="type"
       :class="inputSize"
       :placeholder="placeholder"
       @blur="handleBlur"

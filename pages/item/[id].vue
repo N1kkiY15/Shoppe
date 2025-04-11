@@ -1,125 +1,110 @@
 <template>
-  <div v-if="data" class="item-container">
-    <div class="item-container__info item-card">
-      <div class="item-card__photos">
-        <div class="item-card__photos-menu">
+  <div v-if="data" class="product">
+    <div class="product__main">
+      <div class="product__gallery">
+        <div class="product__thumbnails">
           <img
-            src="assets/pictures/Img 01.png"
-            class="item-card__photos-menu-card"
-          />
-          <img
-            src="assets/pictures/Img 01.png"
-            class="item-card__photos-menu-card"
-          />
-          <img
-            src="assets/pictures/Img 01.png"
-            class="item-card__photos-menu-card"
-          />
-          <img
-            src="assets/pictures/Img 01.png"
-            class="item-card__photos-menu-card"
+            v-for="(photo, index) in arrayOfPhotos"
+            :key="index"
+            :src="photo"
+            class="product__thumbnail"
+            :class="{
+              'product__thumbnail--active': index === currentPhotoIndex,
+            }"
+            @click="setMainPhoto(index)"
           />
         </div>
 
-        <div class="item-card__photos-main">
-          <img
-            src="assets/pictures/Img 01.png"
-            class="item-card__photos-main-picture"
-          />
+        <div class="product__main-photo">
+          <img :src="mainPhoto" class="product__main-image" />
+          <div class="product__photo-divider"></div>
         </div>
       </div>
-      <div class="item-card__description item-description">
-        <div class="item-description__headings">
-          <h2>{{ data?.title }}</h2>
-          <h4 class="span-accent">$ {{ data?.price }}</h4>
+
+      <div class="product__info">
+        <div class="product__header">
+          <h2 class="product__title">{{ data.title }}</h2>
+          <h4 class="product__price">$ {{ data.price }}</h4>
         </div>
 
-        <div class="item-description__rewiew">
-          <div class="item-description__rewiew-line">
-            <div class="item-description__rewiew-stars">
-              <StarFilled />
-              <StarFilled />
-              <StarFilled />
-              <StarFilled />
-              <StarPool />
+        <div class="product__rating">
+          <div class="product__rating-line">
+            <div class="product__stars">
+              <StarFilled v-for="star in rating" :key="`filled-${star}`" />
+              <StarPool
+                v-for="star in MAX_NUMBER_OF_STARS - rating"
+                :key="`empty-${star}`"
+              />
             </div>
-            <span> {{ data.rating.count }} customer review</span>
+            <span class="product__reviews-count"
+              >{{ data.rating.count }} customer review</span
+            >
           </div>
-          <div class="item-description__rewiew-text">
-            <p>{{ data?.description }}</p>
-          </div>
+          <p class="product__description">{{ data.description }}</p>
         </div>
 
-        <div class="item-description__add">
-          <div class="item-description__add-count"></div>
-          <div class="item-description__add-button">
-            <ButtonComp variant="secondary" size="xl">ADD TO CART</ButtonComp>
-          </div>
+        <div class="product__actions">
+          <div class="product__quantity"></div>
+          <ButtonComp
+            class="product__add-to-cart"
+            variant="secondary"
+            size="xl"
+          >
+            ADD TO CART
+          </ButtonComp>
         </div>
 
-        <div class="item-description__socials">
-          <div class="item-description__socials-like">
+        <div class="product__social">
+          <button class="product__like">
             <Hearth />
-          </div>
-          <div class="item-description__socials-line"></div>
-          <div class="item-description__socials-icons">
-            <Letter />
-            <FacebookIcon />
-            <InstagramIcon />
-            <TwitterIcon />
+          </button>
+          <div class="product__social-divider"></div>
+          <div class="product__social-links">
+            <Letter class="product__social-icon" />
+            <FacebookIcon class="product__social-icon" />
+            <InstagramIcon class="product__social-icon" />
+            <TwitterIcon class="product__social-icon" />
           </div>
         </div>
 
-        <div class="item-description__details">
-          <span>SKU: 12</span>
-          <span>Category: {{ data.category }}</span>
+        <div class="product__meta">
+          <span class="product__sku">SKU: 12</span>
+          <span class="product__category">Category: {{ data.category }}</span>
         </div>
       </div>
     </div>
 
-    <div class="item-container__pages">
-      <div class="item-container__page-heading page-heading">
+    <div class="product__tabs">
+      <div class="product__tab-headers">
         <h3
-          @click="changeItemPage('description')"
-          :class="{
-            'page-heading__underline': currentPage === 'description',
-          }"
-          id="description"
+          v-for="tab in tabs"
+          :key="tab.id"
+          class="product__tab-header"
+          :class="{ 'product__tab-header--active': currentTab === tab.id }"
+          @click="changeTab(tab.id)"
         >
-          <a>Description</a>
-        </h3>
-        <h3
-          @click="changeItemPage('information')"
-          :class="{
-            'page-heading__underline': currentPage === 'information',
-          }"
-          id="information"
-        >
-          <a>Aditional information</a>
-        </h3>
-        <h3
-          @click="changeItemPage('reviews')"
-          :class="{ 'page-heading__underline': currentPage === 'reviews' }"
-          id="reviews"
-        >
-          <a>Reviews({{ data.rating.count }})</a>
+          {{ tab.label
+          }}<span v-if="tab.id === 'reviews'">({{ data.rating.count }})</span>
         </h3>
       </div>
-      <ItemPageDescription
-        v-if="currentPage === 'description'"
-        :text="data?.description"
-      />
-      <ItemPageInformation v-if="currentPage === 'information'" />
-      <keep-alive>
-        <ItemPageReviews
-          v-if="currentPage === 'reviews'"
-          :title="data.title"
-          :count="data.rating.count"
+
+      <div class="product__tab-content">
+        <ItemPageDescription
+          v-if="currentTab === 'description'"
+          :text="data.description"
         />
-      </keep-alive>
+        <ItemPageInformation v-if="currentTab === 'information'" />
+        <keep-alive>
+          <ItemPageReviews
+            v-if="currentTab === 'reviews'"
+            :title="data.title"
+            :count="data.rating.count"
+          />
+        </keep-alive>
+      </div>
     </div>
 
-    <SimilarItems :category='data.category' />
+    <SimilarItems :category="data.category" />
   </div>
 </template>
 
@@ -142,7 +127,7 @@ const { isLoading, data, fetchByURL } = useFetch<Product>(
 
 onMounted(async () => {
   await fetchByURL();
-  console.log(data.value);
+  startInterval();
 });
 
 const currentPage = ref<string>("description");
@@ -156,139 +141,280 @@ const changeItemPage = (pageId: string) => {
     currentPage.value = pageId;
   }
 };
+
+const MAX_NUMBER_OF_STARS = 5;
+
+const currentTab = ref("description");
+
+const tabs = [
+  { id: "description", label: "Description" },
+  { id: "information", label: "Additional information" },
+  { id: "reviews", label: "Reviews" },
+];
+
+const changeTab = (tabId: string) => {
+  currentTab.value = tabId;
+};
+
+const rating = computed(() =>
+  data.value?.rating ? Math.round(data.value.rating.rate) : 0,
+);
+import img1 from "assets/pictures/Img01.png";
+import img2 from "assets/pictures/Img02.png";
+import img3 from "assets/pictures/Img03.png";
+import img4 from "assets/pictures/Img04.png";
+
+const arrayOfPhotos = [img1, img2, img3, img4];
+
+const currentPhotoIndex = ref<number>(0);
+
+const mainPhoto = ref(arrayOfPhotos[currentPhotoIndex.value]);
+
+const setMainPhoto = (index: number) => {
+  mainPhoto.value = arrayOfPhotos[(currentPhotoIndex.value = index)];
+  startInterval();
+};
+
+const autoChangePhoto = () => {
+  currentPhotoIndex.value =
+    (currentPhotoIndex.value + 1) % arrayOfPhotos.length;
+  mainPhoto.value = arrayOfPhotos[currentPhotoIndex.value];
+};
+
+const intervalId = ref<number | null>(null);
+
+const startInterval = () => {
+  if (intervalId.value) clearInterval(intervalId.value);
+  intervalId.value = window.setInterval(autoChangePhoto, 3000);
+};
+
+onUnmounted(() => {
+  if (intervalId.value) window.clearInterval(intervalId.value);
+});
 </script>
 
 <style lang="scss" scoped>
-.item-container {
+.product {
   display: flex;
   flex-direction: column;
   gap: 123px;
 
-  &__info {
-    // в нем может ничего не быть, но для бэм мы оставляем его?
+  &__main {
+    display: flex;
+    gap: 62px;
   }
 
-  &__page {
-    position: relative;
+  &__gallery {
+    display: flex;
+    gap: 39px;
+  }
+
+  &__thumbnails {
     display: flex;
     flex-direction: column;
+    gap: 40px;
+  }
 
-    &-heading {
+  &__thumbnail {
+    max-width: 120px;
+    max-height: 120px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &--active {
+      border: 2px solid var(--color-primary);
     }
   }
-}
 
-.page-heading {
-  display: flex;
-  flex-direction: row;
-  gap: 96px;
-  margin-bottom: 34px;
-  border-bottom: 2px solid var(--color-decorative);
-
-  &__underline {
-    //position: relative;
-    padding-bottom: 40px;
-    border-bottom: 2px solid var(--color-main);
-    z-index: 2;
-  }
-}
-
-.header__border {
-  margin-bottom: 80px;
-  border-bottom: 1px solid var(--color-decorative);
-}
-
-.item-card {
-  display: flex;
-  flex-direction: row;
-  gap: 62px;
-
-  &__photos {
+  &__main-photo {
     display: flex;
-    flex-direction: row;
-    width: auto;
-    flex: 0 0 auto;
-    gap: 39px;
-
-    &-menu {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-
-      &-card {
-        max-width: 120px;
-        max-height: 120px;
-      }
-    }
-
-    &-main {
-      max-width: 540px;
-      max-height: 600px;
-
-      &-picture {
-        width: 540px;
-        height: 100%;
-      }
-    }
+    flex-direction: column;
+    max-width: 540px;
+    gap: 24px;
   }
 
-  &__description {
+  &__main-image {
+    width: 540px;
+    height: 600px;
+    object-fit: cover;
+  }
+
+  &__photo-divider {
+    width: 100%;
+    height: 2px;
+    background: var(--color-decorative);
+  }
+
+  &__info {
     display: flex;
     flex-direction: column;
     flex: 1;
   }
-}
 
-.item-description {
-  &__headings {
+  &__header {
     display: flex;
     flex-direction: column;
     gap: 23px;
     margin-bottom: 64px;
   }
 
-  &__rewiew {
-    margin-bottom: 48px;
-
-    &-line {
-      display: flex;
-      flex-direction: row;
-      gap: 24px;
-      margin-bottom: 19px;
-    }
-
-    &-stars {
-      display: flex;
-      flex-direction: row;
-      gap: 10px;
-    }
+  &__title {
+    margin: 0;
+    font-size: 2rem;
   }
 
-  &__add {
+  &__price {
+    margin: 0;
+    color: var(--color-accent);
+    font-size: 1.5rem;
+  }
+
+  &__rating {
+    margin-bottom: 48px;
+  }
+
+  &__rating-line {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 19px;
+  }
+
+  &__stars {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__reviews-count {
+    font-size: 0.875rem;
+  }
+
+  &__description {
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 20px;
     margin-bottom: 80px;
   }
 
-  &__socials {
+  &__add-to-cart {
+    flex-grow: 1;
+  }
+
+  &__social {
     display: flex;
+    align-items: center;
     gap: 39px;
     margin-bottom: 38px;
+  }
 
-    &-line::after {
-      content: "";
-      border-right: 1px solid var(--color-main);
-    }
+  &__like {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
 
-    &-icons {
-      display: flex;
-      flex-direction: row;
-      gap: 24px;
+  &__social-divider {
+    height: 24px;
+    border-right: 1px solid var(--color-main);
+  }
+
+  &__social-links {
+    display: flex;
+    gap: 24px;
+  }
+
+  &__social-icon {
+    cursor: pointer;
+    transition: opacity 0.3s;
+
+    &:hover {
+      opacity: 0.7;
     }
   }
 
-  &__details {
+  &__meta {
     display: flex;
     flex-direction: column;
     gap: 6px;
+    font-size: 0.875rem;
+  }
+
+  &__tabs {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__tab-headers {
+    position: relative;
+    display: flex;
+    gap: 96px;
+    margin-bottom: 34px;
+    border-bottom: 2px solid var(--color-decorative);
+  }
+
+  &__tab-header {
+    position: relative;
+    margin: 0;
+    padding-bottom: 40px;
+    font-size: 1.125rem;
+    cursor: pointer;
+    color: var(--color-text-secondary);
+
+    &--active {
+      //position: absolute;
+      border-bottom: 2px solid var(--color-main);
+    }
+  }
+
+  &__tab-content {
+    margin-top: 20px;
+  }
+
+  @media (width <= 375px) {
+    &__main {
+      flex-direction: column;
+    }
+
+    &__gallery {
+      display: flex;
+      gap: 39px;
+    }
+
+    &__thumbnails {
+      display: none;
+    }
+
+    &__thumbnail {
+      max-width: 120px;
+      max-height: 120px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: opacity 0.3s;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &--active {
+        border: 2px solid var(--color-primary);
+      }
+    }
+
+    &__main-image {
+      width: 100%;
+      height: 374px;
+      object-fit: cover;
+    }
   }
 }
 </style>

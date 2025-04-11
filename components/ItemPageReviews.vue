@@ -4,45 +4,8 @@
       <h3 class="reviews__title">
         {{ props.count }} Reviews for {{ props.title }}
       </h3>
-      <div class="reviews__item">
-        <div class="reviews__item-header">
-          <h3 class="reviews__item-author">Scarlet withch</h3>
-          <div class="reviews__item-date">6 May, 2020</div>
-        </div>
 
-        <div class="reviews__item-rating">
-          <StarFilled />
-          <StarFilled />
-          <StarFilled />
-          <StarFilled />
-          <StarPool />
-        </div>
-
-        <h5 class="reviews__item-text">
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-          nonummy nibh euismod tincidunt ut laoreet.
-        </h5>
-      </div>
-
-      <div class="reviews__item">
-        <div class="reviews__item-header">
-          <h3 class="reviews__item-author">Scarlet withch</h3>
-          <div class="reviews__item-date">6 May, 2020</div>
-        </div>
-
-        <div class="reviews__item-rating">
-          <StarFilled />
-          <StarFilled />
-          <StarFilled />
-          <StarFilled />
-          <StarPool />
-        </div>
-
-        <h5 class="reviews__item-text">
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-          nonummy nibh euismod tincidunt ut laoreet.
-        </h5>
-      </div>
+      <ItemPageRewiewsAnswers />
     </div>
 
     <div class="reviews__form">
@@ -56,39 +19,39 @@
       <form @submit.prevent="handleSubmit" class="reviews__form-content">
         <default-text-input
           v-model="form.message"
-          size="medium"
           placeholder="Your Review*"
-          @blur="handleBlur('message')"
+          size="medium"
           :class="{ 'contacts__input--error': errors.message }"
           :error="errors.message"
+          @blur="handleBlur('message')"
         />
 
         <default-text-input
           v-model="form.firstName"
-          size="medium"
           placeholder="Enter your name*"
-          @blur="handleBlur('firstName')"
+          size="medium"
           :class="{ 'contacts__input--error': errors.firstName }"
           :error="errors.firstName"
+          @blur="handleBlur('firstName')"
         />
 
-        <div class="reviews__form-email">
+        <div class="reviews__form-checkbox">
           <div>
             <default-text-input
               v-model="form.email"
-              size="medium"
               placeholder="Enter your Email*"
-              @blur="handleBlur('email')"
+              size="medium"
               :class="{ 'contacts__input--error': errors.email }"
               :error="errors.email"
+              @blur="handleBlur('email')"
             />
           </div>
 
           <DefaultCheckbox
             v-model="form.saveData"
+            text="Save my name, email, and website in this browser for the next time I comment"
             size="medium"
             form="square"
-            text="Save my name, email, and website in this browser for the next time I comment"
           />
         </div>
 
@@ -128,10 +91,10 @@
 </template>
 
 <script lang="ts" setup>
-import StarFilled from "SvgComponents/StarFilled.vue";
-import StarPool from "SvgComponents/StarPool.vue";
 import useFormValidation from "composables/useFormValidation";
 import useSaveToLocalStorage from "composables/saveToLocalStorage";
+import StarFilled from "../assets/pictures/svg/SvgComponents/StarFilled.vue";
+import StarPool from "../assets/pictures/svg/SvgComponents/StarPool.vue";
 
 const hoverRating = ref(0);
 
@@ -188,49 +151,36 @@ const props = defineProps<Props>();
     margin: 0;
   }
 
-  &__item {
-    display: flex;
-    flex-direction: column;
-    border-bottom: 1px solid var(--color-decorative);
-    width: 100%;
-    padding-bottom: 39px;
+  //&__item-header {
+  //  display: flex;
+  //  flex-direction: row;
+  //  align-items: center;
+  //  gap: 16px;
+  //  margin-bottom: 16px;
+  //}
 
-    &:last-child {
-      margin-bottom: 0;
-      border-bottom: none;
-    }
-  }
+  //&__item-author {
+  //  margin: 0;
+  //}
+  //
+  //&__item-date {
+  //  color: var(--color-text);
+  //  font-size: var(--font-size-text-medium);
+  //  font-weight: var(--font-weight-regular);
+  //}
 
-  &__item-header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 16px;
-  }
+  //&__item-rating {
+  //  display: flex;
+  //  flex-direction: row;
+  //  gap: 10px;
+  //  margin-bottom: 24px;
+  //}
 
-  &__item-author {
-    margin: 0;
-  }
-
-  &__item-date {
-    color: var(--color-text);
-    font-size: var(--font-size-text-medium);
-    font-weight: var(--font-weight-regular);
-  }
-
-  &__item-rating {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    margin-bottom: 24px;
-  }
-
-  &__item-text {
-    color: var(--color-text);
-    margin: 0;
-    font-weight: var(--font-weight-regular);
-  }
+  //&__item-text {
+  //  color: var(--color-text);
+  //  margin: 0;
+  //  font-weight: var(--font-weight-regular);
+  //}
 
   &__form {
     display: flex;
@@ -263,7 +213,7 @@ const props = defineProps<Props>();
     font-weight: var(--font-weight-regular);
   }
 
-  &__form-email {
+  &__form-checkbox {
     display: flex;
     flex-direction: column;
     gap: 24px;

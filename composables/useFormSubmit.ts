@@ -14,12 +14,11 @@ export default function useFormSubmit() {
     resetForm: () => void,
     saveToLocalStorage: (data: useForm, key: string) => Promise<string>,
   ) => {
-
     if (!validateForm()) {
       status.value = "falseMessage";
       message.value = errorMessage;
       modalOpen();
-      return; // Ранний возврат при невалидной форме
+      return;
     }
 
     try {
@@ -34,25 +33,6 @@ export default function useFormSubmit() {
 
     modalOpen();
   };
-  //
-  //
-  //   if (validateForm()) {
-  //     // сделать ранний ретерн (гс от Вани была)
-  //     try {
-  //       await saveToLocalStorage(form, type);
-  //       status.value = "trueMessage";
-  //       message.value = successMessage;
-  //       resetForm();
-  //     } catch (error) {
-  //       status.value = "falseMessage";
-  //       message.value = "Error while saving data";
-  //     }
-  //   } else {
-  //     status.value = "falseMessage";
-  //     message.value = errorMessage;
-  //   }
-  //   modalOpen();
-  // };
 
   return {
     submitForm,
