@@ -1,16 +1,15 @@
 <template>
-    <div>
-        <main-page-cover />
-        <ShopHeader /> 
-        <ItemsList />
-    </div>
+  <div>
+    <MainPageCarousel />
+    <ShopHeader />
+    <CatalogLatest />
+  </div>
 </template>
 
 <script lang="ts" setup>
-
-
+definePageMeta({
+  isHomePage: true,
+});
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

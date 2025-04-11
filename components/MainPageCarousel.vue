@@ -1,29 +1,38 @@
 <template>
-  <div class="cover">
-    <div v-if="errorLoading" class="cover__container">
+  <div class="carousel">
+    <div v-if="errorLoading" class="carousel__container">
       <div v-if="!isLoading">
         <div class="carousel-container">
-          <transition-group tag="div" class="carousel-inner" name="slide">
+          <transition tag="div" name="slide">
             <div
-              v-for="cardIndex in currentPage"
-              :key="cardIndex"
-              class="cover__container-card">
-              
+              v-if="currentProduct"
+              :key="currentProduct.id"
+              class="carousel__container-card"
+            >
               <img
-                class="cover__container-photo"
-                src="assets/pictures/cover.png"
-                :alt="products[cardIndex - 1]?.title"
+                class="carousel__container-photo"
+                src="pictures/cover.png"
+                :alt="currentProduct.title"
               />
-              <div class="cover__container-description">
-                <h1>{{ products[cardIndex - 1]?.title }}</h1>
-                <h2>{{ products[cardIndex - 1]?.price }}</h2>
+              <div class="carousel__container-description">
+                <h1 class="carousel__container-description-heading">
+                  {{ currentProduct.title }}
+                </h1>
+                <h2 class="carousel__container-description-price">
+                  ${{ currentProduct.price }}
+                </h2>
+                <ButtonComp
+                  @click="goToPage(currentProduct.id)"
+                  variant="special"
+                  size="xl"
+                  >View product
+                </ButtonComp>
               </div>
-              <ButtonComp variant="special" size="xl">View product</ButtonComp>
             </div>
-          </transition-group>
+          </transition>
         </div>
 
-        <nav class="cover__navigation">
+        <nav class="carousel__navigation">
           <ul>
             <li
               v-for="page in pagesNumber"
@@ -41,17 +50,31 @@
 </template>
 
 <script lang="ts" setup>
-
-
 import ErrorMessage from "./ErrorMessage.vue";
+import type { Product } from "~/types/product";
 
-const pagesNumber: number = 5;
-const currentPage = ref<number>(1);
+onMounted(async () => {
+  await fetchByURL();
+  startInterval();
+});
+
+const intervalId = ref<number | null>(null);
+
+const startInterval = () => {
+  if (intervalId.value) {
+    clearInterval(intervalId.value);
+  }
+  intervalId.value = window.setInterval(autoChangePage, 6000); // почему виндов
+};
+
+const pagesNumber = 5;
+const currentPage = ref(1);
 
 const isActive = (page: number): boolean => page === currentPage.value;
 
 const changePage = (page: number) => {
   currentPage.value = page;
+  startInterval();
 };
 
 const autoChangePage = () => {
@@ -62,16 +85,18 @@ const autoChangePage = () => {
   }
 };
 
-
-const { isLoading, errorLoading, products, fetchByURL  } = useFetch(
-  'https://fakestoreapi.com/products'
+const { isLoading, errorLoading, data, fetchByURL } = useFetch<Product[]>(
+  "https://fakestoreapi.com/products",
 );
 
-const intervalId = ref<number | null>(null);
+const { navigateToPage } = goToPageItem();
 
-onMounted(async () => {
-  await fetchByURL();
-  intervalId.value = window.setInterval(autoChangePage, 3000);
+const goToPage = (value: number) => {
+  navigateToPage(value);
+};
+
+const currentProduct = computed(() => {
+  return data.value?.[currentPage.value - 1];
 });
 
 onUnmounted(() => {
@@ -79,18 +104,15 @@ onUnmounted(() => {
     window.clearInterval(intervalId.value);
   }
 });
-
 </script>
 
 <style lang="scss" scoped>
-.cover {
+.carousel {
   position: relative;
   z-index: 0;
   width: 100%;
   height: 646px;
   border-radius: 16px;
-  background-color: var(--color-text); // ispravit'
-  padding: 226px 857px 213px 39px;
   color: var(--color-contrast);
   margin-bottom: 64px;
 
@@ -98,25 +120,40 @@ onUnmounted(() => {
     &-card {
       display: flex;
       flex-direction: column;
+      width: 100%;
+      height: 100%;
       gap: 48px;
+      position: absolute;
+      justify-content: center;
+      padding-left: 30px;
       z-index: 2;
-    //   transition: all 1s ease-in-out;
-      transition: transform 0.3s ease-in-out;
+      margin-right: 200px;
     }
 
     &-photo {
       position: absolute;
       height: 100%;
+      width: 100%;
       top: 0;
       left: 0;
       z-index: -1;
     }
 
     &-description {
+      margin-right: auto;
+      max-width: 600px;
       display: flex;
       flex-direction: column;
       min-width: 400px;
       gap: 16px;
+
+      &-heading {
+        font-size: clamp(1.25rem, 0.964rem + 1.221vw, 2.063rem);
+      }
+
+      &-price {
+        margin-bottom: 48px;
+      }
     }
   }
 
@@ -125,6 +162,7 @@ onUnmounted(() => {
     bottom: 26px;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 2;
 
     & ul {
       display: flex;
@@ -137,6 +175,7 @@ onUnmounted(() => {
       height: 9px;
       background-color: var(--color-contrast);
       border-radius: 50%;
+      cursor: pointer;
     }
 
     & .activePage {
@@ -149,51 +188,76 @@ onUnmounted(() => {
   }
 }
 
-.spinner {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 4px solid transparent;
-  border-top-color: var(--color-main);
-  animation: spin 1s linear infinite;
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 1s ease;
+}
 
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
+.slide-enter-from {
+  transform: translateX(calc(100% + 200px));
+}
+
+.slide-leave-to {
+  transform: translateX(calc(-100% - 200px));
+}
+
+@media (width <= 375px) {
+  .carousel {
+    height: 354px;
+    border-radius: 8px;
+    margin-bottom: 21px;
+
+    &__container {
+      &-card {
+        display: flex;
+        justify-content: flex-end;
+        padding-left: 8px;
+        padding-bottom: 26px;
+        margin-right: 0px;
+      }
+
+      &-description {
+        gap: 3px;
+
+        &-heading {
+          max-width: 217px;
+          flex-wrap: wrap;
+        }
+
+        &-price {
+          margin-bottom: 10px;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 26px;
+        }
+      }
     }
-    to {
-      transform: rotate(360deg);
+
+    &__navigation {
+      bottom: 8px;
+
+      & ul {
+        gap: 6px;
+      }
+
+      & li {
+        width: 4px;
+        height: 4px;
+      }
+
+      & .activePage {
+        width: 7px;
+        height: 7px;
+      }
     }
   }
+
+  .slide-enter-from {
+    transform: translateX(calc(100% + 50px));
+  }
+
+  .slide-leave-to {
+    transform: translateX(calc(-100% - 50px));
+  }
 }
-
-
-.carousel-container { 
-}
-
-.carousel-inner {
-  display: flex;
-  transition: transform 0.3s ease-in-out;
-}
-
-// .slide-enter-active,
-// .slide-leave-active {
-//     transition: all 0.5s ease;
-// }
-
-// .slide-enter-from {
-//   opacity: 0;
-//   transform: translateX(100%);
-// }
-
-// .slide-leave-to {
-//   opacity: 0;
-//   transform: translateX(-100%);
-// }
-
-
 </style>

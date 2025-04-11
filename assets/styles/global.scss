@@ -1,4 +1,6 @@
-*, h1, h2, h3, h4, ::after, ::before {
+*,
+::after,
+::before {
   box-sizing: border-box;
   border: none;
   margin: 0;
@@ -37,14 +39,9 @@ h5 {
   line-height: var(--line-height-h5);
 }
 
-button {
-  cursor: pointer;
-}
-
 a {
   text-decoration: none;
   color: inherit;
-  cursor: pointer;
 }
 
 input:focus {
@@ -59,13 +56,64 @@ input:focus {
   fill: var(--color-main);
 }
 
-.text-input { 
-  height: 40px;
-  border-bottom: 1px solid var(--color-decorative);
-}
-
-.select-input { 
+.select-input {
   border: 1px solid var(--color-decorative);
   padding: 15px 12px;
   border-radius: 4px;
+  width: 100%;
+}
+
+.activePage {
+  background-color: var(--color-main);
+  color: var(--color-contrast);
+}
+
+a {
+  cursor: pointer;
+}
+
+input, select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+button {
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.span-accent {
+  color: var(--color-accent)
+}
+
+.text__accent {
+  color: var(--color-main);
+  font-weight: var(--font-weight-medium);
+}
+
+.active-page-slider {
+  cursor: pointer;
+  padding-bottom: 31px;
+  border-bottom: 2px solid #000;
+  z-index: 2;
+}
+
+.error-message {
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  color: var(--color-error);
+  font-size: 10px;
+}
+
+@media (width < 376px) {
+  .hover-icon {
+    height: 12px;
+    max-width: 15px;
+  }
+
+  .hover-icon:hover path {
+    fill: #707070; /* Отключаем hover-эффект на мобильных */
+  }
 }

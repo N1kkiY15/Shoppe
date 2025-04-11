@@ -1,6 +1,6 @@
 <template>
   <div class="privacy-policy">
-    <h1>Privacy Policy</h1>
+    <h1 class="privacy-policy__heading">Privacy Policy</h1>
     <p>
       Duis rutrum dictum libero quis rutrum. Etiam sed neque aliquam,
       sollicitudin ante a, gravida arcu. Nam fringilla molestie velit, eget
@@ -41,7 +41,7 @@
   margin-bottom: 250px;
   line-height: var(--line-height-h5);
 
-  h1 {
+  .privacy-policy__heading {
     margin: auto;
   }
 
@@ -52,11 +52,11 @@
 
     & ul {
       margin-left: 15px;
+    }
 
-      li {
-        margin-left: 15px;
-        list-style-type: disc;
-      }
+    li {
+      margin-left: 15px;
+      list-style-type: disc;
     }
   }
 }

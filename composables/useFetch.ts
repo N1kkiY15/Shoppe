@@ -1,28 +1,14 @@
-export default function useFetch(url: string) {
+export default function useFetch<T>(url: string) {
+  
   const isLoading = ref<boolean>(true);
   const errorLoading = ref<boolean>(true);
-  const products = ref<Array<Products>>([]);
+  const data = ref<T | null>(null);
 
-  interface Rating {
-    rate: number;
-    count: number;
-  }
 
-  interface Products {
-    id: number;
-    title: string;
-    price: number;
-    description: string;
-    category: string;
-    image: string;
-    rating: Rating;
-  }
-
-const fetchByURL = async () => {
+  const fetchByURL = async () => {
     try {
       const response = await fetch(url);
-      const data = await response.json();
-      products.value = data;
+      data.value = await response.json() as T;
     } catch (error) {
       errorLoading.value = false;
       console.error("Error fetching products:", error);
@@ -34,7 +20,7 @@ const fetchByURL = async () => {
   return {
     isLoading,
     errorLoading,
-    products,
+    data,
     fetchByURL,
   };
 }
