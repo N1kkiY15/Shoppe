@@ -49,6 +49,7 @@
             class="product__add-to-cart"
             variant="secondary"
             size="xl"
+            @click="addToCart(data)"
           >
             ADD TO CART
           </ButtonComp>
@@ -172,9 +173,9 @@ import img1 from "assets/pictures/Img01.png";
 import img2 from "assets/pictures/Img02.png";
 import img3 from "assets/pictures/Img03.png";
 import img4 from "assets/pictures/Img04.png";
-import ProductInfoMobile from "../../components/ProductInfoMobile.vue";
+import ProductInfoMobile from "../components/ProductInfoMobile.vue";
 import { provide } from "#imports";
-import MarkRight from "../../assets/pictures/svg/SvgComponents/MarkRight.vue";
+import MarkRight from "../assets/pictures/svg/SvgComponents/MarkRight.vue";
 
 const arrayOfPhotos = [img1, img2, img3, img4];
 
@@ -207,6 +208,17 @@ const productRatingCount = computed(() => data.value?.rating.count || "");
 provide("productTitle", productTitle);
 provide("productDescription", productDescription);
 provide("productRatingCount", productRatingCount);
+
+
+
+import { useShoppingCart} from "#imports";
+
+const shoppingCart = useShoppingCart();
+
+const addToCart = (product: Product) => {
+  if (!product) return;
+  shoppingCart.addProduct(product);
+}
 
 onUnmounted(() => {
   if (intervalId.value) window.clearInterval(intervalId.value);

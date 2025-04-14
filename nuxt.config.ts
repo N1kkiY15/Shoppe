@@ -3,11 +3,11 @@ import path from 'path';
 
 export default defineNuxtConfig({
   ssr: true,
-  compatibilityDate: "2025-03-12",
+  compatibilityDate: '2025-04-14',
   devtools: { enabled: true },
   css: ['@/assets/styles/index.scss'],
   components: true,
-  modules: ["vue3-carousel-nuxt"],
+  modules: ['@pinia/nuxt'],
   vite: {
     resolve: {
       alias: {

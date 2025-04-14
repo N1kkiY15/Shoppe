@@ -31,7 +31,6 @@
           </NuxtLink>
         </li>
       </ul>
-
     </div>
   </transition>
 </template>

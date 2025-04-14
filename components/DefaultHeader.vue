@@ -37,7 +37,7 @@
         <span class="header__divider"></span>
         <div class="header__actions">
           <SearchIcon class="header__action-icon" />
-          <ShoppingCartIcon class="header__action-icon" />
+          <button><ShoppingCartIcon class="header__action-icon" @click="toggleShoppingBag"/></button>
           <NuxtLink to="/login" class="header__action-icon">
             <ProfileIcon />
           </NuxtLink>
@@ -58,6 +58,8 @@
     </div>
 
     <MobileHeaderMenu :openMenu="isOpen" @toggle-dropdown="toggleDropdown" />
+
+    <ShoppingBag :isOpen="openBag" @closeBag="toggleShoppingBag"/>
   </div>
 </template>
 
@@ -68,6 +70,7 @@ import ShoppingCartIcon from "SvgComponents/ShoppingCartIcon.vue";
 import MenuList from "../assets/pictures/svg/SvgComponents/MenuList.vue";
 import SearchIconMobile from "../assets/pictures/svg/SvgComponents/SearchIconMobile.vue";
 import XIcon from "../assets/pictures/svg/SvgComponents/XIcon.vue";
+import ShoppingBag from "./ShoppingBag.vue";
 
 const route = useRoute();
 const showElement = computed(() => !route.meta?.isHomePage);
@@ -79,6 +82,12 @@ const toggleDropdown = () => {
   isOpen.value = !isOpen.value;
   document.body.style.overflow = isOpen.value ? "hidden" : "";
 };
+
+const openBag = ref<boolean>(false);
+
+const toggleShoppingBag = () => {
+  openBag.value = !openBag.value;
+}
 
 </script>
 
