@@ -1,6 +1,6 @@
 <template>
   <div class="similar-items">
-    <h2>Similar Items</h2>
+    <h2 class="similar-items__heading">Similar Items</h2>
     <div class="catalog-latest">
       <template v-if="isLoading">
         <LoadingSkeletonCard
@@ -15,6 +15,7 @@
           :title="cards.title"
           :price="cards.price"
           :image="cards.image"
+          class="mobile"
           @click="goToPage(cards.id)"
         />
       </template>
@@ -55,11 +56,26 @@ const { displayedItems, goToPage, isLoading } = useDisplayedItems(
 }
 
 @media (width <= 376px) {
+  .similar-items {
+    gap: 13px;
+
+    &__heading {
+      font-size: 16px;
+      line-height: 27px;
+    }
+  }
   .catalog-latest {
-    grid-template-columns: repeat(2, minmax(136px, 1fr));
-    column-gap: 16px;
-    row-gap: 24px;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 16px;
+    padding-right: 20px;
     margin-bottom: 94px;
+  }
+
+  .mobile {
+    flex: 0 0 calc(50% - 8px);
   }
 }
 </style>

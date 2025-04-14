@@ -57,6 +57,7 @@
         <ProductInfoMobile
           class="product__info-mobile"
           :description="data.description"
+          :count="data.rating.count"
         />
 
         <div class="product__social">
@@ -102,7 +103,6 @@
         <keep-alive>
           <ItemPageReviews
             v-if="currentTab === 'reviews'"
-            :title="data.title"
             :count="data.rating.count"
           />
         </keep-alive>
@@ -169,6 +169,7 @@ import img2 from "assets/pictures/Img02.png";
 import img3 from "assets/pictures/Img03.png";
 import img4 from "assets/pictures/Img04.png";
 import ProductInfoMobile from "../../components/ProductInfoMobile.vue";
+import {provide} from "#imports";
 
 const arrayOfPhotos = [img1, img2, img3, img4];
 
@@ -193,6 +194,19 @@ const startInterval = () => {
   if (intervalId.value) clearInterval(intervalId.value);
   intervalId.value = window.setInterval(autoChangePhoto, 3000);
 };
+
+
+const productTitle = computed(() => data.value?.title || '');
+
+provide('productTitle', productTitle);
+
+const productDescription = computed(() => data.value?.description || '');
+
+provide('productDescription', productDescription);
+
+const productRatingCount = computed(() => data.value?.rating.count || '');
+
+provide('productRatingCount', productRatingCount);
 
 onUnmounted(() => {
   if (intervalId.value) window.clearInterval(intervalId.value);

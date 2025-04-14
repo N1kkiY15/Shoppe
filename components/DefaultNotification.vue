@@ -25,7 +25,7 @@ import ErrorButton from "SvgComponents/errorButton.vue";
 interface statusMessage {
   messageSent: string;
   messageErrorSent: string;
-  emailSent: string; // notification / modal - center
+  emailSent: string;
 }
 
 const messageTotal = ref<string>("");
