@@ -1,7 +1,6 @@
 <template>
   <div class="info-mobile">
     <div class="info-mobile__description">
-
       <transition v-if="showDescription" name="fade">
         <item-page-description
           v-if="showDescription"
@@ -16,21 +15,28 @@
       </transition>
 
       <button
-        class="info-mobile__description-button"
+        class="info-mobile__description-button span-accent"
         @click="toggleShowDescription"
         :class="{ active: showDescription }"
       >
         View More
+        <MarkRight :class="{'mark-rotate': showDescription}"/>
       </button>
     </div>
 
     <div class="info-mobile__pages">
       <div class="info-mobile__pages-item">
-        <button class="info-mobile__pages-button" id="1" @click="togglePage">
+        <button
+          class="info-mobile__pages-button"
+          @click="togglePageDescription"
+        >
           <p>Description</p>
-          <MarkDown />
+          <MarkDown class="mark-small" :class="{ 'mark-rotate': showPageDescription }" />
         </button>
-        <ItemPageDescription v-if="showPage" :text="props.description" />
+        <ItemPageDescription
+          v-if="showPageDescription"
+          :text="props.description"
+        />
       </div>
 
       <div>
@@ -40,7 +46,7 @@
           @click="togglePageInfo"
         >
           <p>Additional information</p>
-          <MarkDown />
+          <MarkDown class="mark-small" :class="{ 'mark-rotate': showPageInfo }" />
         </button>
         <ItemPageInformation v-if="showPageInfo" />
       </div>
@@ -51,8 +57,8 @@
           id="1"
           @click="togglePageReviews"
         >
-          <p>Reviews({{props.count}})</p>
-          <MarkDown />
+          <p>Reviews({{ props.count }})</p>
+          <MarkDown class="mark-small" :class="{ 'mark-rotate': showPageReviews }" />
         </button>
         <ItemPageReviews v-if="showPageReviews" />
       </div>
@@ -62,6 +68,7 @@
 
 <script setup lang="ts">
 import MarkDown from "../assets/pictures/svg/SvgComponents/MarkDown.vue";
+import MarkRight from "../assets/pictures/svg/SvgComponents/MarkRight.vue";
 
 interface PageInfo {
   description: string;
@@ -72,15 +79,15 @@ const props = defineProps<PageInfo>();
 
 const showDescription = ref<boolean>(false);
 
-const showPage = ref<boolean>(false);
+const showPageDescription = ref<boolean>(false);
 const showPageInfo = ref<boolean>(false);
 const showPageReviews = ref<boolean>(false);
 
 const toggleShowDescription = () =>
   (showDescription.value = !showDescription.value);
 
-const togglePage = () => {
-  showPage.value = !showPage.value;
+const togglePageDescription = () => {
+  showPageDescription.value = !showPageDescription.value;
 };
 
 const togglePageInfo = () => {
@@ -117,21 +124,13 @@ const togglePageReviews = () => {
     }
 
     &-button {
+      display: flex;
+      flex-direction: row;
+      gap:5px;
+      align-items: center;
       cursor: pointer;
       position: relative;
       margin-bottom: 14px;
-
-      &::after {
-        content: ">";
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        transition: transform 0.5s ease;
-      }
-
-      &.active::after {
-        transform: translateY(-50%) rotate(180deg);
-      }
     }
   }
 
@@ -152,7 +151,9 @@ const togglePageReviews = () => {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      align-items: center;
     }
   }
 }
+
 </style>

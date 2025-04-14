@@ -107,6 +107,20 @@ button {
   font-size: 10px;
 }
 
+.mark {
+  transition: transform 0.3s ease;
+}
+
+.mark-rotate {
+  transition: transform 0.3s ease;
+  transform: rotate(180deg);
+}
+
+.mark-small {
+  width: 8px;
+  height: 4.5px;
+}
+
 @media (width < 376px) {
   .hover-icon {
     height: 12px;

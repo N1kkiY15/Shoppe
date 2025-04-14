@@ -71,7 +71,7 @@ const { displayedItems, goToPage, isLoading } = useDisplayedItems(
     overflow-x: auto;
     padding-bottom: 16px;
     padding-right: 20px;
-    margin-bottom: 94px;
+    margin-bottom: 10px;
   }
 
   .mobile {

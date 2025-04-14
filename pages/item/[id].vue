@@ -110,6 +110,10 @@
     </div>
 
     <SimilarItems :category="data.category" />
+    <NuxtLink to="/shop" class="product__continue">
+      <p class="span-accent">Continue shopping</p>
+      <MarkRight />
+    </NuxtLink>
   </div>
 </template>
 
@@ -169,7 +173,8 @@ import img2 from "assets/pictures/Img02.png";
 import img3 from "assets/pictures/Img03.png";
 import img4 from "assets/pictures/Img04.png";
 import ProductInfoMobile from "../../components/ProductInfoMobile.vue";
-import {provide} from "#imports";
+import { provide } from "#imports";
+import MarkRight from "../../assets/pictures/svg/SvgComponents/MarkRight.vue";
 
 const arrayOfPhotos = [img1, img2, img3, img4];
 
@@ -195,18 +200,13 @@ const startInterval = () => {
   intervalId.value = window.setInterval(autoChangePhoto, 3000);
 };
 
+const productTitle = computed(() => data.value?.title || "");
+const productDescription = computed(() => data.value?.description || "");
+const productRatingCount = computed(() => data.value?.rating.count || "");
 
-const productTitle = computed(() => data.value?.title || '');
-
-provide('productTitle', productTitle);
-
-const productDescription = computed(() => data.value?.description || '');
-
-provide('productDescription', productDescription);
-
-const productRatingCount = computed(() => data.value?.rating.count || '');
-
-provide('productRatingCount', productRatingCount);
+provide("productTitle", productTitle);
+provide("productDescription", productDescription);
+provide("productRatingCount", productRatingCount);
 
 onUnmounted(() => {
   if (intervalId.value) window.clearInterval(intervalId.value);
@@ -392,7 +392,6 @@ onUnmounted(() => {
     color: var(--color-text-secondary);
 
     &--active {
-      //position: absolute;
       border-bottom: 2px solid var(--color-main);
     }
   }
@@ -401,8 +400,17 @@ onUnmounted(() => {
     margin-top: 20px;
   }
 
-  @media (width <= 375px) {
+  &__continue {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 72px;
+    font-size: 12px;
+  }
 
+  @media (width <= 375px) {
     gap: 21px;
 
     &__main {
@@ -448,6 +456,7 @@ onUnmounted(() => {
       width: 100%;
       height: 374px;
       object-fit: cover;
+      border-radius: 4px;
     }
 
     &__title {
