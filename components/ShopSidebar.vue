@@ -2,10 +2,10 @@
   <div class="sidebar">
     <form @submit.prevent="submitSearch" class="sidebar__form">
       <input
-        type="text"
         v-model="item"
         placeholder="Search..."
         class="sidebar__input"
+        type="text"
       />
       <button type="submit" class="sidebar__submit">
         <search-icon class="sidebar__icon" />
@@ -42,15 +42,15 @@
 
     <CheckboxSlider
       v-model="isCheckedOnSale"
+      class="sidebar__checkbox"
       label="On Sale"
       id="sale"
-      class="sidebar__checkbox"
     />
     <CheckboxSlider
       v-model="isCheckedInStock"
+      class="sidebar__checkbox"
       label="On Stock"
       id="stock"
-      class="sidebar__checkbox"
     />
   </div>
 </template>
@@ -168,5 +168,4 @@ const emit = defineEmits(["submitSearch"]);
 .toggle-input:checked + .slider:before {
   transform: translateX(12px);
 }
-
 </style>

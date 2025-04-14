@@ -8,8 +8,7 @@ export default function useFetch<T>(url: string) {
   const fetchByURL = async () => {
     try {
       const response = await fetch(url);
-      const dataResponse = await response.json() as T;
-      data.value = dataResponse;
+      data.value = await response.json() as T;
     } catch (error) {
       errorLoading.value = false;
       console.error("Error fetching products:", error);

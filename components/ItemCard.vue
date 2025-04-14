@@ -2,14 +2,12 @@
   <article class="product-card">
     <div class="product-card__image-wrapper">
       <img
-          src="pictures/Img 01.png"
-          :alt="props.title"
-          class="product-card__image"
+        src="pictures/Img01.png"
+        :alt="props.title"
+        class="product-card__image"
       />
       <div class="product-card__overlay">
-        <button class="product-card__add-button">
-          ADD TO CART
-        </button>
+        <button class="product-card__add-button">ADD TO CART</button>
       </div>
     </div>
     <div class="product-card__info">
@@ -129,7 +127,6 @@ const props = defineProps<CardInfo>();
       visibility: visible;
       transform: translateY(0);
     }
-
   }
 }
 </style>

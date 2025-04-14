@@ -98,7 +98,7 @@ watch(
   }
 }
 
-@media (width <= 376px) {
+@media (width <= 375px) {
   .catalog-shop {
     margin-bottom: 50px;
     gap: 0;

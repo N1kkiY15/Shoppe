@@ -3,36 +3,36 @@
     <div class="create-account__inputs">
       <default-text-input
         v-model="form.firstName"
-        size="medium"
         placeholder="Name"
-        @blur="handleBlur('firstName')"
+        size="medium"
         :class="{ 'contacts__input--error': errors.firstName }"
         :error="errors.firstName"
+        @blur="handleBlur('firstName')"
       />
       <default-text-input
         v-model="form.lastName"
-        size="medium"
         placeholder="Surname"
-        @blur="handleBlur('lastName')"
+        size="medium"
         :class="{ 'contacts__input--error': errors.lastName }"
         :error="errors.lastName"
+        @blur="handleBlur('lastName')"
       />
       <default-text-input
         v-model="form.email"
-        size="medium"
         placeholder="Email"
-        @blur="handleBlur('email')"
+        size="medium"
         :class="{ 'contacts__input--error': errors.email }"
         :error="errors.email"
+        @blur="handleBlur('email')"
       />
       <default-text-input
         v-model="form.password"
-        size="medium"
         placeholder="Password"
+        size="medium"
         type="password"
-        @blur="handleBlur('password')"
         :class="{ 'contacts__input--error': errors.password }"
         :error="errors.password"
+        @blur="handleBlur('password')"
       />
     </div>
     <button-comp size="xl" variant="primary" type="submit">CREATE</button-comp>
@@ -41,8 +41,8 @@
   <DefaultNotification
     :isOpen="isModalOpen"
     :status="status"
-    @close="modalClose"
     :message="message"
+    @close="modalClose"
   />
 </template>
 

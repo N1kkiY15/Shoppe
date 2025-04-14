@@ -7,11 +7,11 @@
         <div class="footer__form-group">
           <DefaultTextInput
             v-model="form.email"
-            size="small"
             placeholder="Give an email, get the newsletter."
-            @blur="handleBlur('email')"
+            size="small"
             :class="{ 'contacts__input--error': errors.firstName }"
             :error="errors.email"
+            @blur="handleBlur('email')"
           />
           <button class="footer__submit-button" type="submit">
             <ArrowToRight />
@@ -20,10 +20,10 @@
 
         <DefaultCheckbox
           v-model="form.saveData"
-          form="rounded"
-          size="small"
           class="footer__checkbox"
           text="i agree to the website's terms and conditions"
+          form="rounded"
+          size="small"
         />
       </form>
     </div>
@@ -41,8 +41,8 @@
     <DefaultNotification
       :isOpen="isModalOpen"
       :status="status"
-      @close="modalClose"
       :message="message"
+      @close="modalClose"
     />
   </footer>
 </template>

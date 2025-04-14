@@ -6,12 +6,8 @@
       :class="{ 'modal-error': props.status === 'falseMessage' }"
     >
       <div class="modal__section">
-        <div v-if="props.status !== 'falseMessage'">
-          <SuccessIcon />
-        </div>
-        <div v-else>
-          <ErrorButton />
-        </div>
+        <SuccessIcon v-if="props.status !== 'falseMessage'" />
+        <ErrorButton v-else />
         <p>{{ messageTotal }}</p>
       </div>
       <button @click="closeModal" class="modal__section-button">

@@ -1,10 +1,10 @@
 <template>
   <div class="custom-select">
     <select
-        ref="selectElement"
-        class="custom-select__native"
-        @click.stop
         v-model="selectedValue"
+        class="custom-select__native"
+        ref="selectElement"
+        @click.stop
     >
       <option value="">Object</option>
       <option value="first">Первый элемент</option>

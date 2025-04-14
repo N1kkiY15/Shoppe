@@ -3,8 +3,8 @@
     <h1 class="items__header-heading">Shop The Latest</h1>
     <NuxtLink
       v-if="!showElement"
-      to="/shop"
       class="span-accent items__header-span"
+      to="/shop"
       >View All
     </NuxtLink>
   </div>

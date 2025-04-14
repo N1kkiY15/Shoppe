@@ -4,21 +4,21 @@
       <div class="auth__form-inputs">
         <DefaultTextInput
           v-model="form.email"
-          size="medium"
           placeholder="Email"
-          @blur="handleBlur('email')"
+          size="medium"
           :class="{ 'contacts__input--error': errors.email }"
           :error="errors.email"
+          @blur="handleBlur('email')"
         />
 
         <DefaultTextInput
           v-model="form.password"
-          size="medium"
           placeholder="Password"
+          size="medium"
           type="password"
-          @blur="handleBlur('password')"
           :class="{ 'contacts__input--error': errors.password }"
           :error="errors.password"
+          @blur="handleBlur('password')"
         />
       </div>
 

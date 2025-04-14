@@ -11,7 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import SettingsGoldIcon from "../assets/pictures/svg/SvgComponents/SettingsGoldIcon.vue";
 import ShopHeaderMobile from "../components/ShopHeaderMobile.vue";
 </script>
 
