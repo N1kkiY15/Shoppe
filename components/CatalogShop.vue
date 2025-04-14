@@ -26,7 +26,6 @@
 </template>
 
 <script lang="ts" setup>
-import useScrollToTop from "composables/scrollToTop";
 import type { Product } from "~/types/product";
 
 const currentPage = ref<number>(1);
@@ -59,7 +58,6 @@ const displayedItems = computed(() => {
   return data.value?.slice(startIndex, startIndex + REQUIRED_NUMBER_OF_CARDS);
 });
 
-const { scrollToTop } = useScrollToTop();
 
 const changePage = (page: number) => {
   currentPage.value = page;

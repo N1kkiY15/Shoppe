@@ -47,7 +47,6 @@
 </template>
 
 <script setup lang="ts">
-import useSaveToLocalStorage from "composables/saveToLocalStorage";
 import useFormValidation from "composables/useFormValidation";
 import useFormSubmit from "composables/useFormSubmit";
 
@@ -61,8 +60,6 @@ const { form, errors, validateForm, handleBlur, resetForm } = useFormValidation(
 );
 
 const type = "createAccount";
-
-const { saveToLocalStorage } = useSaveToLocalStorage();
 
 const {
   submitForm,

@@ -49,9 +49,10 @@
 
 <script lang="ts" setup>
 import ArrowToRight from "SvgComponents/ArrowToRight.vue";
-import useSaveToLocalStorage from "composables/saveToLocalStorage";
+// import useSaveToLocalStorage from "composables/saveToLocalStorage";
 import useFormValidation from "composables/useFormValidation";
 import useFormSubmit from "composables/useFormSubmit";
+import { saveToLocalStorage } from "../utils/saveToLocalStorage";
 
 const { form, errors, handleBlur, validateForm, resetForm } = useFormValidation(
   {
@@ -61,8 +62,6 @@ const { form, errors, handleBlur, validateForm, resetForm } = useFormValidation(
 );
 
 const type = "footer";
-
-const { saveToLocalStorage } = useSaveToLocalStorage();
 
 const { submitForm, isModalOpen, status, modalClose, message } =
   useFormSubmit();

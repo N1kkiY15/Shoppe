@@ -12,13 +12,15 @@ export default function useNotification() {
     message.value = "";
   };
 
+  const notificationDuration = 5000;
+
   const startTimeout = () => {
     if (timeoutId.value) {
       clearTimeout(timeoutId.value);
     }
     timeoutId.value = setTimeout(() => {
       modalClose();
-    }, 5000);
+    }, notificationDuration);
   };
 
   const modalClose = () => {

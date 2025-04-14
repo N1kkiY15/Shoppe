@@ -68,7 +68,6 @@ import ShoppingCartIcon from "SvgComponents/ShoppingCartIcon.vue";
 import MenuList from "../assets/pictures/svg/SvgComponents/MenuList.vue";
 import SearchIconMobile from "../assets/pictures/svg/SvgComponents/SearchIconMobile.vue";
 import XIcon from "../assets/pictures/svg/SvgComponents/XIcon.vue";
-import useScrollToTop from "composables/scrollToTop";
 
 const route = useRoute();
 const showElement = computed(() => !route.meta?.isHomePage);
@@ -81,7 +80,6 @@ const toggleDropdown = () => {
   document.body.style.overflow = isOpen.value ? "hidden" : "";
 };
 
-const { scrollToTop } = useScrollToTop();
 </script>
 
 <style scoped lang="scss">

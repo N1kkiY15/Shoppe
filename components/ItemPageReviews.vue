@@ -92,7 +92,6 @@
 
 <script lang="ts" setup>
 import useFormValidation from "composables/useFormValidation";
-import useSaveToLocalStorage from "composables/saveToLocalStorage";
 import StarFilled from "../assets/pictures/svg/SvgComponents/StarFilled.vue";
 import StarPool from "../assets/pictures/svg/SvgComponents/StarPool.vue";
 
@@ -109,7 +108,6 @@ const { form, errors, validateForm, handleBlur, resetForm } = useFormValidation(
 );
 
 const type = "review";
-const { saveToLocalStorage } = useSaveToLocalStorage();
 const { submitForm, isModalOpen, status, modalClose, message } =
   useFormSubmit();
 
