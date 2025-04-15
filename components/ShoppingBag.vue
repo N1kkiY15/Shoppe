@@ -24,7 +24,7 @@
               </div>
 
               <div class="card__body-qty">
-                <p>QTY:</p>
+                <p>QTY: {{ item.qty }}</p>
               </div>
             </div>
           </div>
@@ -34,7 +34,7 @@
       <div class="shopping-cart__footer">
         <div class="shopping-cart__footer-total">
           <p>Subtotal ({{ shoppingCart.productCart.length }} items)</p>
-          <span>100 dollars</span>
+          <span>{{ totalSum }} dollars</span>
         </div>
 
         <button-comp variant="secondary" size="xl">VIEW CART</button-comp>
@@ -63,6 +63,8 @@ const closeBag = () => {
 import { useShoppingCart } from "#imports";
 
 const shoppingCart = useShoppingCart();
+
+const totalSum = computed(() => shoppingCart.productCart[1].price);
 </script>
 
 <style scoped lang="scss">

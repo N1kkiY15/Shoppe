@@ -169,6 +169,7 @@ const changeTab = (tabId: string) => {
 const rating = computed(() =>
   data.value?.rating ? Math.round(data.value.rating.rate) : 0,
 );
+
 import img1 from "assets/pictures/Img01.png";
 import img2 from "assets/pictures/Img02.png";
 import img3 from "assets/pictures/Img03.png";
@@ -209,16 +210,20 @@ provide("productTitle", productTitle);
 provide("productDescription", productDescription);
 provide("productRatingCount", productRatingCount);
 
-
-
-import { useShoppingCart} from "#imports";
+import { useShoppingCart } from "#imports";
 
 const shoppingCart = useShoppingCart();
 
 const addToCart = (product: Product) => {
-  if (!product) return;
-  shoppingCart.addProduct(product);
-}
+  const foundObject = shoppingCart.productCart.find(obj => obj.id === product.id);
+
+  if (foundObject) {
+    foundObject.qty++;
+  } else {
+    product.qty = 1;
+    shoppingCart.addProduct(product);
+  }
+};
 
 onUnmounted(() => {
   if (intervalId.value) window.clearInterval(intervalId.value);
