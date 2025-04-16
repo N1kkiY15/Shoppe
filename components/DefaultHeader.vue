@@ -37,7 +37,12 @@
         <span class="header__divider"></span>
         <div class="header__actions">
           <SearchIcon class="header__action-icon" />
-          <button><ShoppingCartIcon class="header__action-icon" @click="toggleShoppingBag"/></button>
+          <button>
+            <ShoppingCartIcon
+              class="header__action-icon"
+              @click="toggleShoppingBag"
+            />
+          </button>
           <NuxtLink to="/login" class="header__action-icon">
             <ProfileIcon />
           </NuxtLink>
@@ -45,7 +50,12 @@
       </div>
 
       <div class="header__mobile-controls">
-        <ShoppingCartIcon class="header__mobile-icon" />
+        <button>
+          <ShoppingCartIcon
+            class="header__mobile-icon"
+            @click="toggleShoppingBag"
+          />
+        </button>
         <button @click="toggleDropdown" class="header__menu-button">
           <MenuList v-if="!isOpen" class="header__menu-icon" />
           <XIcon v-if="isOpen" class="header__menu-icon" />
@@ -59,7 +69,7 @@
 
     <MobileHeaderMenu :openMenu="isOpen" @toggle-dropdown="toggleDropdown" />
 
-    <ShoppingBag :isOpen="openBag" @closeBag="toggleShoppingBag"/>
+    <ShoppingBag :isOpen="openBag" @closeBag="toggleShoppingBag" />
   </div>
 </template>
 
@@ -87,8 +97,8 @@ const openBag = ref<boolean>(false);
 
 const toggleShoppingBag = () => {
   openBag.value = !openBag.value;
-}
-
+  document.body.style.overflow = openBag.value ? "hidden" : "";
+};
 </script>
 
 <style scoped lang="scss">

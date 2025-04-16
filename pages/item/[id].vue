@@ -49,7 +49,7 @@
             class="product__add-to-cart"
             variant="secondary"
             size="xl"
-            @click="addToCart(data)"
+            @click="shoppingCart.addToCart(data)"
           >
             ADD TO CART
           </ButtonComp>
@@ -211,19 +211,7 @@ provide("productDescription", productDescription);
 provide("productRatingCount", productRatingCount);
 
 import { useShoppingCart } from "#imports";
-
 const shoppingCart = useShoppingCart();
-
-const addToCart = (product: Product) => {
-  const foundObject = shoppingCart.productCart.find(obj => obj.id === product.id);
-
-  if (foundObject) {
-    foundObject.qty++;
-  } else {
-    product.qty = 1;
-    shoppingCart.addProduct(product);
-  }
-};
 
 onUnmounted(() => {
   if (intervalId.value) window.clearInterval(intervalId.value);
