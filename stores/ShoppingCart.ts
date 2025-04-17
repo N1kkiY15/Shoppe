@@ -16,12 +16,12 @@ export const useShoppingCart = defineStore("shoppingCart", () => {
     productCart.value = [];
   };
 
-  const addToCart = (product: Product) => {
+  const addToCart = (product: Product, quantity: number = 1) => {
     const existingProduct = findProduct(product.id);
     if (existingProduct) {
-      existingProduct.qty++;
+      existingProduct.qty += quantity;
     } else {
-      addProduct({ ...product, qty: 1 });
+      addProduct({ ...product, qty: quantity });
     }
   };
 
@@ -46,11 +46,10 @@ export const useShoppingCart = defineStore("shoppingCart", () => {
 
   const totalPrice = computed(() => {
     const sum = productCart.value.reduce((sum, product) => {
-      return sum + (product.price * product.qty);
+      return sum + product.price * product.qty;
     }, 0);
     return Number(sum.toFixed(2));
   });
-
 
   return {
     productCart,
@@ -60,6 +59,6 @@ export const useShoppingCart = defineStore("shoppingCart", () => {
     addToCart,
     clearCart,
     removeProduct,
-    totalPrice
+    totalPrice,
   };
 });

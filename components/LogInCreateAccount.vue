@@ -61,16 +61,11 @@ const { form, errors, validateForm, handleBlur, resetForm } = useFormValidation(
 
 const type = "createAccount";
 
-const {
-  submitForm,
-  isModalOpen,
-  status,
-  modalClose,
-  message,
-} = useFormSubmit();
+const { submitForm, isModalOpen, status, modalClose, message } =
+  useFormSubmit();
 
 const handleSubmit = () => {
-   submitForm(
+  submitForm(
     "Your account is created!",
     "Form has errors. Please check all fields.",
     form,

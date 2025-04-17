@@ -169,6 +169,7 @@ const toggleShoppingBag = () => {
   &__actions {
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 39px;
   }
 

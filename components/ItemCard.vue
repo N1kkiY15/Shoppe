@@ -7,14 +7,13 @@
         class="product-card__image"
         @click="navigateToPage(product.id)"
       />
-      <div class="product-card__overlay">
-        <button
-          class="product-card__add-button"
-          @click="shoppingCart.addToCart(product)"
-        >
-          ADD TO CART
-        </button>
-      </div>
+
+      <button
+        class="product-card__overlay"
+        @click="shoppingCart.addToCart(product)"
+      >
+        ADD TO CART
+      </button>
     </div>
     <div class="product-card__info">
       <h3 class="product-card__title">{{ product.title }}</h3>
@@ -26,24 +25,13 @@
 <script setup lang="ts">
 import { useShoppingCart } from "../stores/ShoppingCart";
 import type { Product } from "~/types/product";
-
-interface CardInfo {
-  cards: Product;
-}
-
-// const props = defineProps<>();
+import goToPageItem from "composables/goToPageItem";
 
 defineProps<{
   product: Product; // Указываем тип
 }>();
 
-const navigateToPage = (productsID: number) => {
-  navigateTo(`/item/${productsID}`);
-};
-
-const goToPage = (value: number) => {
-  navigateToPage(value);
-};
+const { navigateToPage } = goToPageItem();
 
 const shoppingCart = useShoppingCart();
 </script>
@@ -82,15 +70,10 @@ const shoppingCart = useShoppingCart();
     visibility: hidden;
     transition: all 0.3s ease;
     transform: translateY(100%);
-  }
-
-  &__add-button {
-    background: transparent;
     border: none;
     color: black;
     font-weight: var(--font-weight-bold);
     cursor: pointer;
-    padding: 8px 16px;
     pointer-events: all;
   }
 

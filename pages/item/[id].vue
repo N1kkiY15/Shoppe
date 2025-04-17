@@ -44,12 +44,16 @@
         </div>
 
         <div class="product__actions">
-          <div class="product__quantity"></div>
+          <QuatityCount
+            :quantity="qty"
+            @increment="qty++"
+            @decrement="qty--"
+          />
           <ButtonComp
             class="product__add-to-cart"
             variant="secondary"
             size="xl"
-            @click="shoppingCart.addToCart(data)"
+            @click="handleAddToCart(data, qty)"
           >
             ADD TO CART
           </ButtonComp>
@@ -140,18 +144,6 @@ onMounted(async () => {
   startInterval();
 });
 
-const currentPage = ref<string>("description");
-
-const changeItemPage = (pageId: string) => {
-  if (pageId === "description") {
-    currentPage.value = pageId;
-  } else if (pageId === "information") {
-    currentPage.value = pageId;
-  } else if (pageId === "reviews") {
-    currentPage.value = pageId;
-  }
-};
-
 const MAX_NUMBER_OF_STARS = 5;
 
 const currentTab = ref("description");
@@ -211,7 +203,17 @@ provide("productDescription", productDescription);
 provide("productRatingCount", productRatingCount);
 
 import { useShoppingCart } from "#imports";
+import DefaultMinus from "../../assets/pictures/svg/SvgComponents/DefaultMinus.vue";
+import DefaultPlus from "../../assets/pictures/svg/SvgComponents/DefaultPlus.vue";
+
 const shoppingCart = useShoppingCart();
+
+const qty = ref<number>(1);
+
+const handleAddToCart = (data: Product, quantity: number) => {
+  shoppingCart.addToCart(data, quantity);
+  qty.value = 1;
+};
 
 onUnmounted(() => {
   if (intervalId.value) window.clearInterval(intervalId.value);
@@ -327,7 +329,19 @@ onUnmounted(() => {
     margin-bottom: 80px;
   }
 
+  &__counter {
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    padding: 12px;
+    background-color: var(--color-lite);
+    border-radius: 4px;
+  }
+
   &__add-to-cart {
+    padding: 16px;
     flex-grow: 1;
   }
 
@@ -455,6 +469,10 @@ onUnmounted(() => {
     &__actions {
       display: block;
       margin-bottom: 16px;
+    }
+
+    &__counter {
+      display: none;
     }
 
     &__main-image {

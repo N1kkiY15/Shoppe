@@ -29,46 +29,12 @@
           :key="index"
           class="shopping-cart__product-item"
         >
-          <div class="product-card">
-            <img
-              src="../assets/pictures/Img01.png"
-              class="product-card__image"
-            />
-            <div class="product-card__content">
-              <div class="product-card__info">
-                <p class="product-card__title">{{ item.title }}</p>
-                <p class="product-card__details">Black / Medium</p>
-                <p class="product-card__price">${{ item.price }}</p>
-              </div>
-
-              <div class="product-card__quantity">
-                <span class="product-card__quantity-label">QTY:</span>
-                <div class="product-card__quantity-controls">
-                  <button
-                    @click="shoppingCart.incrementProduct(item.id)"
-                    class="product-card__quantity-button"
-                  >
-                    +
-                  </button>
-                  <span class="product-card__quantity-value">{{
-                    item.qty
-                  }}</span>
-                  <button
-                    @click="shoppingCart.decrementProduct(item.id)"
-                    class="product-card__quantity-button"
-                  >
-                    -
-                  </button>
-                </div>
-              </div>
-            </div>
-            <button
-              @click="shoppingCart.removeProduct(item.id)"
-              class="product-card__delete-button"
-            >
-              <Xicon2 />
-            </button>
-          </div>
+          <ShoppingBagCard
+            :product="item"
+            @increment="shoppingCart.incrementProduct(item.id)"
+            @decrement="shoppingCart.decrementProduct(item.id)"
+            @remove="shoppingCart.removeProduct(item.id)"
+          />
         </li>
       </ul>
 
@@ -82,13 +48,15 @@
           </span>
         </div>
 
-        <button-comp
-          variant="secondary"
-          size="xl"
-          class="shopping-cart__view-cart-button"
-        >
-          VIEW CART
-        </button-comp>
+        <NuxtLink to="/shoppingcart">
+          <button-comp
+            variant="secondary"
+            size="xl"
+            class="shopping-cart__view-cart-button"
+            @click="closeBag"
+            >VIEW CART
+          </button-comp>
+        </NuxtLink>
       </div>
     </div>
   </transition>
@@ -96,7 +64,6 @@
 
 <script setup lang="ts">
 import ExitButton from "../assets/pictures/svg/SvgComponents/ExitButton.vue";
-import Xicon2 from "../assets/pictures/svg/SvgComponents/Xicon2.vue";
 import MarkLeft from "../assets/pictures/svg/SvgComponents/MarkLeft.vue";
 import { useShoppingCart } from "#imports";
 
@@ -176,8 +143,8 @@ const shoppingCart = useShoppingCart();
     flex-direction: column;
     gap: 20px;
     padding: 0 36px 24px;
-    margin: 0;
     list-style: none;
+    margin-bottom: 138px;
   }
 
   &__product-item {
@@ -187,13 +154,15 @@ const shoppingCart = useShoppingCart();
   }
 
   &__footer {
-    margin-top: auto;
+    position: fixed;
+    bottom: 0;
+    right: 0;
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 360px;
     gap: 21px;
     padding: 21px 36px 24px;
-    border-top: 1px solid var(--color-decorative);
+    border: 1px solid var(--color-decorative);
     background-color: white;
   }
 
@@ -214,94 +183,6 @@ const shoppingCart = useShoppingCart();
 
   &__view-cart-button {
     width: 100%;
-  }
-}
-
-.product-card {
-  position: relative;
-  display: flex;
-  gap: 8px;
-
-  &__image {
-    width: 136px;
-    height: 136px;
-    object-fit: cover;
-  }
-
-  &__content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  &__info {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  &__title {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 14px;
-    margin: 0;
-  }
-
-  &__details {
-    color: var(--color-text);
-    font-size: 14px;
-    margin: 0;
-  }
-
-  &__price {
-    font-weight: bold;
-    margin: 0;
-    color: var(--color-accent);
-  }
-
-  &__quantity {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 12px;
-    color: var(--color-text);
-  }
-
-  &__quantity-label {
-    display: inline-block;
-  }
-
-  &__quantity-controls {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  &__quantity-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0 5px;
-    font-size: 14px;
-  }
-
-  &__quantity-value {
-    min-width: 20px;
-    text-align: center;
-  }
-
-  &__delete-button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
   }
 }
 
@@ -334,7 +215,6 @@ const shoppingCart = useShoppingCart();
 
     &__products-list {
       padding: 0 16px 16px;
-      margin-bottom: 135px;
       border-bottom: none;
     }
 

@@ -37,6 +37,7 @@ h4 {
 h5 {
   font-size: var(--font-size-h5);
   line-height: var(--line-height-h5);
+  font-weight: var(--font-weight-regular);
 }
 
 a {
@@ -81,6 +82,9 @@ input, select {
 button {
   cursor: pointer;
   background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .span-accent {
