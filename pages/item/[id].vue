@@ -406,7 +406,7 @@ onUnmounted(() => {
   }
 
   &__continue {
-    display: flex;
+    display: none;
     flex-direction: row;
     width: 100%;
     justify-content: space-between;
@@ -490,6 +490,10 @@ onUnmounted(() => {
 
     &__meta {
       display: none;
+    }
+
+    &__continue {
+      display: flex;
     }
   }
 }

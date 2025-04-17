@@ -1,30 +1,51 @@
 <template>
-  <article class="product-card">
+  <article v-if="product" class="product-card">
     <div class="product-card__image-wrapper">
       <img
         src="pictures/Img01.png"
-        :alt="props.title"
+        :alt="product.title"
         class="product-card__image"
+        @click="navigateToPage(product.id)"
       />
       <div class="product-card__overlay">
-        <button class="product-card__add-button">ADD TO CART</button>
+        <button
+          class="product-card__add-button"
+          @click="shoppingCart.addToCart(product)"
+        >
+          ADD TO CART
+        </button>
       </div>
     </div>
     <div class="product-card__info">
-      <h3 class="product-card__title">{{ props.title }}</h3>
-      <span class="product-card__price">$ {{ props.price }}</span>
+      <h3 class="product-card__title">{{ product.title }}</h3>
+      <span class="product-card__price">$ {{ product.price }}</span>
     </div>
   </article>
 </template>
 
 <script setup lang="ts">
+import { useShoppingCart } from "../stores/ShoppingCart";
+import type { Product } from "~/types/product";
+
 interface CardInfo {
-  title: string;
-  image: string;
-  price: number;
+  cards: Product;
 }
 
-const props = defineProps<CardInfo>();
+// const props = defineProps<>();
+
+defineProps<{
+  product: Product; // Указываем тип
+}>();
+
+const navigateToPage = (productsID: number) => {
+  navigateTo(`/item/${productsID}`);
+};
+
+const goToPage = (value: number) => {
+  navigateToPage(value);
+};
+
+const shoppingCart = useShoppingCart();
 </script>
 
 <style lang="scss" scoped>

@@ -22,7 +22,7 @@
                   ${{ currentProduct.price }}
                 </h2>
                 <ButtonComp
-                  @click="goToPage(currentProduct.id)"
+                  @click="navigateToPage(currentProduct.id)"
                   variant="special"
                   size="xl"
                   >View product
@@ -52,11 +52,14 @@
 <script lang="ts" setup>
 import ErrorMessage from "./ErrorMessage.vue";
 import type { Product } from "~/types/product";
+import goToPageItem from "composables/goToPageItem";
 
 onMounted(async () => {
   await fetchByURL();
   startInterval();
 });
+
+const { navigateToPage } = goToPageItem();
 
 const intervalId = ref<number | null>(null);
 
@@ -88,12 +91,6 @@ const autoChangePage = () => {
 const { isLoading, errorLoading, data, fetchByURL } = useFetch<Product[]>(
   "https://fakestoreapi.com/products",
 );
-
-const { navigateToPage } = goToPageItem();
-
-const goToPage = (value: number) => {
-  navigateToPage(value);
-};
 
 const currentProduct = computed(() => {
   return data.value?.[currentPage.value - 1];

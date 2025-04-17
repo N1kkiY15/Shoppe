@@ -12,11 +12,8 @@
         <ItemCard
           v-for="cards in displayedItems"
           :key="cards.id"
-          :title="cards.title"
-          :price="cards.price"
-          :image="cards.image"
+          :product="cards"
           class="mobile"
-          @click="goToPage(cards.id)"
         />
       </template>
     </div>
@@ -34,7 +31,7 @@ interface PropsCategory {
 
 const propsCategory = defineProps<PropsCategory>();
 
-const { displayedItems, goToPage, isLoading } = useDisplayedItems(
+const { displayedItems, isLoading } = useDisplayedItems(
   REQUIRED_NUMBER_OF_CARDS_SIMILAR,
   propsCategory.category,
 );

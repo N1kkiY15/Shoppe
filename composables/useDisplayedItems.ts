@@ -9,11 +9,6 @@ export default function useDisplayedItems(
     "https://fakestoreapi.com/products",
   );
 
-  const { navigateToPage } = goToPageItem();
-  const goToPage = (value: number) => {
-    navigateToPage(value);
-  };
-
   let REQUIRED_NUMBER_OF_CARDS = numberOfCards;
 
   onMounted(async () => {
@@ -28,5 +23,5 @@ export default function useDisplayedItems(
     return filteredProducts.slice(0, REQUIRED_NUMBER_OF_CARDS);
   });
   // };
-  return { displayedItems, goToPage, isLoading };
+  return { displayedItems, isLoading };
 }

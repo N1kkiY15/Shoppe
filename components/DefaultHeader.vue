@@ -97,7 +97,9 @@ const openBag = ref<boolean>(false);
 
 const toggleShoppingBag = () => {
   openBag.value = !openBag.value;
-  document.body.style.overflow = openBag.value ? "hidden" : "";
+  if (window.innerWidth <= 375) {
+    document.body.style.overflow = openBag.value ? "hidden" : "";
+  }
 };
 </script>
 
