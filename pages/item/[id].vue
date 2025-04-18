@@ -44,11 +44,7 @@
         </div>
 
         <div class="product__actions">
-          <QuatityCount
-            :quantity="qty"
-            @increment="qty++"
-            @decrement="qty--"
-          />
+          <QuatityCount :quantity="qty" @increment="qty++" @decrement="qty--" />
           <ButtonComp
             class="product__add-to-cart"
             variant="secondary"
@@ -327,6 +323,7 @@ onUnmounted(() => {
     display: flex;
     gap: 20px;
     margin-bottom: 80px;
+    align-items: center;
   }
 
   &__counter {

@@ -32,18 +32,22 @@
             <h5 class="totals-info__text">$ {{ shoppingCart.totalPrice }}</h5>
             <h5 class="totals-info__text">SHIPPING</h5>
             <span class="totals-info__text"
-            >Shipping costs will be calculated once you have provided address.
-          </span>
+              >Shipping costs will be calculated once you have provided address.
+            </span>
           </div>
 
           <div class="totals-info__total">
             <span class="totals-info__text">TOTAl</span>
-            <span class="totals-info__text">${{ shoppingCart.totalPrice }}</span>
+            <span class="totals-info__text"
+              >${{ shoppingCart.totalPrice }}</span
+            >
           </div>
         </div>
-        <button-comp variant="primary" size="xl"
-          >PROCEED TO CHECKOUT
-        </button-comp>
+        <NuxtLink to="/checkout">
+          <button-comp variant="primary" size="xl"
+            >PROCEED TO CHECKOUT
+          </button-comp>
+        </NuxtLink>
       </div>
     </div>
   </div>
@@ -99,7 +103,6 @@ const shoppingCart = useShoppingCart();
   }
 
   &__totals {
-
   }
 
   &__description {
