@@ -9,4 +9,11 @@ export interface useForm {
     password?: string;
     saveData?: boolean;
     rating?: number;
+    companyName?: string;
+    country?: string;
+    streetAddress?: string;
+    postcode?: string;
+    townAddress?: string;
+    phoneNumber?: string;
+    orderNotes?: string;
 }

@@ -123,8 +123,43 @@
 
 <script setup lang="ts">
 import { useShoppingCart } from "../stores/ShoppingCart";
+import useFormValidation from "composables/useFormValidation";
+import useFormSubmit from "composables/useFormSubmit";
 
 const shoppingCart = useShoppingCart();
+
+const { form, errors, handleBlur, validateForm, resetForm } = useFormValidation(
+    {
+      firstName: "",
+      lastName: "",
+      companyName: "",
+      country: "",
+      streetAddress: "",
+      postcode: "",
+      townAddress: "",
+      phoneNumber: "",
+      email: "",
+      orderNotes: "",
+    },
+);
+
+const { submitForm, isModalOpen, status, modalClose, message } =
+    useFormSubmit();
+
+
+const type = "order";
+
+const handleSubmit = () => {
+  submitForm(
+      "Your message has been sent successfully.",
+      "Form has errors. Please check all fields.",
+      form,
+      type,
+      validateForm,
+      resetForm,
+      saveToLocalStorage,
+  );
+};
 </script>
 
 <style scoped lang="scss">
