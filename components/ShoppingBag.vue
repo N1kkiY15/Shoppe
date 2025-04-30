@@ -35,6 +35,7 @@
             @decrement="shoppingCart.decrementProduct(item.id)"
             @remove="shoppingCart.removeProduct(item.id)"
           />
+
         </li>
       </ul>
 

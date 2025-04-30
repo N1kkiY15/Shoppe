@@ -1,5 +1,5 @@
 <template>
-  <article v-if="product" class="product-card">
+  <article class="product-card">
     <div class="product-card__image-wrapper">
       <img
         src="pictures/Img01.png"

@@ -5,7 +5,7 @@
       <div class="product-card__info">
         <p class="product-card__title">{{ product.title }}</p>
         <p class="product-card__details">Black / Medium</p>
-        <p class="product-card__price">${{ product.price }}</p>
+        <p class="product-card__price">${{ product.qty * product.price }}</p>
       </div>
 
       <div class="product-card__quantity">
@@ -45,6 +45,7 @@ defineProps<{
 }>();
 
 defineEmits(["increment", "decrement", "remove"]);
+
 </script>
 
 <style scoped lang="scss">

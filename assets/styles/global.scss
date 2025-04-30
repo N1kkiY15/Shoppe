@@ -125,6 +125,10 @@ button {
   height: 4.5px;
 }
 
+.load-window {
+  height: 100vh;
+}
+
 @media (width < 376px) {
   .hover-icon {
     height: 12px;

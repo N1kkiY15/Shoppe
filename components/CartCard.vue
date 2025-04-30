@@ -11,10 +11,10 @@
     </div>
 
     <QuatityCount
+      class="product-card__quantity"
       :quantity="product.qty"
       @increment="shoppingCart.incrementProduct(product.id)"
       @decrement="shoppingCart.decrementProduct(product.id)"
-      class="product-card__quantity"
     />
 
     <button @click="$emit('remove')" class="product-card__delete-button">

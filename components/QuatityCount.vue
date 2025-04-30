@@ -1,10 +1,15 @@
 <template>
   <div class="counter">
-    <button @click="$emit('decrement')">
+    <button
+      class="counter__button"
+      :class="{ 'counter__button-disabled': quantity < 2 }"
+      :disabled="quantity <= 1"
+      @click="$emit('decrement')"
+    >
       <DefaultMinus />
     </button>
     {{ quantity }}
-    <button @click="$emit('increment')">
+    <button class="counter__button" @click="$emit('increment')">
       <DefaultPlus />
     </button>
   </div>
@@ -31,12 +36,25 @@ defineEmits(["increment", "decrement"]);
   justify-content: space-between;
   align-items: center;
   width: 102px;
-  padding: 16px;
+  //padding: 16px;
   height: 53px;
   background-color: var(--color-lite);
   border-radius: 4px;
   color: var(--color-text);
   outline: 2px solid #efefef;
+
+  &__button {
+    height: 100%;
+    padding: 16px;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    &-disabled {
+      opacity: 0.5;
+    }
+  }
 }
 
 @media (width <= 375px) {

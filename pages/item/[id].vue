@@ -116,6 +116,10 @@
       <MarkRight />
     </NuxtLink>
   </div>
+
+  <div v-else class="load-window">
+    <div  class="spinner" />
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -165,6 +169,7 @@ import img4 from "assets/pictures/Img04.png";
 import ProductInfoMobile from "../components/ProductInfoMobile.vue";
 import { provide } from "#imports";
 import MarkRight from "../assets/pictures/svg/SvgComponents/MarkRight.vue";
+import { useShoppingCart } from "#imports";
 
 const arrayOfPhotos = [img1, img2, img3, img4];
 
@@ -197,10 +202,6 @@ const productRatingCount = computed(() => data.value?.rating.count || "");
 provide("productTitle", productTitle);
 provide("productDescription", productDescription);
 provide("productRatingCount", productRatingCount);
-
-import { useShoppingCart } from "#imports";
-import DefaultMinus from "../../assets/pictures/svg/SvgComponents/DefaultMinus.vue";
-import DefaultPlus from "../../assets/pictures/svg/SvgComponents/DefaultPlus.vue";
 
 const shoppingCart = useShoppingCart();
 
@@ -335,7 +336,9 @@ onUnmounted(() => {
       background: var(--color-decorative);
       border-radius: 4px;
     }
-  } // its too lazy for me to add styles for firefox
+  }
+
+  // its too lazy for me to add styles for firefox
 
   &__actions {
     display: flex;
