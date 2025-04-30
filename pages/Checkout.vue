@@ -5,8 +5,17 @@
       <div class="checkout__coupon">
         <p>If you have a coupon code, please apply it below.</p>
         <div class="checkout__coupon-apply">
-          <default-text-input placeholder="Coupon Code" size="medium" />
-          <button-comp variant="primary" size="l">APPLY COUPON</button-comp>
+          <default-text-input
+            class="checkout__coupon-input"
+            placeholder="Coupon Code"
+            size="medium"
+          />
+          <button-comp
+            class="checkout__coupon-button"
+            variant="primary"
+            size="l"
+            >APPLY COUPON</button-comp
+          >
         </div>
       </div>
 
@@ -129,35 +138,34 @@ import useFormSubmit from "composables/useFormSubmit";
 const shoppingCart = useShoppingCart();
 
 const { form, errors, handleBlur, validateForm, resetForm } = useFormValidation(
-    {
-      firstName: "",
-      lastName: "",
-      companyName: "",
-      country: "",
-      streetAddress: "",
-      postcode: "",
-      townAddress: "",
-      phoneNumber: "",
-      email: "",
-      orderNotes: "",
-    },
+  {
+    firstName: "",
+    lastName: "",
+    companyName: "",
+    country: "",
+    streetAddress: "",
+    postcode: "",
+    townAddress: "",
+    phoneNumber: "",
+    email: "",
+    orderNotes: "",
+  },
 );
 
 const { submitForm, isModalOpen, status, modalClose, message } =
-    useFormSubmit();
-
+  useFormSubmit();
 
 const type = "order";
 
 const handleSubmit = () => {
   submitForm(
-      "Your message has been sent successfully.",
-      "Form has errors. Please check all fields.",
-      form,
-      type,
-      validateForm,
-      resetForm,
-      saveToLocalStorage,
+    "Your message has been sent successfully.",
+    "Form has errors. Please check all fields.",
+    form,
+    type,
+    validateForm,
+    resetForm,
+    saveToLocalStorage,
   );
 };
 </script>
@@ -190,6 +198,16 @@ const handleSubmit = () => {
       flex-direction: row;
       justify-content: space-between;
       gap: 28px;
+    }
+
+    &-input {
+      width: 60%;
+      margin-top: auto;
+    }
+
+    &-button {
+      width: 40%;
+      padding: 16px 24px;
     }
   }
 

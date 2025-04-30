@@ -4,14 +4,27 @@
     <ShopHeaderMobile class="shop__mobile" />
 
     <div class="shop__items">
-      <ShopSidebar class="shop__items-sidebar" />
-      <CatalogShop class="shop__items-catalog" />
+      <ShopSidebar class="shop__items-sidebar" @submitSearch="handleSearch"  @category="handleCategory"
+      />
+      <CatalogShop class="shop__items-catalog" :name="name" :category="categoryOfProducts"/>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import ShopHeaderMobile from "../components/ShopHeaderMobile.vue";
+
+const name = ref<string>();
+const categoryOfProducts = ref<string>();
+
+const handleSearch = (searchItem: string) => {
+  name.value = searchItem;
+};
+
+const handleCategory = (category: string) => {
+  categoryOfProducts.value = category;
+};
+
 </script>
 
 <style lang="scss" scoped>

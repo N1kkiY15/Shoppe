@@ -8,10 +8,7 @@
         @click="navigateToPage(product.id)"
       />
 
-      <button
-        class="product-card__overlay"
-        @click="shoppingCart.addToCart(product)"
-      >
+      <button class="product-card__overlay" @click="AddToCart(product)">
         ADD TO CART
       </button>
     </div>
@@ -19,6 +16,13 @@
       <h3 class="product-card__title">{{ product.title }}</h3>
       <span class="product-card__price">$ {{ product.price }}</span>
     </div>
+
+    <DefaultNotification
+      :isOpen="isModalOpen"
+      :status="status"
+      @close="modalClose"
+      :message="message"
+    />
   </article>
 </template>
 
@@ -27,9 +31,24 @@ import { useShoppingCart } from "../stores/ShoppingCart";
 import type { Product } from "~/types/product";
 import goToPageItem from "composables/goToPageItem";
 
+const {
+  isModalOpen,
+  status,
+  modalClose,
+  modalOpen,
+  message,
+  notificationDuration,
+} = useNotification();
+
 defineProps<{
-  product: Product; // Указываем тип
+  product: Product;
 }>();
+
+const AddToCart = (product: Product) => {
+  shoppingCart.addToCart(product);
+  message.value = "The item added to your Shopping bag.";
+  modalOpen(2000);
+};
 
 const { navigateToPage } = goToPageItem();
 

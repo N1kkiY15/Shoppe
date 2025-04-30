@@ -277,6 +277,7 @@ onUnmounted(() => {
     display: flex;
     flex-direction: column;
     flex: 1;
+    max-width: 600px;
   }
 
   &__header {
@@ -316,12 +317,31 @@ onUnmounted(() => {
   }
 
   &__description {
+    max-height: 108px;
+    overflow-y: auto;
+    padding-right: 8px;
     line-height: 1.6;
-  }
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--color-accent);
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--color-decorative);
+      border-radius: 4px;
+    }
+  } // its too lazy for me to add styles for firefox
 
   &__actions {
     display: flex;
-    gap: 20px;
+    flex: 1 1;
+    justify-content: space-between;
+    gap: 16px;
     margin-bottom: 80px;
     align-items: center;
   }
@@ -461,11 +481,6 @@ onUnmounted(() => {
 
     &__tabs {
       display: none;
-    }
-
-    &__actions {
-      display: block;
-      margin-bottom: 16px;
     }
 
     &__counter {

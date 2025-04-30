@@ -28,7 +28,7 @@ const buttonClasses = computed(() => ({
 <style lang="scss" scoped>
 @mixin base-button {
   border-radius: 4px;
-  padding: 12px 31px;
+  padding: 12px;
   border: 2px solid var(--color-main);
   font-weight: var(--font-weight-bold);
   font-size: 16px;

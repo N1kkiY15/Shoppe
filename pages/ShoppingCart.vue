@@ -19,8 +19,8 @@
         </ul>
 
         <div class="shopping-cart__coupon">
-          <default-text-input placeholder="Coupon Code" size="medium" />
-          <button-comp variant="primary" size="l">APPLY COUPON</button-comp>
+          <default-text-input placeholder="Coupon Code" class="shopping-cart__coupon-input" size="medium" />
+          <button-comp class="shopping-cart__coupon-button" variant="primary" size="l">APPLY COUPON</button-comp>
         </div>
       </div>
 
@@ -100,6 +100,16 @@ const shoppingCart = useShoppingCart();
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
+    &-input {
+      width: 60%;
+      margin-top: auto;
+    }
+
+    &-button {
+      width: 40%;
+      padding: 16px 24px;
+    }
   }
 
   &__totals {

@@ -14,11 +14,16 @@
 
     <div class="sidebar__selects">
       <div class="sidebar__select">
-        <select id="mySelect" name="mySelect" class="sidebar__select-input">
+        <select
+          v-model="selectedCategory"
+          class="sidebar__select-input"
+          @change="emitCategory"
+        >
           <option value="">Category</option>
-          <option value="first">Первый элемент</option>
-          <option value="second">Второй элемент</option>
-          <option value="third">Третий элемент</option>
+          <option value="men's clothing">men's clothing</option>
+          <option value="jewelery">jewelery</option>
+          <option value="electronics">electronics</option>
+          <option value="women's clothing">women's clothing</option>
         </select>
         <button class="sidebar__select-mark">
           <MarkDown class="sidebar__select-icon" />
@@ -28,9 +33,8 @@
       <div class="sidebar__select">
         <select id="mySelect" name="mySelect" class="sidebar__select-input">
           <option value="">Sort By</option>
-          <option value="first">Первый элемент</option>
-          <option value="second">Второй элемент</option>
-          <option value="third">Третий элемент</option>
+          <option value="first">По убыванию стоимости</option>
+          <option value="second">По возрастанию стоимости</option>
         </select>
         <button class="sidebar__select-mark">
           <MarkDown class="sidebar__select-icon" />
@@ -46,6 +50,7 @@
       label="On Sale"
       id="sale"
     />
+
     <CheckboxSlider
       v-model="isCheckedInStock"
       class="sidebar__checkbox"
@@ -59,23 +64,22 @@
 import SearchIcon from "SvgComponents/SearchIcon.vue";
 import MarkDown from "SvgComponents/MarkDown.vue";
 
-const isCheckedOnSale = ref<boolean>(false);
+const selectedCategory = ref("");
 
+const isCheckedOnSale = ref<boolean>(false);
 const isCheckedInStock = ref<boolean>(false);
 
 const item = ref<string>("");
 
-//////////////////////////////////////////////////////////
+const emit = defineEmits(["submitSearch", "category"]);
 
-const submitSearch = () => {
-  const searchItem = item.value;
-  console.log(searchItem);
-  emit("submitSearch", searchItem); // pinia maybe?
+const emitCategory = () => {
+  emit("category", selectedCategory.value);
 };
 
-const emit = defineEmits(["submitSearch"]);
-
-//////////////////////////////////////////////////////////
+const submitSearch = () => {
+  emit("submitSearch", item.value);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -89,14 +93,14 @@ const emit = defineEmits(["submitSearch"]);
     border-radius: 4px;
     width: 100%;
   }
-}
 
-.sidebar__select-mark {
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-  pointer-events: none;
-  background-color: transparent;
+  &-mark {
+    position: absolute;
+    right: 15px;
+    bottom: 18px;
+    pointer-events: none;
+    background-color: transparent;
+  }
 }
 
 .sidebar {

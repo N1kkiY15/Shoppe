@@ -63,12 +63,6 @@ const { navigateToPage } = goToPageItem();
 
 const intervalId = ref<number | null>(null);
 
-const startInterval = () => {
-  if (intervalId.value) {
-    clearInterval(intervalId.value);
-  }
-  intervalId.value = window.setInterval(autoChangePage, 6000); // почему виндов
-};
 
 const pagesNumber = 5;
 const currentPage = ref(1);
@@ -78,6 +72,13 @@ const isActive = (page: number): boolean => page === currentPage.value;
 const changePage = (page: number) => {
   currentPage.value = page;
   startInterval();
+};
+
+const startInterval = () => {
+  if (intervalId.value) {
+    clearInterval(intervalId.value);
+  }
+  intervalId.value = window.setInterval(autoChangePage, 6000);
 };
 
 const autoChangePage = () => {

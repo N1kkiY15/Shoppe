@@ -30,7 +30,6 @@ export default function useFormSubmit() {
       status.value = "falseMessage";
       message.value = "Error while saving data";
     }
-
     modalOpen();
   };
 
