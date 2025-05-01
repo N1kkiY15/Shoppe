@@ -8,6 +8,9 @@ export default defineNuxtConfig({
   css: ['@/assets/styles/index.scss'],
   components: true,
   modules: ['@pinia/nuxt'],
+  routeRules: {
+    '/': { redirect: '/mainPage' }
+  },
   vite: {
     resolve: {
       alias: {
