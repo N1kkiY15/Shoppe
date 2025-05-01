@@ -37,7 +37,12 @@
         <span class="header__divider"></span>
         <div class="header__actions">
           <SearchIcon class="header__action-icon" />
-          <ShoppingCartIcon class="header__action-icon" />
+          <button>
+            <ShoppingCartIcon
+              class="header__action-icon"
+              @click="toggleShoppingBag"
+            />
+          </button>
           <NuxtLink to="/login" class="header__action-icon">
             <ProfileIcon />
           </NuxtLink>
@@ -45,7 +50,12 @@
       </div>
 
       <div class="header__mobile-controls">
-        <ShoppingCartIcon class="header__mobile-icon" />
+        <button>
+          <ShoppingCartIcon
+            class="header__mobile-icon"
+            @click="toggleShoppingBag"
+          />
+        </button>
         <button @click="toggleDropdown" class="header__menu-button">
           <MenuList v-if="!isOpen" class="header__menu-icon" />
           <XIcon v-if="isOpen" class="header__menu-icon" />
@@ -58,6 +68,8 @@
     </div>
 
     <MobileHeaderMenu :openMenu="isOpen" @toggle-dropdown="toggleDropdown" />
+
+    <ShoppingBag :isOpen="openBag" @closeBag="toggleShoppingBag" />
   </div>
 </template>
 
@@ -68,6 +80,7 @@ import ShoppingCartIcon from "SvgComponents/ShoppingCartIcon.vue";
 import MenuList from "../assets/pictures/svg/SvgComponents/MenuList.vue";
 import SearchIconMobile from "../assets/pictures/svg/SvgComponents/SearchIconMobile.vue";
 import XIcon from "../assets/pictures/svg/SvgComponents/XIcon.vue";
+import ShoppingBag from "./ShoppingBag.vue";
 
 const route = useRoute();
 const showElement = computed(() => !route.meta?.isHomePage);
@@ -80,6 +93,14 @@ const toggleDropdown = () => {
   document.body.style.overflow = isOpen.value ? "hidden" : "";
 };
 
+const openBag = ref<boolean>(false);
+
+const toggleShoppingBag = () => {
+  openBag.value = !openBag.value;
+  if (window.innerWidth <= 375) {
+    document.body.style.overflow = openBag.value ? "hidden" : "";
+  }
+};
 </script>
 
 <style scoped lang="scss">
@@ -148,6 +169,7 @@ const toggleDropdown = () => {
   &__actions {
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 39px;
   }
 

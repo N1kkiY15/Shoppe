@@ -87,6 +87,7 @@ const handleSubmit = () => {
   padding: 52px 0 10px;
   border-top: 1px solid var(--color-decorative);
   color: var(--color-text);
+  margin: auto;
 
   &__section {
     display: flex;

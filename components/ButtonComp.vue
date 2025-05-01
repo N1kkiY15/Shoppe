@@ -28,14 +28,16 @@ const buttonClasses = computed(() => ({
 <style lang="scss" scoped>
 @mixin base-button {
   border-radius: 4px;
-  padding: 12px 31px;
-  outline: 2px solid var(--color-main);
+  padding: 12px;
+  border: 2px solid var(--color-main);
   font-weight: var(--font-weight-bold);
   font-size: 16px;
   width: 100%;
   transition:
     background-color 0.4s ease,
     color 0.4s ease;
+  font-family: DM Sans;
+
 }
 
 @mixin primary-colors {
@@ -54,7 +56,7 @@ const buttonClasses = computed(() => ({
 
   &:hover {
     @include secondary-colors;
-    outline: 2px solid var(--color-main);
+    border: 2px solid var(--color-main);
   }
 }
 
@@ -70,7 +72,7 @@ const buttonClasses = computed(() => ({
 .special {
   @include base-button;
   border-radius: 6px;
-  outline: 2px solid var(--color-contrast);
+  border: 2px solid var(--color-contrast);
   color: var(--color-contrast);
   background-color: var(--color-transparent);
   font-size: clamp(0.75rem, 0.574rem + 0.751vw, 1.25rem);
@@ -93,7 +95,6 @@ const buttonClasses = computed(() => ({
 }
 
 @media (width <= 375px) {
-
   @mixin base-button {
     border-radius: 4px;
     padding: 6px 9px;
@@ -108,18 +109,10 @@ const buttonClasses = computed(() => ({
     padding: 6px 9px;
   }
 
-  .primary, .secondary, .special {
+  .primary,
+  .secondary,
+  .special {
     @include base-button;
   }
-
-  //.button__size-xl {
-  //  max-width: 102px;
-  //  max-height: 32px;
-  //  padding: 6px 9px;
-  //  font-family: DM Sans;
-  //  font-weight: 400;
-  //  font-size: 12px;
-  //  line-height: 20px;
-  //}
 }
 </style>

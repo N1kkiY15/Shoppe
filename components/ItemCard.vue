@@ -2,29 +2,57 @@
   <article class="product-card">
     <div class="product-card__image-wrapper">
       <img
-        src="pictures/Img01.png"
-        :alt="props.title"
+        :src="product.image"
+        :alt="product.title"
         class="product-card__image"
+        @click="navigateToPage(product.id)"
       />
-      <div class="product-card__overlay">
-        <button class="product-card__add-button">ADD TO CART</button>
-      </div>
+
+      <button class="product-card__overlay" @click="AddToCart(product)">
+        ADD TO CART
+      </button>
     </div>
     <div class="product-card__info">
-      <h3 class="product-card__title">{{ props.title }}</h3>
-      <span class="product-card__price">$ {{ props.price }}</span>
+      <h3 class="product-card__title">{{ product.title }}</h3>
+      <span class="product-card__price">$ {{ product.price }}</span>
     </div>
+
+    <DefaultNotification
+      :isOpen="isModalOpen"
+      :status="status"
+      @close="modalClose"
+      :message="message"
+    />
   </article>
 </template>
 
 <script setup lang="ts">
-interface CardInfo {
-  title: string;
-  image: string;
-  price: number;
-}
+import { useShoppingCart } from "../stores/ShoppingCartStore";
+import type { Product } from "~/types/product";
+import goToPageItem from "composables/goToPageItem";
 
-const props = defineProps<CardInfo>();
+const {
+  isModalOpen,
+  status,
+  modalClose,
+  modalOpen,
+  message,
+  notificationDuration,
+} = useNotification();
+
+defineProps<{
+  product: Product;
+}>();
+
+const AddToCart = (product: Product) => {
+  shoppingCart.addToCart(product);
+  message.value = "The item added to your Shopping bag.";
+  modalOpen(2000);
+};
+
+const { navigateToPage } = goToPageItem();
+
+const shoppingCart = useShoppingCart();
 </script>
 
 <style lang="scss" scoped>
@@ -38,13 +66,16 @@ const props = defineProps<CardInfo>();
     position: relative;
     border-radius: 8px;
     overflow: hidden;
+    aspect-ratio: 1 / 1;
+    background: #f5f5f5;
   }
 
   &__image {
     width: 100%;
-    height: auto;
-    display: block;
+    height: 100%;
+    object-fit: cover;
     transition: transform 0.3s ease;
+    aspect-ratio: 1 / 1;
   }
 
   &__overlay {
@@ -61,15 +92,10 @@ const props = defineProps<CardInfo>();
     visibility: hidden;
     transition: all 0.3s ease;
     transform: translateY(100%);
-  }
-
-  &__add-button {
-    background: transparent;
     border: none;
     color: black;
     font-weight: var(--font-weight-bold);
     cursor: pointer;
-    padding: 8px 16px;
     pointer-events: all;
   }
 

@@ -3,12 +3,14 @@
     <div
       v-if="isOpen"
       class="modal"
+      @click.stop
       :class="{ 'modal-error': props.status === 'falseMessage' }"
+      :style="{ '--animation-duration': `${notificationDuration}ms` }"
     >
       <div class="modal__section">
         <SuccessIcon v-if="props.status !== 'falseMessage'" />
         <ErrorButton v-else />
-        <p>{{ messageTotal }}</p>
+        <p>{{ props.message }}</p>
       </div>
       <button @click="closeModal" class="modal__section-button">
         <ExitButton />
@@ -22,13 +24,7 @@ import ExitButton from "SvgComponents/ExitButton.vue";
 import SuccessIcon from "SvgComponents/SuccessIcon.vue";
 import ErrorButton from "SvgComponents/errorButton.vue";
 
-interface statusMessage {
-  messageSent: string;
-  messageErrorSent: string;
-  emailSent: string; // notification / modal - center
-}
-
-const messageTotal = ref<string>("");
+const { notificationDuration } = useNotification();
 
 interface Props {
   isOpen: Boolean;
@@ -42,15 +38,7 @@ const emit = defineEmits(["close"]);
 
 const closeModal = () => {
   emit("close");
-  messageTotal.value = "";
 };
-
-watch(
-  () => props.status,
-  () => {
-    messageTotal.value = props.message;
-  },
-);
 </script>
 
 <style lang="scss" scoped>
@@ -66,7 +54,7 @@ watch(
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--color-modal);
+  background-color: #efefef;
 
   &::after {
     content: "";
@@ -76,7 +64,7 @@ watch(
     width: 0;
     height: 2px;
     background-color: var(--color-accent);
-    animation: borderGrow 5s linear forwards;
+    //animation: borderGrow var(--animation-duration) linear forwards;
   }
 
   &__section {

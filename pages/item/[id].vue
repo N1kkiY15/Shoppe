@@ -44,11 +44,17 @@
         </div>
 
         <div class="product__actions">
-          <div class="product__quantity"></div>
+          <QuatityCount
+            type="big"
+            :quantity="qty"
+            @increment="qty++"
+            @decrement="qty--"
+          />
           <ButtonComp
             class="product__add-to-cart"
             variant="secondary"
             size="xl"
+            @click="handleAddToCart(data, qty)"
           >
             ADD TO CART
           </ButtonComp>
@@ -57,6 +63,7 @@
         <ProductInfoMobile
           class="product__info-mobile"
           :description="data.description"
+          :count="data.rating.count"
         />
 
         <div class="product__social">
@@ -102,7 +109,6 @@
         <keep-alive>
           <ItemPageReviews
             v-if="currentTab === 'reviews'"
-            :title="data.title"
             :count="data.rating.count"
           />
         </keep-alive>
@@ -110,6 +116,14 @@
     </div>
 
     <SimilarItems :category="data.category" />
+    <NuxtLink to="/shop" class="product__continue">
+      <p class="span-accent">Continue shopping</p>
+      <MarkRight />
+    </NuxtLink>
+  </div>
+
+  <div v-else class="load-window">
+    <div class="spinner" />
   </div>
 </template>
 
@@ -135,18 +149,6 @@ onMounted(async () => {
   startInterval();
 });
 
-const currentPage = ref<string>("description");
-
-const changeItemPage = (pageId: string) => {
-  if (pageId === "description") {
-    currentPage.value = pageId;
-  } else if (pageId === "information") {
-    currentPage.value = pageId;
-  } else if (pageId === "reviews") {
-    currentPage.value = pageId;
-  }
-};
-
 const MAX_NUMBER_OF_STARS = 5;
 
 const currentTab = ref("description");
@@ -164,11 +166,15 @@ const changeTab = (tabId: string) => {
 const rating = computed(() =>
   data.value?.rating ? Math.round(data.value.rating.rate) : 0,
 );
+
 import img1 from "assets/pictures/Img01.png";
 import img2 from "assets/pictures/Img02.png";
 import img3 from "assets/pictures/Img03.png";
 import img4 from "assets/pictures/Img04.png";
-import ProductInfoMobile from "../../components/ProductInfoMobile.vue";
+import ProductInfoMobile from "../components/ProductInfoMobile.vue";
+import { provide } from "#imports";
+import MarkRight from "../assets/pictures/svg/SvgComponents/MarkRight.vue";
+import { useShoppingCart } from "#imports";
 
 const arrayOfPhotos = [img1, img2, img3, img4];
 
@@ -191,11 +197,28 @@ const intervalId = ref<number | null>(null);
 
 const startInterval = () => {
   if (intervalId.value) clearInterval(intervalId.value);
-  intervalId.value = window.setInterval(autoChangePhoto, 3000);
+  intervalId.value = setInterval(autoChangePhoto, 3000);
+};
+
+const productTitle = computed(() => data.value?.title || "");
+const productDescription = computed(() => data.value?.description || "");
+const productRatingCount = computed(() => data.value?.rating.count || "");
+
+provide("productTitle", productTitle);
+provide("productDescription", productDescription);
+provide("productRatingCount", productRatingCount);
+
+const shoppingCart = useShoppingCart();
+
+const qty = ref<number>(1);
+
+const handleAddToCart = (data: Product, quantity: number) => {
+  shoppingCart.addToCart(data, quantity);
+  qty.value = 1;
 };
 
 onUnmounted(() => {
-  if (intervalId.value) window.clearInterval(intervalId.value);
+  if (intervalId.value) clearInterval(intervalId.value);
 });
 </script>
 
@@ -260,6 +283,7 @@ onUnmounted(() => {
     display: flex;
     flex-direction: column;
     flex: 1;
+    max-width: 600px;
   }
 
   &__header {
@@ -299,16 +323,50 @@ onUnmounted(() => {
   }
 
   &__description {
+    max-height: 108px;
+    overflow-y: auto;
+    padding-right: 8px;
     line-height: 1.6;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--color-accent);
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--color-decorative);
+      border-radius: 4px;
+    }
   }
+
+  // its too lazy for me to add styles for firefox
 
   &__actions {
     display: flex;
-    gap: 20px;
+    flex: 1 1;
+    justify-content: space-between;
+    gap: 16px;
     margin-bottom: 80px;
+    align-items: center;
+  }
+
+  &__counter {
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    padding: 12px;
+    background-color: var(--color-lite);
+    border-radius: 4px;
   }
 
   &__add-to-cart {
+    padding: 16px;
     flex-grow: 1;
   }
 
@@ -378,7 +436,6 @@ onUnmounted(() => {
     color: var(--color-text-secondary);
 
     &--active {
-      //position: absolute;
       border-bottom: 2px solid var(--color-main);
     }
   }
@@ -387,8 +444,17 @@ onUnmounted(() => {
     margin-top: 20px;
   }
 
-  @media (width <= 375px) {
+  &__continue {
+    display: none;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 72px;
+    font-size: 12px;
+  }
 
+  @media (width <= 375px) {
     gap: 21px;
 
     &__main {
@@ -425,15 +491,15 @@ onUnmounted(() => {
       display: none;
     }
 
-    &__actions {
-      display: block;
-      margin-bottom: 16px;
+    &__counter {
+      display: none;
     }
 
     &__main-image {
       width: 100%;
       height: 374px;
       object-fit: cover;
+      border-radius: 4px;
     }
 
     &__title {
@@ -462,6 +528,10 @@ onUnmounted(() => {
 
     &__meta {
       display: none;
+    }
+
+    &__continue {
+      display: flex;
     }
   }
 }

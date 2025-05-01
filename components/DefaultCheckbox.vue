@@ -1,16 +1,13 @@
 <template>
-  <div class="default-checkbox">
+  <label class="default-checkbox">
     <input
       v-model="checkboxValue"
       type="checkbox"
       class="default-checkbox__input"
-      id="save-info"
       :class="CheckboxClass"
     />
-    <label for="save-info" class="default-checkbox__description">
-      {{ props.text }}
-    </label>
-  </div>
+    {{ props.text }}
+  </label>
 </template>
 
 <script setup lang="ts">
@@ -40,6 +37,7 @@ const CheckboxClass = computed(() => ({
   align-items: center;
   gap: 8px;
   cursor: pointer;
+  font-size: var(--font-size-text-small);
 
   &__input {
     border: 1px solid var(--color-text);
@@ -47,14 +45,8 @@ const CheckboxClass = computed(() => ({
 
     &:checked {
       accent-color: var(--color-primary);
-      background-color: var(--color-main);
+      background-color: darkred;
     }
-  }
-
-  &__description {
-    font-size: var(--font-size-text-small);
-    margin: 0;
-    cursor: pointer;
   }
 }
 
