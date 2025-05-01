@@ -1,6 +1,6 @@
 <template>
   <div class="product-card">
-    <img src="pictures/Img01.png" class="product-card__image" />
+    <img :src="product.image" class="product-card__image" />
 
     <div class="product-card__content">
       <div class="product-card__info">
@@ -13,6 +13,7 @@
     <QuatityCount
       class="product-card__quantity"
       :quantity="product.qty"
+      :type="props.counterType"
       @increment="shoppingCart.incrementProduct(product.id)"
       @decrement="shoppingCart.decrementProduct(product.id)"
     />
@@ -26,11 +27,14 @@
 <script setup lang="ts">
 import Xicon2 from "../assets/pictures/svg/SvgComponents/Xicon2.vue";
 import type { Product } from "~/types/product";
-import { useShoppingCart } from "../stores/ShoppingCart";
+import { useShoppingCart } from "../stores/ShoppingCartStore";
 
-defineProps<{
+interface Props {
   product: Product;
-}>();
+  counterType: string;
+}
+
+const props = defineProps<Props>();
 
 defineEmits(["increment", "decrement", "remove"]);
 
@@ -67,7 +71,7 @@ const shoppingCart = useShoppingCart();
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 14px;
-    max-width: 200px;
+    max-width: 125px;
   }
 
   &__details {
@@ -118,13 +122,15 @@ const shoppingCart = useShoppingCart();
       flex-direction: column;
       gap: 2px;
     }
-
-    &__quantity {
-      grid-column: 2;
-      grid-row: 2;
-      align-self: end;
-      margin-left: auto;
-    }
   }
+}
+
+.double-row .product-card__image {
+  grid-row: span 2;
+}
+
+.bag-counter .product-card__quantity {
+  justify-self: end;
+  align-self: end;
 }
 </style>

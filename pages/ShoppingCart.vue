@@ -5,12 +5,13 @@
       <div class="shopping-cart__view">
         <ul class="shopping-cart__list">
           <li
-            v-for="(item, index) of shoppingCart.productCart"
-            key="index"
+            v-for="item in shoppingCart.productCart"
+            :key="item.id"
             class="shopping-cart__list-item"
           >
             <CartCard
               :product="item"
+              counter-type="big"
               @increment="shoppingCart.incrementProduct(item.id)"
               @decrement="shoppingCart.decrementProduct(item.id)"
               @remove="shoppingCart.removeProduct(item.id)"
@@ -19,8 +20,17 @@
         </ul>
 
         <div class="shopping-cart__coupon">
-          <default-text-input placeholder="Coupon Code" class="shopping-cart__coupon-input" size="medium" />
-          <button-comp class="shopping-cart__coupon-button" variant="primary" size="l">APPLY COUPON</button-comp>
+          <default-text-input
+            placeholder="Coupon Code"
+            class="shopping-cart__coupon-input"
+            size="medium"
+          />
+          <button-comp
+            class="shopping-cart__coupon-button"
+            variant="primary"
+            size="l"
+            >APPLY COUPON
+          </button-comp>
         </div>
       </div>
 

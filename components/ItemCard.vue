@@ -2,7 +2,7 @@
   <article class="product-card">
     <div class="product-card__image-wrapper">
       <img
-        src="pictures/Img01.png"
+        :src="product.image"
         :alt="product.title"
         class="product-card__image"
         @click="navigateToPage(product.id)"
@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { useShoppingCart } from "../stores/ShoppingCart";
+import { useShoppingCart } from "../stores/ShoppingCartStore";
 import type { Product } from "~/types/product";
 import goToPageItem from "composables/goToPageItem";
 
@@ -66,13 +66,16 @@ const shoppingCart = useShoppingCart();
     position: relative;
     border-radius: 8px;
     overflow: hidden;
+    aspect-ratio: 1 / 1;
+    background: #f5f5f5;
   }
 
   &__image {
     width: 100%;
-    height: auto;
-    display: block;
+    height: 100%;
+    object-fit: cover;
     transition: transform 0.3s ease;
+    aspect-ratio: 1 / 1;
   }
 
   &__overlay {

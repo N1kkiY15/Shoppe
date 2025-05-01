@@ -11,6 +11,7 @@
     <div v-else class="catalog-shop__list">
       <LoadingSkeletonCard v-for="cards in cardNumber" :key="cards" />
     </div>
+
     <DefaultPagination
       :totalPages="totalPages"
       :currentPage="currentPage"
@@ -65,7 +66,6 @@ onMounted(async () => {
 const productsLength = computed(() => data.value?.length);
 
 const totalPages = computed(() => {
-  if (productsLength.value)
     Math.ceil(productsLength.value / REQUIRED_NUMBER_OF_CARDS);
 });
 

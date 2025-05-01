@@ -1,5 +1,5 @@
 <template>
-  <div class="counter">
+  <div class="counter" :class="QuatityClass">
     <button
       class="counter__button"
       :class="{ 'counter__button-disabled': quantity < 2 }"
@@ -21,11 +21,20 @@ import DefaultPlus from "SvgComponents/DefaultPlus.vue";
 
 interface Props {
   quantity: number;
+  type: string;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
 defineEmits(["increment", "decrement"]);
+
+type variant = "big" | "small";
+
+const QuatityClass = computed(() => ({
+  counter__big: props.type === "big",
+  counter__small: props.type === "small",
+}));
+
 </script>
 
 <style scoped lang="scss">
@@ -36,12 +45,18 @@ defineEmits(["increment", "decrement"]);
   justify-content: space-between;
   align-items: center;
   width: 102px;
-  //padding: 16px;
-  height: 53px;
   background-color: var(--color-lite);
   border-radius: 4px;
   color: var(--color-text);
   outline: 2px solid #efefef;
+
+  &__big {
+    height: 53px;
+  }
+
+  &__small {
+    height: 30px;
+  }
 
   &__button {
     height: 100%;

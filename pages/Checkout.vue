@@ -131,7 +131,7 @@
 </template>
 
 <script setup lang="ts">
-import { useShoppingCart } from "../stores/ShoppingCart";
+import { useShoppingCart } from "../stores/ShoppingCartStore";
 import useFormValidation from "composables/useFormValidation";
 import useFormSubmit from "composables/useFormSubmit";
 

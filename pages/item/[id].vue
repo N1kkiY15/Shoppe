@@ -44,7 +44,12 @@
         </div>
 
         <div class="product__actions">
-          <QuatityCount :quantity="qty" @increment="qty++" @decrement="qty--" />
+          <QuatityCount
+            type="big"
+            :quantity="qty"
+            @increment="qty++"
+            @decrement="qty--"
+          />
           <ButtonComp
             class="product__add-to-cart"
             variant="secondary"
@@ -118,7 +123,7 @@
   </div>
 
   <div v-else class="load-window">
-    <div  class="spinner" />
+    <div class="spinner" />
   </div>
 </template>
 
@@ -192,7 +197,7 @@ const intervalId = ref<number | null>(null);
 
 const startInterval = () => {
   if (intervalId.value) clearInterval(intervalId.value);
-  intervalId.value = window.setInterval(autoChangePhoto, 3000);
+  intervalId.value = setInterval(autoChangePhoto, 3000);
 };
 
 const productTitle = computed(() => data.value?.title || "");
@@ -213,7 +218,7 @@ const handleAddToCart = (data: Product, quantity: number) => {
 };
 
 onUnmounted(() => {
-  if (intervalId.value) window.clearInterval(intervalId.value);
+  if (intervalId.value) clearInterval(intervalId.value);
 });
 </script>
 

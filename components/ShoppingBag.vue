@@ -29,13 +29,15 @@
           :key="index"
           class="shopping-cart__product-item"
         >
-          <ShoppingBagCard
+          <CartCard
+            class="shopping-cart__card"
+            :class="'double-row bag-counter'"
             :product="item"
+            counter-type="small"
             @increment="shoppingCart.incrementProduct(item.id)"
             @decrement="shoppingCart.decrementProduct(item.id)"
             @remove="shoppingCart.removeProduct(item.id)"
           />
-
         </li>
       </ul>
 
@@ -66,7 +68,7 @@
 <script setup lang="ts">
 import ExitButton from "../assets/pictures/svg/SvgComponents/ExitButton.vue";
 import MarkLeft from "../assets/pictures/svg/SvgComponents/MarkLeft.vue";
-import { useShoppingCart } from "#imports";
+import { useShoppingCart } from "../stores/ShoppingCartStore";
 
 interface Props {
   isOpen: boolean;
@@ -184,6 +186,17 @@ const shoppingCart = useShoppingCart();
 
   &__view-cart-button {
     width: 100%;
+  }
+
+  &__card {
+    display: grid;
+    grid-template-columns: 136px auto;
+    grid-template-rows: auto auto;
+    gap: 8px;
+
+    &:first-child {
+      grid-row: span 2;
+    }
   }
 }
 
