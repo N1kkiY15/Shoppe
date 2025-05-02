@@ -23,7 +23,10 @@
         </span>
       </div>
 
-      <ul class="shopping-cart__products-list">
+      <ul
+        v-if="shoppingCart.productCart.length !== 0"
+        class="shopping-cart__products-list"
+      >
         <li
           v-for="(item, index) of shoppingCart.productCart"
           :key="index"
@@ -40,6 +43,8 @@
           />
         </li>
       </ul>
+
+      <div v-else class="shopping-cart__products-null">В корзине пусто!</div>
 
       <div class="shopping-cart__footer">
         <div class="shopping-cart__summary">
@@ -148,6 +153,14 @@ const shoppingCart = useShoppingCart();
     padding: 0 36px 24px;
     list-style: none;
     margin-bottom: 138px;
+  }
+
+  &__products-null {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 0 36px 24px;
   }
 
   &__product-item {

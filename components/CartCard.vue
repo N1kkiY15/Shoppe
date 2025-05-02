@@ -6,7 +6,9 @@
       <div class="product-card__info">
         <p class="product-card__title">{{ product.title }}</p>
         <p class="product-card__details">Black / Medium</p>
-        <p class="product-card__price">${{ product.price * product.qty }}</p>
+        <p class="product-card__price">
+          ${{ (product.price * product.qty).toFixed(2) }}
+        </p>
       </div>
     </div>
 
