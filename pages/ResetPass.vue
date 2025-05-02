@@ -47,8 +47,9 @@
     <DefaultNotification
       :isOpen="isModalOpen"
       :status="status"
-      @close="modalClose"
       :message="message"
+      button-type="close"
+      @close="modalClose"
     />
   </div>
 </template>

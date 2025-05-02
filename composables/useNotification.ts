@@ -16,12 +16,12 @@ export default function useNotification() {
 
   const modalClose = () => {
     isModalOpen.value = false;
-    clearStatus();
-    clearMessage();
     if (timeoutId.value) {
       clearTimeout(timeoutId.value);
       timeoutId.value = null;
     }
+    clearStatus();
+    clearMessage();
   };
 
   const modalOpen = (duration?: number) => {
@@ -53,8 +53,6 @@ export default function useNotification() {
     message,
     modalClose,
     modalOpen,
-    clearStatus,
-    clearMessage,
     notificationDuration,
   };
 }

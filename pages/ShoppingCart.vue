@@ -10,6 +10,7 @@
             class="shopping-cart__list-item"
           >
             <CartCard
+              :class="'bag-counter'"
               :product="item"
               counter-type="big"
               @increment="shoppingCart.incrementProduct(item.id)"

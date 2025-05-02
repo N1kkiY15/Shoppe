@@ -42,6 +42,7 @@
     :isOpen="isModalOpen"
     :status="status"
     :message="message"
+    button-type="close"
     @close="modalClose"
   />
 </template>

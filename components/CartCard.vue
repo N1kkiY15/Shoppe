@@ -6,7 +6,7 @@
       <div class="product-card__info">
         <p class="product-card__title">{{ product.title }}</p>
         <p class="product-card__details">Black / Medium</p>
-        <p class="product-card__price">${{ product.price }}</p>
+        <p class="product-card__price">${{ product.price * product.qty }}</p>
       </div>
     </div>
 
@@ -95,8 +95,19 @@ const shoppingCart = useShoppingCart();
     cursor: pointer;
     padding: 5px;
   }
+}
 
-  @media (width <= 375px) {
+.double-row .product-card__image {
+  grid-row: span 2;
+}
+
+.bag-counter .product-card__quantity {
+  justify-self: end;
+  align-self: end;
+}
+
+@media (width <= 375px) {
+  .product-card {
     grid-template-columns: 136px auto;
     column-gap: 8px;
 
@@ -123,14 +134,5 @@ const shoppingCart = useShoppingCart();
       gap: 2px;
     }
   }
-}
-
-.double-row .product-card__image {
-  grid-row: span 2;
-}
-
-.bag-counter .product-card__quantity {
-  justify-self: end;
-  align-self: end;
 }
 </style>

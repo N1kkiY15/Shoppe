@@ -20,6 +20,7 @@
     <DefaultNotification
       :isOpen="isModalOpen"
       :status="status"
+      button-type="tocart"
       @close="modalClose"
       :message="message"
     />
@@ -144,7 +145,6 @@ const shoppingCart = useShoppingCart();
     }
 
     &__overlay {
-      //transform: translateY(20px);
       padding: 5px;
     }
 

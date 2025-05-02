@@ -69,6 +69,8 @@ const { displayedItems, isLoading } = useDisplayedItems(
     padding-bottom: 16px;
     padding-right: 20px;
     margin-bottom: 10px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
   .mobile {

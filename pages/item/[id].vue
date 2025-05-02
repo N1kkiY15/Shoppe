@@ -45,13 +45,14 @@
 
         <div class="product__actions">
           <QuatityCount
+            class="product__actions-counter"
             type="big"
             :quantity="qty"
             @increment="qty++"
             @decrement="qty--"
           />
           <ButtonComp
-            class="product__add-to-cart"
+            class="product__actions-button"
             variant="secondary"
             size="xl"
             @click="handleAddToCart(data, qty)"
@@ -125,6 +126,14 @@
   <div v-else class="load-window">
     <div class="spinner" />
   </div>
+
+  <DefaultNotification
+    :isOpen="isModalOpen"
+    button-type="tocart"
+    :status="status"
+    @close="modalClose"
+    :message="message"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -210,11 +219,16 @@ provide("productRatingCount", productRatingCount);
 
 const shoppingCart = useShoppingCart();
 
+const { isModalOpen, status, modalClose, modalOpen, message } =
+  useNotification();
+
 const qty = ref<number>(1);
 
 const handleAddToCart = (data: Product, quantity: number) => {
   shoppingCart.addToCart(data, quantity);
   qty.value = 1;
+  message.value = "The item added to your Shopping bag.";
+  modalOpen(2000);
 };
 
 onUnmounted(() => {
@@ -352,22 +366,11 @@ onUnmounted(() => {
     gap: 16px;
     margin-bottom: 80px;
     align-items: center;
-  }
 
-  &__counter {
-    margin: 0;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 24px;
-    padding: 12px;
-    background-color: var(--color-lite);
-    border-radius: 4px;
-  }
-
-  &__add-to-cart {
-    padding: 16px;
-    flex-grow: 1;
+    &-button {
+      padding: 16px;
+      flex-grow: 1;
+    }
   }
 
   &__info-mobile {
@@ -491,10 +494,6 @@ onUnmounted(() => {
       display: none;
     }
 
-    &__counter {
-      display: none;
-    }
-
     &__main-image {
       width: 100%;
       height: 374px;
@@ -508,6 +507,18 @@ onUnmounted(() => {
 
     &__price {
       font-size: 16px;
+    }
+
+    &__actions {
+      margin-bottom: 16px;
+
+      &-counter {
+        display: none;
+      }
+
+      &-button {
+        padding: 6px;
+      }
     }
 
     &__header {

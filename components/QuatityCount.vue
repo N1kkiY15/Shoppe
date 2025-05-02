@@ -19,22 +19,21 @@
 import DefaultMinus from "SvgComponents/DefaultMinus.vue";
 import DefaultPlus from "SvgComponents/DefaultPlus.vue";
 
+type variant = "big" | "small";
+
 interface Props {
   quantity: number;
-  type: string;
+  type: variant;
 }
 
 const props = defineProps<Props>();
 
 defineEmits(["increment", "decrement"]);
 
-type variant = "big" | "small";
-
 const QuatityClass = computed(() => ({
   counter__big: props.type === "big",
   counter__small: props.type === "small",
 }));
-
 </script>
 
 <style scoped lang="scss">
@@ -76,9 +75,11 @@ const QuatityClass = computed(() => ({
   .counter {
     width: 83px;
     height: 33px;
-    gap: 17px;
-    padding: 12px;
     font-size: 14px;
+
+    &__button {
+      padding: 11px;
+    }
   }
 }
 </style>

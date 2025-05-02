@@ -84,6 +84,7 @@
     <default-notification
       :isOpen="isModalOpen"
       :status="status"
+      button-type="close"
       :message="message"
       @close="modalClose"
     />
