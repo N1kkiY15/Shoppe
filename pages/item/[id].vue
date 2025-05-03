@@ -128,11 +128,11 @@
   </div>
 
   <DefaultNotification
-    :isOpen="isModalOpen"
     button-type="tocart"
+    :isOpen="isModalOpen"
     :status="status"
-    @close="modalClose"
     :message="message"
+    @close="modalClose"
   />
 </template>
 

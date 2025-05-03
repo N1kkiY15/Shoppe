@@ -2,7 +2,7 @@
   <div class="shopping-cart">
     <h1 class="shopping-cart__header">Shopping cart</h1>
     <div
-      v-if="shoppingCart.productCart.length !== 0"
+      v-if="cartLength"
       class="shopping-cart__container"
     >
       <div class="shopping-cart__view">
@@ -80,6 +80,11 @@ import { useShoppingCart } from "#imports";
 import CartCard from "../components/CartCard.vue";
 
 const shoppingCart = useShoppingCart();
+
+const cartLength = computed(() => {
+  return shoppingCart.productCart.length !== 0;
+})
+
 </script>
 
 <style scoped lang="scss">

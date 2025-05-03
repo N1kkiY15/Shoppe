@@ -20,10 +20,7 @@
         <ExitButton />
       </button>
 
-      <button
-        v-else-if="props.buttonType === 'tocart'"
-        class="modal__section-cart"
-      >
+      <button v-if="props.buttonType === 'tocart'" class="modal__section-cart">
         <NuxtLink to="/shoppingCart"> VIEW CART</NuxtLink>
       </button>
     </div>

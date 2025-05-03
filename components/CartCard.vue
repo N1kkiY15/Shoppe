@@ -6,9 +6,7 @@
       <div class="product-card__info">
         <p class="product-card__title">{{ product.title }}</p>
         <p class="product-card__details">Black / Medium</p>
-        <p class="product-card__price">
-          ${{ (product.price * product.qty).toFixed(2) }}
-        </p>
+        <p class="product-card__price">${{ totalPrice }}</p>
       </div>
     </div>
 
@@ -39,6 +37,10 @@ interface Props {
 const props = defineProps<Props>();
 
 defineEmits(["increment", "decrement", "remove"]);
+
+const totalPrice = computed(() => {
+  return (props.product.price * props.product.qty).toFixed(2);
+});
 
 const shoppingCart = useShoppingCart();
 </script>
