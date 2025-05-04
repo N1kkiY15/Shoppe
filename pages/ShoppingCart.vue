@@ -1,7 +1,10 @@
 <template>
   <div class="shopping-cart">
     <h1 class="shopping-cart__header">Shopping cart</h1>
-    <div class="shopping-cart__container">
+    <div
+      v-if="cartLength"
+      class="shopping-cart__container"
+    >
       <div class="shopping-cart__view">
         <ul class="shopping-cart__list">
           <li
@@ -10,6 +13,7 @@
             class="shopping-cart__list-item"
           >
             <CartCard
+              :class="'bag-counter'"
               :product="item"
               counter-type="big"
               @increment="shoppingCart.incrementProduct(item.id)"
@@ -53,12 +57,20 @@
             >
           </div>
         </div>
+
         <NuxtLink to="/checkout">
           <button-comp variant="primary" size="xl"
             >PROCEED TO CHECKOUT
           </button-comp>
         </NuxtLink>
       </div>
+    </div>
+
+    <div v-else class="shopping-cart__null">
+      <p>В корзине пусто!</p>
+      <NuxtLink to="/shop">
+        <button-comp variant="primary" size="xl">TO SHOP</button-comp>
+      </NuxtLink>
     </div>
   </div>
 </template>
@@ -68,6 +80,11 @@ import { useShoppingCart } from "#imports";
 import CartCard from "../components/CartCard.vue";
 
 const shoppingCart = useShoppingCart();
+
+const cartLength = computed(() => {
+  return shoppingCart.productCart.length !== 0;
+})
+
 </script>
 
 <style scoped lang="scss">
@@ -84,6 +101,13 @@ const shoppingCart = useShoppingCart();
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+  }
+
+  &__null {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
   }
 
   &__view {
@@ -120,9 +144,6 @@ const shoppingCart = useShoppingCart();
       width: 40%;
       padding: 16px 24px;
     }
-  }
-
-  &__totals {
   }
 
   &__description {
