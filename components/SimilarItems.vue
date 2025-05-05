@@ -1,6 +1,6 @@
 <template>
   <div class="similar-items">
-    <h2>Similar Items</h2>
+    <h2 class="similar-items__heading">Similar Items</h2>
     <div class="catalog-latest">
       <template v-if="isLoading">
         <LoadingSkeletonCard
@@ -12,10 +12,8 @@
         <ItemCard
           v-for="cards in displayedItems"
           :key="cards.id"
-          :title="cards.title"
-          :price="cards.price"
-          :image="cards.image"
-          @click="goToPage(cards.id)"
+          :product="cards"
+          class="mobile"
         />
       </template>
     </div>
@@ -33,7 +31,7 @@ interface PropsCategory {
 
 const propsCategory = defineProps<PropsCategory>();
 
-const { displayedItems, goToPage, isLoading } = useDisplayedItems(
+const { displayedItems, isLoading } = useDisplayedItems(
   REQUIRED_NUMBER_OF_CARDS_SIMILAR,
   propsCategory.category,
 );
@@ -55,11 +53,28 @@ const { displayedItems, goToPage, isLoading } = useDisplayedItems(
 }
 
 @media (width <= 376px) {
+  .similar-items {
+    gap: 13px;
+
+    &__heading {
+      font-size: 16px;
+      line-height: 27px;
+    }
+  }
   .catalog-latest {
-    grid-template-columns: repeat(2, minmax(136px, 1fr));
-    column-gap: 16px;
-    row-gap: 24px;
-    margin-bottom: 94px;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 16px;
+    padding-right: 20px;
+    margin-bottom: 10px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .mobile {
+    flex: 0 0 calc(50% - 8px);
   }
 }
 </style>

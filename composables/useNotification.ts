@@ -12,28 +12,33 @@ export default function useNotification() {
     message.value = "";
   };
 
+  const notificationDuration = ref<number>(5000);
+
+  const modalClose = () => {
+    isModalOpen.value = false;
+    if (timeoutId.value) {
+      clearTimeout(timeoutId.value);
+      timeoutId.value = null;
+    }
+    clearStatus();
+    clearMessage();
+  };
+
+  const modalOpen = (duration?: number) => {
+    if (duration) {
+      notificationDuration.value = duration;
+    }
+    isModalOpen.value = true;
+    startTimeout();
+  };
+
   const startTimeout = () => {
     if (timeoutId.value) {
       clearTimeout(timeoutId.value);
     }
     timeoutId.value = setTimeout(() => {
       modalClose();
-    }, 5000);
-  };
-
-  const modalClose = () => {
-    isModalOpen.value = false;
-    clearStatus();
-    clearMessage();
-    if (timeoutId.value) {
-      clearTimeout(timeoutId.value);
-      timeoutId.value = null;
-    }
-  };
-
-  const modalOpen = () => {
-    isModalOpen.value = true;
-    startTimeout();
+    }, notificationDuration.value);
   };
 
   onUnmounted(() => {
@@ -48,7 +53,6 @@ export default function useNotification() {
     message,
     modalClose,
     modalOpen,
-    clearStatus,
-    clearMessage,
+    notificationDuration,
   };
 }

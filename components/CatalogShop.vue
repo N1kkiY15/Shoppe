@@ -4,10 +4,7 @@
       <ItemCard
         v-for="cards in displayedItems"
         :key="cards.id"
-        :title="cards.title"
-        :price="cards.price"
-        :image="cards.image"
-        @click="goToPage(cards.id)"
+        :product="cards"
       />
     </div>
 
@@ -26,17 +23,35 @@
 </template>
 
 <script lang="ts" setup>
-import useScrollToTop from "composables/scrollToTop";
 import type { Product } from "~/types/product";
+
+interface Props {
+  name?: string;
+  categoryOfProducts?: string;
+}
+
+const props = defineProps<Props>();
+
+const productName = ref<string>("");
+const category = ref<string>("");
+
+watch(
+  () => props.name,
+  () => {
+    if (props.name) productName.value = props.name;
+  },
+);
+
+watch(
+  () => props.categoryOfProducts,
+  () => {
+    if (props.categoryOfProducts) category.value = props.categoryOfProducts;
+    console.log("categoryOfProducts.value:", category.value)
+  },
+);
 
 const currentPage = ref<number>(1);
 let cardNumber: number = 6;
-
-const { navigateToPage } = goToPageItem();
-
-const goToPage = (value: number) => {
-  navigateToPage(value);
-};
 
 const { isLoading, errorLoading, data, fetchByURL } = useFetch<Product[]>(
   "https://fakestoreapi.com/products",
@@ -48,18 +63,34 @@ onMounted(async () => {
   await fetchByURL();
 });
 
-const totalPages = computed(() =>
-  Math.ceil(productsLength.value / REQUIRED_NUMBER_OF_CARDS),
-);
-
 const productsLength = computed(() => data.value?.length);
 
-const displayedItems = computed(() => {
-  const startIndex = (currentPage.value - 1) * REQUIRED_NUMBER_OF_CARDS;
-  return data.value?.slice(startIndex, startIndex + REQUIRED_NUMBER_OF_CARDS);
+const totalPages = computed(() => {
+    Math.ceil(productsLength.value / REQUIRED_NUMBER_OF_CARDS);
 });
 
-const { scrollToTop } = useScrollToTop();
+const displayedItems = computed(() => {
+
+  let filteredItems = data.value ?? [];
+
+  if (category.value) {
+     filteredItems = filteredItems?.filter(
+        (item) => item.category === category.value
+    );
+  }
+
+  if (productName.value) {
+    filteredItems = filteredItems?.filter((item) =>
+        item.title.toLowerCase().includes(productName.value.toLowerCase())
+    );
+  }
+
+  const startIndex = (currentPage.value - 1) * REQUIRED_NUMBER_OF_CARDS;
+  return filteredItems?.slice(
+    startIndex,
+    startIndex + REQUIRED_NUMBER_OF_CARDS,
+  );
+});
 
 const changePage = (page: number) => {
   currentPage.value = page;

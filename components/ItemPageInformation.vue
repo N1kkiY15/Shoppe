@@ -1,18 +1,28 @@
 <template>
-  <div class="description">
-    <span>Weigth: 0,3kg</span>
-    <span>Dimentions: 15 x 10 x 1 cm</span>
-    <span>Colours: Black, Browns, White</span>
-    <span>Material: Metal</span>
+  <div v-for="(item, index) of productInfo" :key="index" class="product-info">
+    <span>{{ item }}</span>
   </div>
+
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const productInfo = [
+  'Weigth: 0,3kg',
+  'Dimentions: 15 x 10 x 1 cm',
+  'Colours: Black, Browns, White',
+  'material: "Metal',
+];
+</script>
 
 <style scoped lang="scss">
-.description {
+.product-info {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
+
+  @media (width <= 375px) {
+    font-size: 12px;
+  }
 }
+
 </style>

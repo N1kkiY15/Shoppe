@@ -37,6 +37,7 @@ h4 {
 h5 {
   font-size: var(--font-size-h5);
   line-height: var(--line-height-h5);
+  font-weight: var(--font-weight-regular);
 }
 
 a {
@@ -79,6 +80,9 @@ input, select {
 }
 
 button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   background-color: transparent;
 }
@@ -105,6 +109,24 @@ button {
   left: 0;
   color: var(--color-error);
   font-size: 10px;
+}
+
+.mark {
+  transition: transform 0.3s ease;
+}
+
+.mark-rotate {
+  transition: transform 0.3s ease;
+  transform: rotate(180deg);
+}
+
+.mark-small {
+  width: 8px;
+  height: 4.5px;
+}
+
+.load-window {
+  height: 100vh;
 }
 
 @media (width < 376px) {

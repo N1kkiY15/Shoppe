@@ -41,6 +41,7 @@
     <DefaultNotification
       :isOpen="isModalOpen"
       :status="status"
+      button-type="close"
       :message="message"
       @close="modalClose"
     />
@@ -49,9 +50,10 @@
 
 <script lang="ts" setup>
 import ArrowToRight from "SvgComponents/ArrowToRight.vue";
-import useSaveToLocalStorage from "composables/saveToLocalStorage";
+// import useSaveToLocalStorage from "composables/saveToLocalStorage";
 import useFormValidation from "composables/useFormValidation";
 import useFormSubmit from "composables/useFormSubmit";
+import { saveToLocalStorage } from "../utils/saveToLocalStorage";
 
 const { form, errors, handleBlur, validateForm, resetForm } = useFormValidation(
   {
@@ -61,8 +63,6 @@ const { form, errors, handleBlur, validateForm, resetForm } = useFormValidation(
 );
 
 const type = "footer";
-
-const { saveToLocalStorage } = useSaveToLocalStorage();
 
 const { submitForm, isModalOpen, status, modalClose, message } =
   useFormSubmit();
@@ -88,6 +88,7 @@ const handleSubmit = () => {
   padding: 52px 0 10px;
   border-top: 1px solid var(--color-decorative);
   color: var(--color-text);
+  margin: auto;
 
   &__section {
     display: flex;

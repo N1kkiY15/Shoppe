@@ -34,6 +34,21 @@ export default function useFormValidation(initialForm: Partial<useForm> = {}) {
       case "password":
         errors.password = !stringValue.trim() ? "Password is required." : "";
         break;
+      case "country":
+        errors.country = !stringValue.trim() ? "Country is required." : "";
+        break;
+      case "streetAddress":
+        errors.streetAddress = !stringValue.trim() ? "streetAddress is required." : "";
+        break;
+      case "postcode":
+        errors.postcode = !stringValue.trim() ? "postcode is required." : "";
+        break;
+      case "townAddress":
+        errors.townAddress = !stringValue.trim() ? "townAddress is required." : "";
+        break;
+      case "phoneNumber":
+        errors.phoneNumber = !stringValue.trim() ? "phoneNumber is required." : "";
+        break;
       default:
         break;
     }

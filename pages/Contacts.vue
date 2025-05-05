@@ -69,6 +69,7 @@
     <DefaultNotification
       :isOpen="isModalOpen"
       :status="status"
+      button-type="close"
       @close="modalClose"
       :message="message"
     />
@@ -76,7 +77,6 @@
 </template>
 
 <script lang="ts" setup>
-import useSaveToLocalStorage from "composables/saveToLocalStorage";
 import useFormValidation from "composables/useFormValidation";
 import useFormSubmit from "composables/useFormSubmit";
 import DefaultSelect from "../components/DefaultSelect.vue";
@@ -98,8 +98,6 @@ watch(selectedSubject, (newVal) => {
 });
 
 const type = "contacts";
-
-const { saveToLocalStorage } = useSaveToLocalStorage();
 
 const { submitForm, isModalOpen, status, modalClose, message } =
   useFormSubmit();

@@ -1,14 +1,14 @@
 <template>
-  <p>
-    {{ props.text }}
+  <p class="description">
+    {{ description }}
   </p>
 </template>
 
 <script lang="ts" setup>
-interface Props {
-  text: string;
-}
 
-const props = defineProps<Props>();
+const description = inject('productDescription');
+
 </script>
-<style lang="scss" scoped></style>
+
+<style lang="scss" scoped>
+</style>

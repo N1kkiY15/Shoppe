@@ -47,14 +47,14 @@
     <DefaultNotification
       :isOpen="isModalOpen"
       :status="status"
-      @close="modalClose"
       :message="message"
+      button-type="close"
+      @close="modalClose"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import useSaveToLocalStorage from "composables/saveToLocalStorage";
 import useFormValidation from "composables/useFormValidation";
 import useFormSubmit from "composables/useFormSubmit";
 
@@ -65,8 +65,6 @@ const { form, errors, validateForm, handleBlur, resetForm } = useFormValidation(
 );
 
 const type = "resetPassword";
-
-const { saveToLocalStorage } = useSaveToLocalStorage();
 
 const { submitForm, isModalOpen, status, modalClose, message } =
   useFormSubmit();

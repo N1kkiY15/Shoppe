@@ -42,12 +42,12 @@
     :isOpen="isModalOpen"
     :status="status"
     :message="message"
+    button-type="close"
     @close="modalClose"
   />
 </template>
 
 <script setup lang="ts">
-import useSaveToLocalStorage from "composables/saveToLocalStorage";
 import useFormValidation from "composables/useFormValidation";
 import useFormSubmit from "composables/useFormSubmit";
 
@@ -62,18 +62,11 @@ const { form, errors, validateForm, handleBlur, resetForm } = useFormValidation(
 
 const type = "createAccount";
 
-const { saveToLocalStorage } = useSaveToLocalStorage();
-
-const {
-  submitForm,
-  isModalOpen,
-  status,
-  modalClose,
-  message,
-} = useFormSubmit();
+const { submitForm, isModalOpen, status, modalClose, message } =
+  useFormSubmit();
 
 const handleSubmit = () => {
-   submitForm(
+  submitForm(
     "Your account is created!",
     "Form has errors. Please check all fields.",
     form,

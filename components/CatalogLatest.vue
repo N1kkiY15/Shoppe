@@ -11,10 +11,7 @@
         <ItemCard
           v-for="cards in displayedItems"
           :key="cards.id"
-          :title="cards.title"
-          :price="cards.price"
-          :image="cards.image"
-          @click="goToPage(cards.id)"
+          :product="cards"
         />
       </template>
     </div>
@@ -24,7 +21,7 @@
 <script lang="ts" setup>
 const REQUIRED_NUMBER_OF_CARDS_LATEST = 6;
 
-const { displayedItems, goToPage, isLoading } = useDisplayedItems(
+const { displayedItems, isLoading } = useDisplayedItems(
   REQUIRED_NUMBER_OF_CARDS_LATEST,
 );
 </script>

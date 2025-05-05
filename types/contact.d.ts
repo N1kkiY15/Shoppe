@@ -6,7 +6,7 @@ export interface ContactForm {
     message: string;
 }
 
-export type ContactSubject = | '' | 'first' | 'second' | 'third' | string;
+export type ContactSubject =  '' | 'first' | 'second' | 'third' | string;
 
 export interface Errors {
     firstName: string;

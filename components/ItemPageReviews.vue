@@ -2,7 +2,7 @@
   <div class="reviews">
     <div class="reviews__list">
       <h3 class="reviews__title">
-        {{ props.count }} Reviews for {{ props.title }}
+        {{ NUMBER_OF_ANSWERS }} Reviews for {{ title }}
       </h3>
 
       <ItemPageRewiewsAnswers />
@@ -84,6 +84,7 @@
     <default-notification
       :isOpen="isModalOpen"
       :status="status"
+      button-type="close"
       :message="message"
       @close="modalClose"
     />
@@ -92,11 +93,13 @@
 
 <script lang="ts" setup>
 import useFormValidation from "composables/useFormValidation";
-import useSaveToLocalStorage from "composables/saveToLocalStorage";
 import StarFilled from "../assets/pictures/svg/SvgComponents/StarFilled.vue";
 import StarPool from "../assets/pictures/svg/SvgComponents/StarPool.vue";
 
 const hoverRating = ref(0);
+
+const title = inject("productTitle");
+const NUMBER_OF_ANSWERS = inject("productRatingCount");
 
 const { form, errors, validateForm, handleBlur, resetForm } = useFormValidation(
   {
@@ -109,7 +112,6 @@ const { form, errors, validateForm, handleBlur, resetForm } = useFormValidation(
 );
 
 const type = "review";
-const { saveToLocalStorage } = useSaveToLocalStorage();
 const { submitForm, isModalOpen, status, modalClose, message } =
   useFormSubmit();
 
@@ -150,37 +152,6 @@ const props = defineProps<Props>();
   &__title {
     margin: 0;
   }
-
-  //&__item-header {
-  //  display: flex;
-  //  flex-direction: row;
-  //  align-items: center;
-  //  gap: 16px;
-  //  margin-bottom: 16px;
-  //}
-
-  //&__item-author {
-  //  margin: 0;
-  //}
-  //
-  //&__item-date {
-  //  color: var(--color-text);
-  //  font-size: var(--font-size-text-medium);
-  //  font-weight: var(--font-weight-regular);
-  //}
-
-  //&__item-rating {
-  //  display: flex;
-  //  flex-direction: row;
-  //  gap: 10px;
-  //  margin-bottom: 24px;
-  //}
-
-  //&__item-text {
-  //  color: var(--color-text);
-  //  margin: 0;
-  //  font-weight: var(--font-weight-regular);
-  //}
 
   &__form {
     display: flex;
@@ -242,6 +213,11 @@ const props = defineProps<Props>();
         transform: scale(1.2);
       }
     }
+  }
+
+  @media (width <= 375px) {
+    margin-top: 20px;
+    flex-direction: column;
   }
 }
 </style>
