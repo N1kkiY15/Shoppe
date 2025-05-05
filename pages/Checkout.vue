@@ -22,66 +22,66 @@
       <div class="checkout__details">
         <h2>Billing Details</h2>
         <form class="checkout__form">
-          <default-text-input
+          <DefaultTextInput
             placeholder="First name *"
             size="medium"
             class="checkout__form-item"
           />
-          <default-text-input
+          <DefaultTextInput
             placeholder="last name *"
             size="medium"
             class="checkout__form-item"
           />
-          <default-text-input
+          <DefaultTextInput
             placeholder="Company Name"
             size="medium"
             class="checkout__form-item"
           />
-          <default-text-input
+          <DefaultTextInput
             placeholder="Country *"
             size="medium"
             class="checkout__form-item"
           />
-          <default-text-input
+          <DefaultTextInput
             placeholder="Street Address *"
             size="medium"
             class="checkout__form-item"
           />
-          <default-text-input
+          <DefaultTextInput
             placeholder="Postcode / ZIP *"
             size="medium"
             class="checkout__form-item"
           />
-          <default-text-input
+          <DefaultTextInput
             placeholder="Town / City *"
             size="medium"
             class="checkout__form-item"
           />
-          <default-text-input
+          <DefaultTextInput
             placeholder="Phone *"
             size="medium"
             class="checkout__form-item"
           />
-          <default-text-input
+          <DefaultTextInput
             placeholder="Email *"
             size="medium"
             class="checkout__form-item"
           />
 
           <div class="checkout__form-checkbox">
-            <default-checkbox
+            <DefaultCheckbox
               text="Create an acoount?"
               form="rounded"
               size="medium"
             />
-            <default-checkbox
+            <DefaultCheckbox
               text="Ship to a different address?"
               form="rounded"
               size="medium"
             />
           </div>
 
-          <default-text-input
+          <DefaultTextInput
             placeholder="Order notes"
             size="medium"
             class="checkout__form-item"

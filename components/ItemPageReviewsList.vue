@@ -1,36 +1,45 @@
 <template>
-  <div>
-    <div class="answers__item-header">
-      <h3 class="answers__item-author">{{ props.author }}</h3>
-      <div class="answers__item-date">6 May, 2020</div>
-    </div>
+  <div class="answers">
+    <ReviewCard
+      v-for="item of visibleReviews"
+      :author="item.author"
+      :text="item.text"
+      :rating="item.rating"
+      class="answers__item"
+    />
 
-    <div class="answers__item-rating">
-      <StarFilled v-for="star in props.rating" :key="star" />
-
-      <StarPool v-for="star in MAX_NUMBER_OF_STARS - props.rating" :key="star" />
-    </div>
-
-    <h5 class="answers__item-text">
-      {{ props.text }}
-    </h5>
+    <ButtonComp
+      v-if="hasMoreReviews"
+      variant="primary"
+      size="l"
+      @click="loadMore"
+    >
+      More
+    </ButtonComp>
   </div>
 </template>
 
 <script setup lang="ts">
-import StarFilled from "../assets/pictures/svg/SvgComponents/StarFilled.vue";
-import StarPool from "../assets/pictures/svg/SvgComponents/StarPool.vue";
+import { useReviewsStore } from "../stores/ReviewsStore";
 
+const reviewsStore = useReviewsStore();
 
-const MAX_NUMBER_OF_STARS = 5;
+const localArray = computed(() => reviewsStore.reviewsArray);
 
-interface Authors {
-  author: string;
-  text: string;
-  rating: number;
-}
+const visibleCount = ref(3);
+const itemsPerLoad = 3;
 
-const props = defineProps<Authors>();
+const visibleReviews = computed(() =>
+  localArray.value.slice(0, visibleCount.value),
+);
+
+const hasMoreReviews = computed(
+  () => visibleCount.value < localArray.value.length,
+);
+
+const loadMore = () => {
+  visibleCount.value += itemsPerLoad;
+};
 </script>
 
 <style scoped lang="scss">

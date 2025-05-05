@@ -43,7 +43,7 @@
           </ul>
         </nav>
       </div>
-      <div v-else class="spinner" />
+      <DefaultSpinner v-else />
     </div>
     <ErrorMessage v-if="!errorLoading" class="error" />
   </div>
@@ -62,7 +62,6 @@ onMounted(async () => {
 const { navigateToPage } = goToPageItem();
 
 const intervalId = ref<number | null>(null);
-
 
 const pagesNumber = 5;
 const currentPage = ref(1);

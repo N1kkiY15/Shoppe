@@ -4,7 +4,7 @@ export default function useDisplayedItems(
   numberOfCards: number,
   category = "electronics",
 ) {
-  // const DisplayedItems = () => {
+
   const { isLoading, errorLoading, data, fetchByURL } = useFetch<Product[]>(
     "https://fakestoreapi.com/products",
   );

@@ -2,16 +2,14 @@
   <div class="info-mobile">
     <div class="info-mobile__description">
       <transition v-if="showDescription" name="fade">
-        <item-page-description
-          v-if="showDescription"
-          :text="props.description"
-        />
+        <item-page-description :text="props.description" />
       </transition>
 
       <transition v-else name="fade">
-        <p class="info-mobile__description-text">
-          {{ props.description }}
-        </p>
+        <item-page-description
+          class="info-mobile__description-text"
+          :text="props.description"
+        />
       </transition>
 
       <button
@@ -20,7 +18,7 @@
         :class="{ active: showDescription }"
       >
         View More
-        <MarkRight :class="{'mark-rotate': showDescription}"/>
+        <MarkRight :class="{ 'mark-rotate': showDescription }" />
       </button>
     </div>
 
@@ -31,7 +29,10 @@
           @click="togglePageDescription"
         >
           <p>Description</p>
-          <MarkDown class="mark-small" :class="{ 'mark-rotate': showPageDescription }" />
+          <MarkDown
+            class="mark-small"
+            :class="{ 'mark-rotate': showPageDescription }"
+          />
         </button>
         <ItemPageDescription
           v-if="showPageDescription"
@@ -46,7 +47,10 @@
           @click="togglePageInfo"
         >
           <p>Additional information</p>
-          <MarkDown class="mark-small" :class="{ 'mark-rotate': showPageInfo }" />
+          <MarkDown
+            class="mark-small"
+            :class="{ 'mark-rotate': showPageInfo }"
+          />
         </button>
         <ItemPageInformation v-if="showPageInfo" />
       </div>
@@ -58,7 +62,10 @@
           @click="togglePageReviews"
         >
           <p>Reviews({{ props.count }})</p>
-          <MarkDown class="mark-small" :class="{ 'mark-rotate': showPageReviews }" />
+          <MarkDown
+            class="mark-small"
+            :class="{ 'mark-rotate': showPageReviews }"
+          />
         </button>
         <ItemPageReviews v-if="showPageReviews" />
       </div>
@@ -126,7 +133,7 @@ const togglePageReviews = () => {
     &-button {
       display: flex;
       flex-direction: row;
-      gap:5px;
+      gap: 5px;
       align-items: center;
       cursor: pointer;
       position: relative;
@@ -155,5 +162,4 @@ const togglePageReviews = () => {
     }
   }
 }
-
 </style>

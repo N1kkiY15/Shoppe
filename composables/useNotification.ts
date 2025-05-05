@@ -24,9 +24,15 @@ export default function useNotification() {
     clearMessage();
   };
 
-  const modalOpen = (duration?: number) => {
-    if (duration) {
-      notificationDuration.value = duration;
+  interface notificationDetails {
+    message: string;
+    duration: number;
+  }
+
+  const modalOpen = (details?: notificationDetails) => {
+    if (details) {
+      notificationDuration.value = details.duration;
+      message.value = details.message;
     }
     isModalOpen.value = true;
     startTimeout();

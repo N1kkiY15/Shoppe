@@ -18,11 +18,11 @@
     </div>
 
     <DefaultNotification
+      button-type="tocart"
       :isOpen="isModalOpen"
       :status="status"
-      button-type="tocart"
-      @close="modalClose"
       :message="message"
+      @close="modalClose"
     />
   </article>
 </template>
@@ -38,7 +38,6 @@ const {
   modalClose,
   modalOpen,
   message,
-  notificationDuration,
 } = useNotification();
 
 defineProps<{
@@ -48,7 +47,7 @@ defineProps<{
 const AddToCart = (product: Product) => {
   shoppingCart.addToCart(product);
   message.value = "The item added to your Shopping bag.";
-  modalOpen(2000);
+  modalOpen({message: "The item added to your Shopping bag.", duration: 2000});
 };
 
 const { navigateToPage } = goToPageItem();

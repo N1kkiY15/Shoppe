@@ -20,10 +20,13 @@
           @change="emitCategory"
         >
           <option value="">Category</option>
-          <option value="men's clothing">men's clothing</option>
-          <option value="jewelery">jewelery</option>
-          <option value="electronics">electronics</option>
-          <option value="women's clothing">women's clothing</option>
+          <option
+            v-for="category in categories"
+            :key="category.value"
+            :value="category.value"
+          >
+            {{ category.label }}
+          </option>
         </select>
         <button class="sidebar__select-mark">
           <MarkDown class="sidebar__select-icon" />
@@ -31,10 +34,19 @@
       </div>
 
       <div class="sidebar__select">
-        <select id="mySelect" name="mySelect" class="sidebar__select-input">
+        <select
+          v-model="selectedSort"
+          class="sidebar__select-input"
+          @change="emitSort"
+        >
           <option value="">Sort By</option>
-          <option value="first">По убыванию стоимости</option>
-          <option value="second">По возрастанию стоимости</option>
+          <option
+            v-for="sortOption in sortOptions"
+            :key="sortOption.value"
+            :value="sortOption.value"
+          >
+            {{ sortOption.label }}
+          </option>
         </select>
         <button class="sidebar__select-mark">
           <MarkDown class="sidebar__select-icon" />
@@ -64,22 +76,42 @@
 import SearchIcon from "SvgComponents/SearchIcon.vue";
 import MarkDown from "SvgComponents/MarkDown.vue";
 
+const categories = [
+  { value: "men's clothing", label: "men's clothing" },
+  { value: "jewelery", label: "jewelery" },
+  { value: "electronics", label: "electronics" },
+  { value: "women's clothing", label: "women's clothing" },
+];
+
+const sortOptions = [
+  { value: "price-desc", label: "По убыванию стоимости" },
+  { value: "price-asc", label: "По возрастанию стоимости" },
+];
+
 const selectedCategory = ref("");
+const selectedSort = ref("");
+const isCheckedOnSale = ref(false);
+const isCheckedInStock = ref(false);
+const item = ref("");
 
-const isCheckedOnSale = ref<boolean>(false);
-const isCheckedInStock = ref<boolean>(false);
-
-const item = ref<string>("");
-
-const emit = defineEmits(["submitSearch", "category"]);
+const emit = defineEmits<{
+  (e: 'submitSearch', value: string): void
+  (e: 'category', value: string): void
+  (e: 'sort', value: string): void
+}>()
 
 const emitCategory = () => {
   emit("category", selectedCategory.value);
 };
 
+const emitSort = () => {
+  emit("sort", selectedSort.value);
+};
+
 const submitSearch = () => {
   emit("submitSearch", item.value);
 };
+
 </script>
 
 <style lang="scss" scoped>

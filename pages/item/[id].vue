@@ -106,6 +106,10 @@
           v-if="currentTab === 'description'"
           :text="data.description"
         />
+
+        <div v-if="currentTab === 'description'">
+          {{ data.description }}
+        </div>
         <ItemPageInformation v-if="currentTab === 'information'" />
         <keep-alive>
           <ItemPageReviews
@@ -124,7 +128,7 @@
   </div>
 
   <div v-else class="load-window">
-    <div class="spinner" />
+    <DefaultSpinner />
   </div>
 
   <DefaultNotification
@@ -184,6 +188,7 @@ import ProductInfoMobile from "../components/ProductInfoMobile.vue";
 import { provide } from "#imports";
 import MarkRight from "../assets/pictures/svg/SvgComponents/MarkRight.vue";
 import { useShoppingCart } from "#imports";
+import DefaultSpinner from "../../components/DefaultSpinner.vue";
 
 const arrayOfPhotos = [img1, img2, img3, img4];
 
@@ -227,8 +232,7 @@ const qty = ref<number>(1);
 const handleAddToCart = (data: Product, quantity: number) => {
   shoppingCart.addToCart(data, quantity);
   qty.value = 1;
-  message.value = "The item added to your Shopping bag.";
-  modalOpen(2000);
+  modalOpen({message: "The item added to your Shopping bag.", duration: 2000});
 };
 
 onUnmounted(() => {

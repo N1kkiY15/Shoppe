@@ -32,24 +32,6 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const productName = ref<string>("");
-const category = ref<string>("");
-
-watch(
-  () => props.name,
-  () => {
-    if (props.name) productName.value = props.name;
-  },
-);
-
-watch(
-  () => props.categoryOfProducts,
-  () => {
-    if (props.categoryOfProducts) category.value = props.categoryOfProducts;
-    console.log("categoryOfProducts.value:", category.value)
-  },
-);
-
 const currentPage = ref<number>(1);
 let cardNumber: number = 6;
 
@@ -66,24 +48,24 @@ onMounted(async () => {
 const productsLength = computed(() => data.value?.length);
 
 const totalPages = computed(() => {
-    Math.ceil(productsLength.value / REQUIRED_NUMBER_OF_CARDS);
+  return productsLength.value
+    ? Math.ceil(productsLength.value / REQUIRED_NUMBER_OF_CARDS)
+    : 0;
 });
 
 const displayedItems = computed(() => {
-
   let filteredItems = data.value ?? [];
 
-  if (category.value) {
-     filteredItems = filteredItems?.filter(
-        (item) => item.category === category.value
+  if (props.categoryOfProducts) {
+    filteredItems = filteredItems?.filter(
+      (item) => item.category === props.categoryOfProducts,
     );
   }
 
-  if (productName.value) {
-    filteredItems = filteredItems?.filter((item) =>
-        item.title.toLowerCase().includes(productName.value.toLowerCase())
-    );
-  }
+  const searchTerm = props.name?.toLowerCase();
+  filteredItems = filteredItems?.filter(
+    (item) => !searchTerm || item.title.toLowerCase().includes(searchTerm),
+  );
 
   const startIndex = (currentPage.value - 1) * REQUIRED_NUMBER_OF_CARDS;
   return filteredItems?.slice(

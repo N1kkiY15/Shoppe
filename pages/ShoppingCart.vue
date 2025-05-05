@@ -76,7 +76,7 @@
 </template>
 
 <script setup lang="ts">
-import { useShoppingCart } from "#imports";
+import { useShoppingCart } from "../stores/ShoppingCartStore";
 import CartCard from "../components/CartCard.vue";
 
 const shoppingCart = useShoppingCart();

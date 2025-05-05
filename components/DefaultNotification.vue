@@ -3,8 +3,8 @@
     <div
       v-if="isOpen"
       class="modal"
-      @click.stop
       :class="{ 'modal-error': props.status === 'falseMessage' }"
+      @click.stop
     >
       <div class="modal__section">
         <SuccessIcon v-if="props.status !== 'falseMessage'" />

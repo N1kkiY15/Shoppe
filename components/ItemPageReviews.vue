@@ -5,7 +5,7 @@
         {{ NUMBER_OF_ANSWERS }} Reviews for {{ title }}
       </h3>
 
-      <ItemPageRewiewsAnswers />
+      <ItemPageReviewsList />
     </div>
 
     <div class="reviews__form">
@@ -16,8 +16,8 @@
         </p>
       </div>
 
-      <form @submit.prevent="handleSubmit" class="reviews__form-content">
-        <default-text-input
+      <form @submit.prevent="handleSubmit(form)" class="reviews__form-content">
+        <DefaultTextInput
           v-model="form.message"
           placeholder="Your Review*"
           size="medium"
@@ -26,7 +26,7 @@
           @blur="handleBlur('message')"
         />
 
-        <default-text-input
+        <DefaultTextInput
           v-model="form.firstName"
           placeholder="Enter your name*"
           size="medium"
@@ -37,7 +37,7 @@
 
         <div class="reviews__form-checkbox">
           <div>
-            <default-text-input
+            <DefaultTextInput
               v-model="form.email"
               placeholder="Enter your Email*"
               size="medium"
@@ -81,7 +81,7 @@
       </form>
     </div>
 
-    <default-notification
+    <DefaultNotification
       :isOpen="isModalOpen"
       :status="status"
       button-type="close"
@@ -95,6 +95,7 @@
 import useFormValidation from "composables/useFormValidation";
 import StarFilled from "../assets/pictures/svg/SvgComponents/StarFilled.vue";
 import StarPool from "../assets/pictures/svg/SvgComponents/StarPool.vue";
+import { useReviewsStore } from "../stores/ReviewsStore";
 
 const hoverRating = ref(0);
 
@@ -111,28 +112,34 @@ const { form, errors, validateForm, handleBlur, resetForm } = useFormValidation(
   },
 );
 
-const type = "review";
-const { submitForm, isModalOpen, status, modalClose, message } =
-  useFormSubmit();
+const { isModalOpen, status, message, modalOpen, modalClose } =
+  useNotification();
 
-const handleSubmit = () => {
-  submitForm(
-    "Your review has been submitted successfully!",
-    "Please fill all required fields correctly.",
-    form,
-    type,
-    validateForm,
-    resetForm,
-    saveToLocalStorage,
-  );
+const reviewsStore = useReviewsStore();
+
+const handleSubmit = (formData: typeof form) => {
+  if (!validateForm()) {
+    status.value = "falseMessage";
+    message.value = "Form has errors. Please check all fields.";
+    modalOpen();
+    return;
+  }
+
+  const reviewData = {
+    author: formData.firstName as string,
+    text: formData.message as string,
+    rating: formData.rating as number,
+    email: formData.email as string,
+    saveData: formData.saveData as boolean,
+  };
+
+  reviewsStore.addToReviews(reviewData);
+
+  status.value = "trueMessage";
+  message.value = "Отзыв отправлен!";
+  modalOpen();
+  resetForm();
 };
-
-interface Props {
-  title?: string;
-  count?: number;
-}
-
-const props = defineProps<Props>();
 </script>
 
 <style lang="scss" scoped>

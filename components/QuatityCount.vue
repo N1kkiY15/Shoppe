@@ -1,5 +1,5 @@
 <template>
-  <div class="counter" :class="QuatityClass">
+  <div class="counter" :class="quantityClass">
     <button
       class="counter__button"
       :class="{ 'counter__button-disabled': quantity < 2 }"
@@ -30,7 +30,7 @@ const props = defineProps<Props>();
 
 defineEmits(["increment", "decrement"]);
 
-const QuatityClass = computed(() => ({
+const quantityClass = computed(() => ({
   counter__big: props.type === "big",
   counter__small: props.type === "small",
 }));
