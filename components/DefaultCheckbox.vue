@@ -41,6 +41,7 @@ const CheckboxClass = computed(() => ({
 
   &__input {
     border: 1px solid var(--color-text);
+    aspect-ratio: 1/1;
     cursor: pointer;
 
     &:checked {

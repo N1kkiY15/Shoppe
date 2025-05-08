@@ -103,7 +103,6 @@ const buttonClasses = computed(() => ({
   }
 
   .special {
-    outline: 1px solid var(--color-contrast);
     max-width: 102px;
     max-height: 32px;
     padding: 6px 9px;
@@ -113,6 +112,18 @@ const buttonClasses = computed(() => ({
   .secondary,
   .special {
     @include base-button;
+  }
+
+  .button__size-xl {
+    max-width: 100%;
+  }
+
+  .button__size-l {
+    max-width: 100%;
+  }
+
+  .button__size-m {
+    max-width: 100%;
   }
 }
 </style>
