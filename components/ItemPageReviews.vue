@@ -186,6 +186,7 @@ const handleSubmit = (formData: typeof form) => {
   &__form-content {
     display: flex;
     flex-direction: column;
+    margin: auto;
     gap: 46px;
     color: var(--color-text);
     font-weight: var(--font-weight-regular);
@@ -221,10 +222,26 @@ const handleSubmit = (formData: typeof form) => {
       }
     }
   }
+}
 
-  @media (width <= 375px) {
+@media (width <= 375px) {
+  .reviews {
     margin-top: 20px;
     flex-direction: column;
+
+    &__title {
+      font-size: 16px;
+    }
+
+    &__list {
+      gap: 20px;
+    }
+
+    &__form-content {
+      gap: 25px;
+      margin-bottom: 20px;
+    }
   }
+
 }
 </style>

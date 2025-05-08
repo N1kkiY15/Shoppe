@@ -141,7 +141,6 @@ onUnmounted(() => {
       max-width: 600px;
       display: flex;
       flex-direction: column;
-      min-width: 400px;
       gap: 16px;
 
       &-heading {
@@ -191,11 +190,11 @@ onUnmounted(() => {
 }
 
 .slide-enter-from {
-  transform: translateX(calc(100% + 200px));
+  transform: translateX(calc(100% + 96px));
 }
 
 .slide-leave-to {
-  transform: translateX(calc(-100% - 200px));
+  transform: translateX(calc(-100% - 96px));
 }
 
 @media (width <= 375px) {
@@ -210,7 +209,12 @@ onUnmounted(() => {
         justify-content: flex-end;
         padding-left: 8px;
         padding-bottom: 26px;
-        margin-right: 0px;
+      }
+
+      &-photo {
+        object-fit: cover;
+        object-position: 80% 30%;
+        border-radius: 8px;
       }
 
       &-description {
@@ -250,11 +254,11 @@ onUnmounted(() => {
   }
 
   .slide-enter-from {
-    transform: translateX(calc(100% + 50px));
+    transform: translateX(calc(100% + 16px));
   }
 
   .slide-leave-to {
-    transform: translateX(calc(-100% - 50px));
+    transform: translateX(calc(-100% - 16px));
   }
 }
 </style>
