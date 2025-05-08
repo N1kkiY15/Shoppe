@@ -1,10 +1,7 @@
 <template>
   <div class="shopping-cart">
     <h1 class="shopping-cart__header">Shopping cart</h1>
-    <div
-      v-if="cartLength"
-      class="shopping-cart__container"
-    >
+    <div v-if="cartLength" class="shopping-cart__container">
       <div class="shopping-cart__view">
         <ul class="shopping-cart__list">
           <li
@@ -23,19 +20,8 @@
           </li>
         </ul>
 
-        <div class="shopping-cart__coupon">
-          <default-text-input
-            placeholder="Coupon Code"
-            class="shopping-cart__coupon-input"
-            size="medium"
-          />
-          <button-comp
-            class="shopping-cart__coupon-button"
-            variant="primary"
-            size="l"
-            >APPLY COUPON
-          </button-comp>
-        </div>
+        <DefaultCouponAdd />
+
       </div>
 
       <div class="shopping-cart__totals">
@@ -78,13 +64,13 @@
 <script setup lang="ts">
 import { useShoppingCart } from "../stores/ShoppingCartStore";
 import CartCard from "../components/CartCard.vue";
+import DefaultCouponAdd from "../components/DefaultCouponAdd.vue";
 
 const shoppingCart = useShoppingCart();
 
 const cartLength = computed(() => {
   return shoppingCart.productCart.length !== 0;
-})
-
+});
 </script>
 
 <style scoped lang="scss">
@@ -127,22 +113,6 @@ const cartLength = computed(() => {
       padding-bottom: 40px;
       border-bottom: 1px solid #e4e4e4;
       width: 100%;
-    }
-  }
-
-  &__coupon {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    &-input {
-      width: 60%;
-      margin-top: auto;
-    }
-
-    &-button {
-      width: 40%;
-      padding: 16px 24px;
     }
   }
 
@@ -206,12 +176,6 @@ const cartLength = computed(() => {
         border-bottom: none;
         width: 100%;
       }
-    }
-
-    &__coupon {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
     }
 
     &__totals {
