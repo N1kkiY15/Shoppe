@@ -17,7 +17,7 @@
 }
 
 .default__container-page {
-  max-width: 1248px;
+  max-width: 1320px;
   margin: auto;
 }
 

@@ -4,23 +4,11 @@
     <div class="checkout__container">
       <div class="checkout__coupon">
         <p>If you have a coupon code, please apply it below.</p>
-        <div class="checkout__coupon-apply">
-          <default-text-input
-            class="checkout__coupon-input"
-            placeholder="Coupon Code"
-            size="medium"
-          />
-          <button-comp
-            class="checkout__coupon-button"
-            variant="primary"
-            size="l"
-            >APPLY COUPON</button-comp
-          >
-        </div>
+        <DefaultCouponAdd />
       </div>
 
       <div class="checkout__details">
-        <h2>Billing Details</h2>
+        <h2 class="checkout__details-heading">Billing Details</h2>
         <form class="checkout__form">
           <DefaultTextInput
             placeholder="First name *"
@@ -90,7 +78,7 @@
       </div>
 
       <div class="checkout__order">
-        <h2>Your Order</h2>
+        <h2 class="checkout__order-heading">Your Order</h2>
         <div class="checkout__order-container order-container">
           <div class="order-container__info">
             <div class="order-container__total">
@@ -192,23 +180,6 @@ const handleSubmit = () => {
     gap: 40px;
     padding: 24px 24px 40px;
     border: 1px solid var(--color-decorative);
-
-    &-apply {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      gap: 28px;
-    }
-
-    &-input {
-      width: 60%;
-      margin-top: auto;
-    }
-
-    &-button {
-      width: 40%;
-      padding: 16px 24px;
-    }
   }
 
   &__details {
@@ -257,9 +228,6 @@ const handleSubmit = () => {
     border-bottom: 1px solid var(--color-decorative);
   }
 
-  &__info {
-  }
-
   &__line {
     display: flex;
     flex-direction: row;
@@ -285,6 +253,56 @@ const handleSubmit = () => {
 
     &-title {
       max-width: 280px;
+    }
+  }
+}
+
+@media (width < 376px) {
+  .checkout {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 96px;
+
+    &__heading {
+      margin: 0 auto 16px 0;
+      font-size: 16px;
+    }
+
+    &__container {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    &__coupon {
+      display: none;
+    }
+
+    &__details {
+      &-heading {
+        font-size: 16px;
+      }
+    }
+
+    &__form {
+      grid-template-columns: 1fr;
+      gap: 23px;
+
+      &-item:not(:nth-child(-n + 2)) {
+        grid-column: 1;
+      }
+    }
+
+    &__order {
+      gap: 20px;
+
+      &-heading {
+        font-size: 16px;
+      }
+
+      &-container {
+        padding: 20px 16px 24px;
+      }
     }
   }
 }
