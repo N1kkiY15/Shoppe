@@ -302,6 +302,7 @@ const handleSubmit = () => {
 
       &-container {
         padding: 20px 16px 24px;
+        //ruleForTest
       }
     }
   }
